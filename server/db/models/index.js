@@ -1,6 +1,10 @@
 const User = require('./User');
 const Article = require('./Article');
+const Tag = require('./Tag');
+const Topic = require('./Topic');
+const Author = require('./Author');
 const Publication = require('./Publication');
+const PublicationType = require('./PublicationType');
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -18,5 +22,9 @@ const Publication = require('./Publication');
 module.exports = {
   User,
   Article,
-  Publication
+  Tag,
+  Topic,
+  Author,
+  Publication,
+  PublicationType
 };
