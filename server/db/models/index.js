@@ -1,5 +1,6 @@
-const User = require('./user');
-const Article = require('./user');
+const User = require('./User');
+const Article = require('./Article');
+const Publication = require('./Publication');
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -16,5 +17,6 @@ const Article = require('./user');
  */
 module.exports = {
   User,
-  Article
+  Article,
+  Publication
 };
