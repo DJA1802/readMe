@@ -14,6 +14,9 @@ const Article = db.define('article', {
     type: Sequelize.TEXT,
     allowNull: false
   },
+  publicationDate: {
+    type: Sequelize.DATE
+  },
   wordCount: {
     type: Sequelize.INTEGER
   }
