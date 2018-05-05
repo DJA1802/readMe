@@ -8,7 +8,8 @@ const Article = db.define('article', {
   },
   sourceUrl: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    isUrl: true
   },
   content: {
     type: Sequelize.TEXT,
