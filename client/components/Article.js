@@ -1,8 +1,9 @@
 // Single Article Page Component (i.e. where article is read from)
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
-import {fetchArticle} from '../store';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { fetchArticle } from '../store';
+import ReactHtmlParser from 'react-html-parser';
 
 // steps to get article content:
 // 1. pass url into Mercury HTTP Request
@@ -16,29 +17,28 @@ class Article extends Component {
   }
 
   render () {
-    const {
-      title,
-      url,
-      author,
-      content,
-      date_published
-    } = this.props.article;
+    // console.log('article', this.props.article);
+    const article = this.props.article;
+    const { title, url, author, content, date_published } = article;
 
     return (
-      <React.Fragment>
-        <Link to={url}><h1>{title}</h1></Link>
-        <p>Author: {author ? author : null}</p>
-        <p>Date Published: {date_published ? date_published : null}</p>
-        {content}
-      </React.Fragment>
+      article && (
+        <React.Fragment>
+          <Link to={`${url}`}>
+            <h1>{title}</h1>
+          </Link>
+          <p>Author: {author ? author : 'N/A'}</p>
+          <p>Date Published: {date_published ? date_published : 'N/A'}</p>
+          {ReactHtmlParser(content)}
+        </React.Fragment>
+      )
     );
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const articleId = Number(ownProps.match.params.id);
+const mapStateToProps = state => {
   return {
-    article: state.articles[articleId]
+    article: state.article
   };
 };
 

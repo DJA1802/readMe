@@ -9,6 +9,10 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  const article = EXAMPLE_ARTICLES.filter(thisArticle => thisArticle.id === req.params.id);
+  const articleId = Number(req.params.id);
+  let article = EXAMPLE_ARTICLES.filter(
+    thisArticle => thisArticle.id === articleId
+  )[0];
+  // TODO: strip out classes
   res.json(article);
 });
