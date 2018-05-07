@@ -1,18 +1,41 @@
-const User = require('./user')
+const User = require('./User');
+const Article = require('./Article');
+const Tag = require('./Tag');
+const Topic = require('./Topic');
+const Author = require('./Author');
+const Publication = require('./Publication');
+const PublicationType = require('./PublicationType');
+const Interaction = require('./Interaction');
 
-/**
- * If we had any associations to make, this would be a great place to put them!
- * ex. if we had another model called BlogPost, we might say:
- *
- *    BlogPost.belongsTo(User)
- */
+Interaction.belongsTo(Article);
+Article.hasMany(Interaction);
 
-/**
- * We'll export all of our models here, so that any time a module needs a model,
- * we can just require it from 'db/models'
- * for example, we can say: const {User} = require('../db/models')
- * instead of: const User = require('../db/models/user')
- */
+Publication.belongsTo(PublicationType);
+PublicationType.hasMany(Publication);
+
+Publication.belongsTo(Topic, { as: 'defaultTopic' });
+
+Article.belongsTo(Topic);
+
+Article.belongsTo(Publication);
+Publication.hasMany(Article);
+
+Article.belongsTo(User);
+User.hasMany(Article);
+
+Article.belongsTo(Author);
+Author.hasMany(Article);
+
+Article.belongsToMany(Tag, { through: 'article_tag' });
+Tag.belongsToMany(Article, { through: 'article_tag' });
+
 module.exports = {
-  User
-}
+  User,
+  Article,
+  Tag,
+  Topic,
+  Author,
+  Publication,
+  PublicationType,
+  Interaction
+};
