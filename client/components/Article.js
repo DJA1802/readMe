@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchArticle } from '../store';
-import ReactHtmlParser from 'react-html-parser';
+import reactHtmlParser from 'react-html-parser';
 
 // steps to get article content:
 // 1. pass url into Mercury HTTP Request
@@ -19,7 +19,7 @@ class Article extends Component {
   render () {
     // console.log('article', this.props.article);
     const article = this.props.article;
-    const { title, url, author, content, date_published } = article;
+    const { title, sourceUrl, author, content, publicationDate } = article;
     const dateOptions = {
       weekday: 'long',
       year: 'numeric',
@@ -31,20 +31,19 @@ class Article extends Component {
     return (
       article && (
         <React.Fragment>
-          <Link to={`${url}`}>
+          <Link to={`${sourceUrl}`}>
             <h1>{title}</h1>
           </Link>
-          <p>Author: {author ? author : 'N/A'}</p>
+          <p> {author ? `Author: ${author.name}` : null}</p>
           <p>
-            Date Published:{' '}
-            {date_published
-              ? new Date(date_published).toLocaleDateString(
+            {publicationDate
+              ? `Date Published: ${new Date(publicationDate).toLocaleDateString(
                   'en-US',
                   dateOptions
-                )
-              : 'N/A'}
+                )}`
+              : null}
           </p>
-          {ReactHtmlParser(content)}
+          {reactHtmlParser(content)}
         </React.Fragment>
       )
     );
