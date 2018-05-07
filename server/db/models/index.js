@@ -36,5 +36,6 @@ module.exports = {
   Topic,
   Author,
   Publication,
-  PublicationType
+  PublicationType,
+  Interaction
 };

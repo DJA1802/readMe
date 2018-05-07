@@ -1,8 +1,3 @@
-/**
- * Async-await is a joy to use! Read more about it in the MDN docs:
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
- *
- */
 const db = require('../server/db');
 const {
   User,
@@ -12,7 +7,6 @@ const {
   Topic,
   Interaction,
   Tag,
-  Type,
   Author
 } = require('../server/db/models');
 
@@ -20,35 +14,60 @@ async function seed () {
   await db.sync({ force: true });
   console.log('db synced!');
 
-  const users = await Promise.all([
-    User.create({ email: 'cody@email.com', password: '123' }),
-    User.create({ email: 'murphy@email.com', password: '123' })
-  ]);
-
-  await Topic.create({
-    name: 'Opinion'
+  const user = await User.create({
+    email: 'jeff@jeff.com',
+    password: 'context'
   });
 
-  await PublicationType.create({
-    name: 'Blog'
+  const tags = await Promise.all([
+    Tag.create({ name: 'feature' }),
+    Tag.create({ name: 'long-form' })
+  ]);
+
+  const topic = await Topic.create({
+    name: 'News'
+  });
+
+  const publicationType = await PublicationType.create({
+    name: 'Magazine'
   });
 
   const publication = await Publication.create({
-    name: 'Crotchety'
+    name: 'The New Yorker'
+  });
+
+  const author = await Author.create({
+    name: 'Ian Frazier'
   });
 
   await publication.setPublicationType(1);
-  await publication.setTopic(1);
+  await publication.setDefaultTopic(1);
 
-  await Article.create({
-    title: 'The Case Against Puppies',
-    sourceUrl: 'http://www.crotchety.com/',
-    content: 'I think puppies are overrated.',
+  const article = await Article.create({
+    title: 'The Maraschino Mogul’s Secret Life',
+    sourceUrl:
+      'https://www.newyorker.com/magazine/2018/04/23/the-maraschino-moguls-secret-life',
+    content:
+      '<p>Arthur Mondella is mourned. Up until the moment of his death, on February 24, 2015, he ran his family’s company, Dell’s Maraschino Cherries, in the Red Hook section of Brooklyn. His daughters Dana Mondella Bentz and Dominique Mondella, who run the company now, miss him every day. They remember him in their prayers and wish he could see how they’ve done with the business. Their great-grandfather Arthur Mondella, senior, and their grandfather Ralph founded it in 1948. Dell’s Maraschino Cherries processes and sells nothing but cherries—about fourteen million pounds a year—from its single Red Hook factory. Dana, the president and C.E.O., is thirty, and Dominique, the vice-president, is thirty-two.</p>',
     publicationDate: '2018-05-03',
-    wordCount: 5
+    wordCount: 116
   });
 
-  console.log(`seeded ${users.length} users`);
+  await article.setUser(user.id);
+  await article.setAuthor(author.id);
+  await article.setPublication(publication.id);
+  await article.setTopic(topic.id);
+  await article.setTags(tags);
+
+  const interaction = await Interaction.create({
+    startTime: '2018-05-07T05:17:49.314Z',
+    endTime: '2018-05-07T05:47:19.114Z',
+    articleId: 1
+  });
+
+  const duration = await interaction.duration;
+
+  console.log(`interaction duration VIRTUAL test:`, duration);
   console.log(`seeded successfully`);
 }
 
