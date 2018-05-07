@@ -72,13 +72,18 @@ async function seed () {
   await article.setTopic(topics[0].id);
   await article.setTags(tags);
 
-  const interaction = await Interaction.create({
+  const interaction1 = await Interaction.create({
     startTime: '2018-05-07T05:17:49.314Z',
     endTime: '2018-05-07T05:47:19.114Z',
     articleId: 1
   });
 
-  const duration = await interaction.duration;
+  // test if default values work
+  const interaction2 = await Interaction.create({
+    articleId: 1
+  });
+
+  const duration = await interaction1.duration;
 
   console.log(`interaction duration VIRTUAL test:`, duration);
   console.log(`seeded successfully`);

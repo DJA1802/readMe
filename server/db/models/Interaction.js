@@ -4,11 +4,13 @@ const db = require('../db');
 const Interaction = db.define('interaction', {
   startTime: {
     type: Sequelize.DATE,
-    allowNull: false
+    allowNull: false,
+    defaultValue: new Date()
   },
   endTime: {
     type: Sequelize.DATE,
-    allowNull: false
+    allowNull: false,
+    defaultValue: new Date()
   },
   duration: {
     type: Sequelize.VIRTUAL(Sequelize.INTEGER),
