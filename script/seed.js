@@ -1,51 +1,104 @@
-/**
- * Welcome to the seed file! This seed file uses a newer language feature called...
- *
- *                  -=-= ASYNC...AWAIT -=-=
- *
- * Async-await is a joy to use! Read more about it in the MDN docs:
- *
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
- *
- * Now that you've got the main idea, check it out in practice below!
- */
-const db = require('../server/db')
-const {User} = require('../server/db/models')
+const db = require('../server/db');
+const {
+  User,
+  Article,
+  Publication,
+  PublicationType,
+  Topic,
+  Interaction,
+  Tag,
+  Author
+} = require('../server/db/models');
 
 async function seed () {
-  await db.sync({force: true})
-  console.log('db synced!')
-  // Whoa! Because we `await` the promise that db.sync returns, the next line will not be
-  // executed until that promise resolves!
+  await db.sync({ force: true });
+  console.log('db synced!');
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
-  // Wowzers! We can even `await` on the right-hand side of the assignment operator
-  // and store the result that the promise resolves to in a variable! This is nice!
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded successfully`)
+  const user = await User.create({
+    email: 'jeff@jeff.com',
+    password: 'context'
+  });
+
+  const tags = await Promise.all([
+    Tag.create({ name: 'feature' }),
+    Tag.create({ name: 'long-form' })
+  ]);
+
+  const topics = await Promise.all([
+    Topic.create({ name: 'U.S. News' }),
+    Topic.create({ name: 'World News' }),
+    Topic.create({ name: 'Politics' }),
+    Topic.create({ name: 'Business' }),
+    Topic.create({ name: 'Opinion' }),
+    Topic.create({ name: 'Tech' }),
+    Topic.create({ name: 'Science' }),
+    Topic.create({ name: 'Health' }),
+    Topic.create({ name: 'Sports' }),
+    Topic.create({ name: 'Arts' }),
+    Topic.create({ name: 'Food' }),
+    Topic.create({ name: 'Travel' }),
+    Topic.create({ name: 'Lifestyle' })
+    // would be nice to have 'Local News' based on user's location
+  ]);
+
+  const publicationType = await PublicationType.create({
+    name: 'Magazine'
+  });
+
+  const publication = await Publication.create({
+    name: 'The New Yorker'
+  });
+
+  const author = await Author.create({
+    name: 'Ian Frazier'
+  });
+
+  await publication.setPublicationType(1);
+  await publication.setDefaultTopic(1);
+
+  const article = await Article.create({
+    title: 'The Maraschino Mogul’s Secret Life',
+    sourceUrl:
+      'https://www.newyorker.com/magazine/2018/04/23/the-maraschino-moguls-secret-life',
+    content:
+      '<p>Arthur Mondella is mourned. Up until the moment of his death, on February 24, 2015, he ran his family’s company, Dell’s Maraschino Cherries, in the Red Hook section of Brooklyn. His daughters Dana Mondella Bentz and Dominique Mondella, who run the company now, miss him every day. They remember him in their prayers and wish he could see how they’ve done with the business. Their great-grandfather Arthur Mondella, senior, and their grandfather Ralph founded it in 1948. Dell’s Maraschino Cherries processes and sells nothing but cherries—about fourteen million pounds a year—from its single Red Hook factory. Dana, the president and C.E.O., is thirty, and Dominique, the vice-president, is thirty-two.</p>',
+    publicationDate: '2018-05-03',
+    wordCount: 116
+  });
+
+  await article.setUser(user.id);
+  await article.setAuthor(author.id);
+  await article.setPublication(publication.id);
+  await article.setTopic(topics[0].id);
+  await article.setTags(tags);
+
+  const interaction1 = await Interaction.create({
+    startTime: '2018-05-07T05:17:49.314Z',
+    endTime: '2018-05-07T05:47:19.114Z',
+    articleId: 1
+  });
+
+  // test if default values work
+  const interaction2 = await Interaction.create({
+    articleId: 1
+  });
+
+  const duration = await interaction1.duration;
+
+  console.log(`interaction duration VIRTUAL test:`, duration);
+  console.log(`seeded successfully`);
 }
 
-// Execute the `seed` function
-// `Async` functions always return a promise, so we can use `catch` to handle any errors
-// that might occur inside of `seed`
 seed()
   .catch(err => {
-    console.error(err.message)
-    console.error(err.stack)
-    process.exitCode = 1
+    console.error(err.message);
+    console.error(err.stack);
+    process.exitCode = 1;
   })
   .then(() => {
-    console.log('closing db connection')
-    db.close()
-    console.log('db connection closed')
-  })
+    console.log('closing db connection');
+    db.close();
+    console.log('db connection closed');
+  });
 
-/*
- * note: everything outside of the async function is totally synchronous
- * The console.log below will occur before any of the logs that occur inside
- * of the async function
- */
-console.log('seeding...')
+console.log('seeding...');

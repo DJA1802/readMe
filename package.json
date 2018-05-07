@@ -1,7 +1,8 @@
 {
-  "name": "boilermaker",
+  "name": "context",
   "version": "1.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description":
+    "An application which allows users to save articles they wish to read later (via browser extension), and view analytics on their reading habits and preferences.",
   "engines": {
     "node": ">= 7.0.0"
   },
@@ -14,9 +15,12 @@
     "postinstall": "touch secrets.js",
     "seed": "node script/seed.js",
     "start": "node server",
-    "start-dev": "NODE_ENV='development' npm run build-client-watch & npm run start-server",
-    "start-server": "nodemon server -e html,js,scss --ignore public --ignore client",
-    "test": "NODE_ENV='test' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/*.spec.js --require @babel/polyfill --require @babel/register"
+    "start-dev":
+      "NODE_ENV='development' npm run build-client-watch & npm run start-server",
+    "start-server":
+      "nodemon server -e html,js,scss --ignore public --ignore client",
+    "test":
+      "NODE_ENV='test' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/*.spec.js --require @babel/polyfill --require @babel/register"
   },
   "author": "Fullstack Academy of Code",
   "license": "MIT",
