@@ -20,6 +20,13 @@ class Article extends Component {
     // console.log('article', this.props.article);
     const article = this.props.article;
     const { title, url, author, content, date_published } = article;
+    const dateOptions = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      timeZone: 'UTC'
+    };
 
     return (
       article && (
@@ -28,7 +35,15 @@ class Article extends Component {
             <h1>{title}</h1>
           </Link>
           <p>Author: {author ? author : 'N/A'}</p>
-          <p>Date Published: {date_published ? date_published : 'N/A'}</p>
+          <p>
+            Date Published:{' '}
+            {date_published
+              ? new Date(date_published).toLocaleDateString(
+                  'en-US',
+                  dateOptions
+                )
+              : 'N/A'}
+          </p>
           {ReactHtmlParser(content)}
         </React.Fragment>
       )

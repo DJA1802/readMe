@@ -1,3 +1,4 @@
+// Date formatter
 // Dummy article data
 const example1 = {
   id: 1,

@@ -179,9 +179,16 @@ function (_Component) {
           author = article.author,
           content = article.content,
           date_published = article.date_published;
+      var dateOptions = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        timeZone: 'UTC'
+      };
       return article && _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_reactRouterDom.Link, {
         to: "".concat(url)
-      }, _react.default.createElement("h1", null, title)), _react.default.createElement("p", null, "Author: ", author ? author : 'N/A'), _react.default.createElement("p", null, "Date Published: ", date_published ? date_published : 'N/A'), (0, _reactHtmlParser.default)(content));
+      }, _react.default.createElement("h1", null, title)), _react.default.createElement("p", null, "Author: ", author ? author : 'N/A'), _react.default.createElement("p", null, "Date Published:", ' ', date_published ? new Date(date_published).toLocaleDateString('en-US', dateOptions) : 'N/A'), (0, _reactHtmlParser.default)(content));
     }
   }]);
 
