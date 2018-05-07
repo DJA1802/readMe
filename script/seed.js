@@ -24,9 +24,22 @@ async function seed () {
     Tag.create({ name: 'long-form' })
   ]);
 
-  const topic = await Topic.create({
-    name: 'News'
-  });
+  const topics = await Promise.all([
+    Topic.create({ name: 'U.S. News' }),
+    Topic.create({ name: 'World News' }),
+    Topic.create({ name: 'Politics' }),
+    Topic.create({ name: 'Business' }),
+    Topic.create({ name: 'Opinion' }),
+    Topic.create({ name: 'Tech' }),
+    Topic.create({ name: 'Science' }),
+    Topic.create({ name: 'Health' }),
+    Topic.create({ name: 'Sports' }),
+    Topic.create({ name: 'Arts' }),
+    Topic.create({ name: 'Food' }),
+    Topic.create({ name: 'Travel' }),
+    Topic.create({ name: 'Lifestyle' })
+    // would be nice to have 'Local News' based on user's location
+  ]);
 
   const publicationType = await PublicationType.create({
     name: 'Magazine'
@@ -56,7 +69,7 @@ async function seed () {
   await article.setUser(user.id);
   await article.setAuthor(author.id);
   await article.setPublication(publication.id);
-  await article.setTopic(topic.id);
+  await article.setTopic(topics[0].id);
   await article.setTags(tags);
 
   const interaction = await Interaction.create({
