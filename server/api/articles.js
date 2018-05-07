@@ -7,15 +7,13 @@ const MERCURY_API_KEY = require('../../secrets');
 const { Article, Author } = require('../db/models');
 
 const mercuryRequestOptions = {
-  url: 'https://mercury.postlight.com/parser?url=',
+  url:
+    'https://mercury.postlight.com/parser?url=https://www.newyorker.com/magazine/2018/04/23/the-maraschino-moguls-secret-life',
   headers: {
     'Content-Type': 'application/json',
     'x-api-key': MERCURY_API_KEY
   }
 };
-
-const dummyUrl =
-  'https://www.newyorker.com/magazine/2018/04/23/the-maraschino-moguls-secret-life';
 
 router.get('/', (req, res, next) => {
   Article.findAll({
@@ -30,9 +28,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  const requestUrl = `${mercuryRequestOptions.url}${dummyUrl}`;
-  console.log(requestUrl);
-  request(requestUrl, (apiErr, apiRes, apiBody) => {
+  request(mercuryRequestOptions, (apiErr, apiRes, apiBody) => {
     const data = JSON.parse(apiBody);
     res.send(data);
   });
