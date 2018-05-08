@@ -20,9 +20,11 @@ router.get('/', (req, res, next) => {
 
 // POST /api/articles
 router.post('/', (req, res, next) => {
-  // articleUrl hardcoded for now, but should be req.body - i.e. the url from Chrome extension
-  const articleUrl =
-    'https://www.nytimes.com/2018/05/08/science/alan-turing-desalination.html?rref=collection%2Fsectioncollection%2Fscience&action=click&contentCollection=science&region=rank&module=package&version=highlights&contentPlacement=1&pgtype=sectionfront';
+  const { articleUrl } = req.body;
+
+  console.log('req.body', req.body);
+  console.log('articleUrl', articleUrl);
+
   const mercuryRequestOptions = {
     url: `https://mercury.postlight.com/parser?url=${articleUrl}`,
     headers: {
@@ -34,6 +36,7 @@ router.post('/', (req, res, next) => {
   // Make Mercury API request on URL received from Chrome extension
   request(mercuryRequestOptions, (apiErr, apiRes, apiBody) => {
     const data = JSON.parse(apiBody);
+    console.log('data from Mercury', data);
     Article.create({
       title: data.title,
       sourceUrl: data.url,
