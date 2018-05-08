@@ -29,3 +29,16 @@ form div {
   width: 200px;
   border: 1px dotted black;
 }
+
+.single-article {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.single-article img {
+  max-width: 100%;
+}
+
+.article-author {
+  font-style: italic;
+}
