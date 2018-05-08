@@ -1,4 +1,5 @@
 import "../css/popup.css";
+import "semantic-ui-css";
 // import Greeting from "./popup/greeting_component.jsx";
 import Popup from "./popup/index.js";
 import React from "react";

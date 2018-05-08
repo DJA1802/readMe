@@ -1,5 +1,6 @@
 import React from "react";
 import { hot } from "react-hot-loader";
+import { Button } from "semantic-ui-react";
 
 const AuthForm = props => {
   const { handleSubmit } = props;
@@ -20,7 +21,7 @@ const AuthForm = props => {
           <input name="password" type="password" />
         </div>
         <div>
-          <button type="submit">Login</button>
+          <Button type="submit">Login</Button>
         </div>
       </form>
       <a href="/auth/google">Login with Google</a>
