@@ -22,9 +22,6 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
   const { articleUrl } = req.body;
 
-  console.log('req.body', req.body);
-  console.log('articleUrl', articleUrl);
-
   const mercuryRequestOptions = {
     url: `https://mercury.postlight.com/parser?url=${articleUrl}`,
     headers: {
@@ -36,7 +33,6 @@ router.post('/', (req, res, next) => {
   // Make Mercury API request on URL received from Chrome extension
   request(mercuryRequestOptions, (apiErr, apiRes, apiBody) => {
     const data = JSON.parse(apiBody);
-    console.log('data from Mercury', data);
     Article.create({
       title: data.title,
       sourceUrl: data.url,
