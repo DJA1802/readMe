@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-// import 'semantic-ui-css/semantic.css';
 import { hot } from 'react-hot-loader';
 import { Button } from 'semantic-ui-react';
 
@@ -16,11 +15,7 @@ const clickHander = () => {
 };
 
 const SaveButton = props => {
-  return (
-    <div>
-      <Button onClick={clickHander}>Save for later</Button>
-    </div>
-  );
+  return <Button onClick={clickHander}>Save for later</Button>;
 };
 
 export default hot(module)(SaveButton);

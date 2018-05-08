@@ -20,6 +20,10 @@ form div {
   display: inline-block;
 }
 
+.articleCardList {
+  display: flex;
+}
+
 .articleCard {
   height: 200px;
   width: 200px;

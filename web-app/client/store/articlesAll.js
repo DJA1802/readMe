@@ -4,13 +4,11 @@ import history from '../history';
 /**
  * ACTION TYPES
  */
-// const GET_ALL_ARTICLES = 'GET_ALL_ARTICLES';
 const GET_ALL_ARTICLES = 'GET_ALL_ARTICLES';
 
 /**
  * ACTION CREATORS
  */
-// const getAllArticles = articles => ({ type: GET_ALL_ARTICLES, articles });
 const getAllArticles = articles => ({ type: GET_ALL_ARTICLES, articles });
 
 export const fetchAllArticles = () => dispatch =>

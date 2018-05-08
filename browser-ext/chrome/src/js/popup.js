@@ -1,5 +1,4 @@
 import '../css/popup.css';
-// import 'semantic-ui-css/semantic.css';
 import Popup from './popup/index.js';
 import React from 'react';
 import { render } from 'react-dom';
