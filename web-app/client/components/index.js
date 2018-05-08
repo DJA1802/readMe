@@ -8,6 +8,6 @@ export { default as Article } from './Article';
 export { default as ArticleCard } from './ArticleCard';
 export { default as ArticleCardList } from './ArticleCardList';
 export { default as Navbar } from './navbar';
-export { default as UserHome } from './user-home';
+export { default as UserHome } from './UserHome';
 export { default as Home } from './Home';
-export { Login, Signup } from './auth-form';
+export { Login, Signup } from './AuthForm';
