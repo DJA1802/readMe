@@ -1,7 +1,5 @@
 // Single Article Page Component (i.e. where article is read from)
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { fetchAllArticles } from '../store';
+import React from 'react';
 import { ArticleCard } from '../components';
 
 const ArticleCardList = props => {
