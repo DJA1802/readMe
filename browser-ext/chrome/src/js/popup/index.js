@@ -1,7 +1,7 @@
-import React from "react";
-import { hot } from "react-hot-loader";
-import AuthForm from "./AuthForm";
-import SaveButton from "./SaveButton";
+import React from 'react';
+import { hot } from 'react-hot-loader';
+import AuthForm from './AuthForm';
+import SaveButton from './SaveButton';
 
 const Popup = () => {
   return (
