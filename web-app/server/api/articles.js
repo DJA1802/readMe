@@ -2,7 +2,7 @@ const router = require('express').Router();
 module.exports = router;
 
 const request = require('request');
-const MERCURY_API_KEY = require('../../web-app/secrets');
+const MERCURY_API_KEY = require('../../secrets');
 const { Article, Author } = require('../db/models');
 
 // GET /api/articles
@@ -38,7 +38,8 @@ router.post('/', (req, res, next) => {
       title: data.title,
       sourceUrl: data.url,
       content: data.content,
-      wordCount: data.wordCount
+      wordCount: data.wordCount,
+      publicationDate: data.publicationDate
     })
       .then(newArticle => res.status(201).json(newArticle))
       .catch(next);
