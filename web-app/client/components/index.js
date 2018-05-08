@@ -8,5 +8,5 @@ export { default as Article } from './Article';
 export { default as ArticleCard } from './ArticleCard';
 export { default as ArticleCardList } from './ArticleCardList';
 export { default as Navbar } from './navbar';
-export { default as UserHome } from './user-home';
-export { Login, Signup } from './auth-form';
+export { default as UserHome } from './UserHome';
+export { Login, Signup } from './AuthForm';
