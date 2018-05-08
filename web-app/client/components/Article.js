@@ -5,12 +5,6 @@ import { connect } from 'react-redux';
 import { fetchArticle } from '../store';
 import reactHtmlParser from 'react-html-parser';
 
-// steps to get article content:
-// 1. pass url into Mercury HTTP Request
-// 2. do something with response body (clean up and store in DB)
-// 3. send cleaned up info to props
-// 4. get article info props in this component and render
-
 class Article extends Component {
   componentDidMount () {
     this.props.fetchArticle();
