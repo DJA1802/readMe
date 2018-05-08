@@ -1,9 +1,10 @@
-// Single Article Page Component (i.e. where article is read from)
+// Single Article Page Component (i.e. where article a user reads an article)
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchArticle } from '../store';
 import reactHtmlParser from 'react-html-parser';
+import { Container, Header } from 'semantic-ui-react';
 
 class Article extends Component {
   componentDidMount () {
@@ -11,7 +12,6 @@ class Article extends Component {
   }
 
   render () {
-    // console.log('article', this.props.article);
     const article = this.props.article;
     const { title, sourceUrl, author, content, publicationDate } = article;
     const dateOptions = {
@@ -24,11 +24,10 @@ class Article extends Component {
 
     return (
       article && (
-        <React.Fragment>
-          <Link to={`${sourceUrl}`}>
-            <h1>{title}</h1>
-          </Link>
-          <p> {author ? `Author: ${author.name}` : null}</p>
+        <div className="single-article">
+            <Header as="h1">{title}</Header>
+            Originally from <a href={sourceUrl}>[publication name]</a>
+          <p className="article-author"> {author ? `by ${author.name}` : null}</p>
           <p>
             {publicationDate
               ? `Date Published: ${new Date(publicationDate).toLocaleDateString(
@@ -38,7 +37,7 @@ class Article extends Component {
               : null}
           </p>
           {reactHtmlParser(content)}
-        </React.Fragment>
+        </div>
       )
     );
   }

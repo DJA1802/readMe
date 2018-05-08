@@ -8,7 +8,7 @@ const ArticleCardList = props => {
       <h2>Recently-saved articles</h2>
       <div className="articleCardList">
         {props.articles.map(article => (
-          <ArticleCard key={article.id} id={article.id} title={article.title} />
+          <ArticleCard key={article.id} articleId={article.id} title={article.title} />
         ))}
       </div>
     </React.Fragment>

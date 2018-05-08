@@ -7,7 +7,7 @@ import { Menu } from 'semantic-ui-react';
 
 const NavBar = ({ handleLogoutClick, isLoggedIn }) => (
   <Menu>
-    <Menu.Item header>ReadMe</Menu.Item>
+    <Menu.Item header as={Link} to="/home">ReadMe</Menu.Item>
     {isLoggedIn ? (
       <React.Fragment>
         <Menu.Item name="articles" as={Link} to="/articles" />
@@ -25,13 +25,13 @@ const NavBar = ({ handleLogoutClick, isLoggedIn }) => (
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapStateToProps = state => {
   return {
     isLoggedIn: !!state.user.id
   };
 };
 
-const mapDispatch = dispatch => {
+const mapDispatchToProps = dispatch => {
   return {
     handleLogoutClick () {
       dispatch(logout());
@@ -39,7 +39,7 @@ const mapDispatch = dispatch => {
   };
 };
 
-export default connect(mapState, mapDispatch)(NavBar);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
 
 /**
  * PROP TYPES

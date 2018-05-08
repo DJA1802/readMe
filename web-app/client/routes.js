@@ -7,7 +7,7 @@ import {
   Login,
   Signup,
   Article,
-  ArticleCardList,
+  ArticleList,
   UserHome
 } from './components';
 import { me } from './store';
@@ -26,14 +26,14 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" component={Login} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
-            <Route exact path="/articles" component={ArticleCardList} />
+            <Route path="/home" component={Home} />
+            <Route exact path="/articles" component={ArticleList} />
             <Route path="/articles/:id" component={Article} />
           </Switch>
         )}
