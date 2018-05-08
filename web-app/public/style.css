@@ -19,3 +19,9 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.articleCard {
+  height: 200px;
+  width: 200px;
+  border: 1px dotted black;
+}
