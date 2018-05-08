@@ -20,6 +20,7 @@ form div {
   display: inline-block;
 }
 
+/* CLASSES FOR ARTICLE CARDS ON HOMEPAGE ----------------------*/
 .articleCardList {
   display: flex;
 }
@@ -29,16 +30,34 @@ form div {
   width: 200px;
   border: 1px dotted black;
 }
+/* END CLASSES ARTICLE CARDS ON HOMEPAGE-----------------------*/
+/*-------------------------------------------------------------*/
 
+/* CLASSES FOR ARTICLE LIST -----------------------------------*/
+.article-list {
+  width: 60%;
+  margin: 0 auto;
+}
+/* ENDCLASSES FOR ARTICLE LIST --------------------------------*/
+/*-------------------------------------------------------------*/
+
+/* CLASSES FOR SINGLE ARTICLE VIEW ----------------------------*/
 .single-article {
   width: 60%;
   margin: 0 auto;
+  font-size: 1em;
 }
 
 .single-article img {
   max-width: 100%;
 }
 
+.single-article figcaption {
+  font-size: 0.75em;
+}
+
 .article-author {
   font-style: italic;
 }
+/* END CLASSES FOR SINGLE ARTICLE VIEW ------------------------*/
+/*-------------------------------------------------------------*/
