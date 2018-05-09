@@ -10,6 +10,7 @@ export { default as ArticleCard } from './ArticleCard';
 export { default as ArticleCardList } from './ArticleCardList';
 export { default as ArticleList } from './ArticleList';
 export { default as ArticleListItem } from './ArticleListItem';
+export { default as PageContainer } from './PageContainer';
 export { default as NavbarTop } from './NavbarTop';
 export { default as NavbarSideDesktop } from './NavbarSideDesktop';
 export { default as NavbarSideMobile } from './NavbarSideMobile';

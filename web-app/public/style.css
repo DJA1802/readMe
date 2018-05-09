@@ -41,14 +41,14 @@ form div {
 }
 /*---------------------------------*/
 
-#home-container {
+#page-container {
   display: flex;
   width: 100%;
   height: calc(100vh - 40px);
   margin: 0;
 }
 
-#home-content {
+#page-content {
   padding: 30px;
   flex: 4;
   width: 100vw;
