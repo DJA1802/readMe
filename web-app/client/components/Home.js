@@ -1,8 +1,16 @@
 // Single Article Page Component (i.e. where article is read from)
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import MediaQuery from 'react-responsive';
+import { Container, Sidebar } from 'semantic-ui-react';
+import {
+  AnalyticsFeatured,
+  ArticleCardList,
+  NavbarSideDesktop,
+  NavbarSideMobile
+} from '.';
 import { fetchAllArticles } from '../store';
-import { ArticleCardList } from '../components';
+import { desktop } from '../utils/constants';
 
 class Home extends Component {
   componentDidMount () {
@@ -11,15 +19,18 @@ class Home extends Component {
 
   render () {
     return (
-      <React.Fragment>
-        <ArticleCardList
-          articles={this.props.threeMostRecentArticles}
-          className="articleCardList"
-        />
-        <div className="featuredAnalytics">
-          <h2>Future home of interesting analytics</h2>
-        </div>
-      </React.Fragment>
+      <Container id="home-container">
+        <MediaQuery minWidth={desktop}>
+          <NavbarSideDesktop />
+        </MediaQuery>
+        <Container id="home-content">
+          <ArticleCardList
+            articles={this.props.threeMostRecentArticles}
+            className="article-card-list"
+          />
+          <AnalyticsFeatured />
+        </Container>
+      </Container>
     );
   }
 }

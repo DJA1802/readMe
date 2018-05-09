@@ -20,12 +20,91 @@ form div {
   display: inline-block;
 }
 
-.articleCardList {
-  display: flex;
+.no-margin {
+  margin: 0 !important;
 }
 
-.articleCard {
-  height: 200px;
-  width: 200px;
-  border: 1px dotted black;
+#main {
+  height: calc(100vh - 40px);
 }
+
+/*---------------------------------*/
+
+.authform-container {
+  width: 300px;
+  text-align: center;
+  margin: 30px auto !important;
+}
+
+.authform-btn-oauth {
+  margin: 10px 0 !important;
+}
+/*---------------------------------*/
+
+#home-container {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 40px);
+  margin: 0;
+}
+
+#home-content {
+  padding: 30px;
+  flex: 4;
+  width: 100vw;
+}
+
+#nav-sidebar {
+  flex: 1;
+  min-width: 200px;
+}
+
+.analytics-featured {
+  margin-top: 30px;
+}
+
+/*---------------------------------*/
+#navbar-top {
+  margin-bottom: 0;
+  height: 40px;
+}
+
+/*---------------------------------*/
+
+/* STYLES FOR ARTICLE LIST -----------------------------------*/
+.article-list-container {
+  width: 60%;
+  margin: 20px auto;
+}
+
+.article-list {
+  padding: 0 !important;
+}
+
+.article-list-item {
+  padding: 15px !important;
+}
+/* END STYLES FOR ARTICLE LIST --------------------------------*/
+/*-------------------------------------------------------------*/
+
+/* STYLES FOR SINGLE ARTICLE VIEW ----------------------------*/
+.single-article {
+  width: 60%;
+  max-width: 800px;
+  margin: 20px auto;
+  font-size: 1em;
+}
+
+.single-article img {
+  max-width: 100%;
+}
+
+.single-article figcaption {
+  font-size: 0.75em;
+}
+
+.article-author {
+  font-style: italic;
+}
+/* END STYLES FOR SINGLE ARTICLE VIEW ------------------------*/
+/*-------------------------------------------------------------*/

@@ -2,6 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { auth } from '../store';
+import {
+  Button,
+  Divider,
+  Header,
+  Icon,
+  Input,
+  Segment
+} from 'semantic-ui-react';
 
 /**
  * COMPONENT
@@ -10,9 +18,36 @@ const AuthForm = props => {
   const { name, displayName, handleSubmit, error } = props;
 
   return (
-    <div>
+    <Segment className="authform-container">
+      <Header as="h3">{displayName}</Header>
+      <Button
+        className="authform-btn-oauth"
+        as="a"
+        href="/auth/google"
+        icon
+        labelPosition="left"
+      >
+        <Icon name="google" />
+        {displayName} with Google
+      </Button>
+      <Button
+        className="authform-btn-oauth"
+        as="a"
+        href="/auth/twitter"
+        icon
+        labelPosition="left"
+      >
+        <Icon name="twitter" />
+        {displayName} with Twitter
+      </Button>
+      <Divider horizontal>Or</Divider>
       <form onSubmit={handleSubmit} name={name}>
+        <Input name="email" type="text" placeholder="Email" />
+
+        <Input name="password" type="password" placeholder="Password" />
+
         <div>
+<<<<<<< HEAD
           <label htmlFor="email">
             <small>Email</small>
           </label>
@@ -31,6 +66,13 @@ const AuthForm = props => {
       </form>
       <a href="/auth/google">{displayName} with Google</a>
     </div>
+=======
+          <Button type="submit">{displayName}</Button>
+        </div>
+        {error && error.response && <div> {error.response.data} </div>}
+      </form>
+    </Segment>
+>>>>>>> master
   );
 };
 

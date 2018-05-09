@@ -9,7 +9,9 @@ const Article = db.define('article', {
   sourceUrl: {
     type: Sequelize.STRING,
     allowNull: false,
-    isUrl: true
+    validate: {
+      isUrl: true
+    }
   },
   content: {
     type: Sequelize.TEXT,
