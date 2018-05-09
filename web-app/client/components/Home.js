@@ -2,8 +2,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
-import { Container, Header, Segment, Sidebar } from 'semantic-ui-react';
-import { ArticleCardList, NavbarSideDesktop, NavbarSideMobile } from '.';
+import { Container, Sidebar } from 'semantic-ui-react';
+import {
+  AnalyticsFeatured,
+  ArticleCardList,
+  NavbarSideDesktop,
+  NavbarSideMobile
+} from '.';
 import { fetchAllArticles } from '../store';
 import { desktop } from '../utils/constants';
 
@@ -14,24 +19,18 @@ class Home extends Component {
 
   render () {
     return (
-      // <div id="home-container">
-      <Sidebar.Pushable id="home-container">
+      <Container id="home-container">
         <MediaQuery minWidth={desktop}>
-          {matches => (matches ? <NavbarSideDesktop /> : <NavbarSideMobile />)}
+          <NavbarSideDesktop />
         </MediaQuery>
-        <Sidebar.Pusher>
-          <Container id="home-content">
-            <ArticleCardList
-              articles={this.props.threeMostRecentArticles}
-              className="article-card-list"
-            />
-            <Container className="featuredAnalytics">
-              <Header as="h2">Future home of interesting analytics</Header>
-            </Container>
-          </Container>
-        </Sidebar.Pusher>
-      </Sidebar.Pushable>
-      // </div>
+        <Container id="home-content">
+          <ArticleCardList
+            articles={this.props.threeMostRecentArticles}
+            className="article-card-list"
+          />
+          <AnalyticsFeatured />
+        </Container>
+      </Container>
     );
   }
 }

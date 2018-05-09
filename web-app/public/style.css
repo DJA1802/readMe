@@ -24,12 +24,16 @@ form div {
   margin: 0 !important;
 }
 
+#main {
+  height: calc(100vh - 40px);
+}
+
 /*---------------------------------*/
 
 .authform-container {
   width: 300px;
   text-align: center;
-  margin: 0 auto !important;
+  margin: 30px auto !important;
 }
 
 .authform-btn-oauth {
@@ -39,18 +43,26 @@ form div {
 
 #home-container {
   display: flex;
+  width: 100%;
+  height: calc(100vh - 40px);
+  margin: 0;
 }
 
 #home-content {
   padding: 30px;
   flex: 4;
-  height: calc(100vh - 40px);
+  width: 100vw;
 }
 
 #nav-sidebar {
   flex: 1;
   min-width: 200px;
 }
+
+.analytics-featured {
+  margin-top: 30px;
+}
+
 /*---------------------------------*/
 #navbar-top {
   margin-bottom: 0;
@@ -59,26 +71,27 @@ form div {
 
 /*---------------------------------*/
 
-/* CLASSES FOR ARTICLE LIST -----------------------------------*/
+/* STYLES FOR ARTICLE LIST -----------------------------------*/
 .article-list-container {
   width: 60%;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 
 .article-list {
-  padding-top: 0 !important;
+  padding: 0 !important;
 }
 
 .article-list-item {
   padding: 15px !important;
 }
-/* ENDCLASSES FOR ARTICLE LIST --------------------------------*/
+/* END STYLES FOR ARTICLE LIST --------------------------------*/
 /*-------------------------------------------------------------*/
 
-/* CLASSES FOR SINGLE ARTICLE VIEW ----------------------------*/
+/* STYLES FOR SINGLE ARTICLE VIEW ----------------------------*/
 .single-article {
   width: 60%;
-  margin: 0 auto;
+  max-width: 800px;
+  margin: 20px auto;
   font-size: 1em;
 }
 
@@ -93,5 +106,5 @@ form div {
 .article-author {
   font-style: italic;
 }
-/* END CLASSES FOR SINGLE ARTICLE VIEW ------------------------*/
+/* END STYLES FOR SINGLE ARTICLE VIEW ------------------------*/
 /*-------------------------------------------------------------*/

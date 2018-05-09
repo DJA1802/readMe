@@ -4,6 +4,7 @@
  * having to figure out which file they belong to!
  */
 
+export { default as AnalyticsFeatured } from './AnalyticsFeatured';
 export { default as Article } from './Article';
 export { default as ArticleCard } from './ArticleCard';
 export { default as ArticleCardList } from './ArticleCardList';
