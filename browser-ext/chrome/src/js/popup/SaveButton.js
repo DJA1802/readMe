@@ -14,7 +14,7 @@ const clickHander = () => {
   });
 };
 
-const SaveButton = props => {
+const SaveButton = () => {
   return <Button onClick={clickHander}>Save for later</Button>;
 };
 
