@@ -21,22 +21,26 @@ form div {
 }
 
 /* CLASSES FOR ARTICLE CARDS ON HOMEPAGE ----------------------*/
-.articleCardList {
-  display: flex;
+.article-card-list {
 }
 
-.articleCard {
-  height: 200px;
-  width: 200px;
-  border: 1px dotted black;
+.article-card {
 }
 /* END CLASSES ARTICLE CARDS ON HOMEPAGE-----------------------*/
 /*-------------------------------------------------------------*/
 
 /* CLASSES FOR ARTICLE LIST -----------------------------------*/
-.article-list {
+.article-list-container {
   width: 60%;
   margin: 0 auto;
+}
+
+.article-list {
+  padding-top: 0 !important;
+}
+
+.article-list-item {
+  padding: 15px !important;
 }
 /* ENDCLASSES FOR ARTICLE LIST --------------------------------*/
 /*-------------------------------------------------------------*/

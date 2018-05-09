@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchAllArticles } from '../store';
 import { ArticleCardList } from '../components';
+import { Container, Header } from 'semantic-ui-react';
 
 class Home extends Component {
   componentDidMount () {
@@ -11,15 +12,15 @@ class Home extends Component {
 
   render () {
     return (
-      <React.Fragment>
+      <Container>
         <ArticleCardList
           articles={this.props.threeMostRecentArticles}
-          className="articleCardList"
+          className="article-card-list"
         />
-        <div className="featuredAnalytics">
-          <h2>Future home of interesting analytics</h2>
-        </div>
-      </React.Fragment>
+        <Container className="featuredAnalytics">
+          <Header as="h2">Future home of interesting analytics</Header>
+        </Container>
+      </Container>
     );
   }
 }
