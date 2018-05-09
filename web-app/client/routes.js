@@ -33,12 +33,13 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={Home} />
+            <Route path="/user-home" component={UserHome} />
             <Route exact path="/articles" component={ArticleList} />
             <Route path="/articles/:id" component={Article} />
           </Switch>
         )}
         {/* Displays our Home component as a fallback */}
-        <Route component={Home} />
+        <Route component={Login} />
       </Switch>
     );
   }

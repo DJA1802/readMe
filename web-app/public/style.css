@@ -20,14 +20,19 @@ form div {
   display: inline-block;
 }
 
-/* CLASSES FOR ARTICLE CARDS ON HOMEPAGE ----------------------*/
-.article-card-list {
+.no-margin {
+  margin: 0 !important;
 }
 
-.article-card {
+.authform-container {
+  width: 300px;
+  text-align: center;
+  margin: 0 auto !important;
 }
-/* END CLASSES ARTICLE CARDS ON HOMEPAGE-----------------------*/
-/*-------------------------------------------------------------*/
+
+.authform-btn-oauth {
+  margin: 10px 0 !important;
+}
 
 /* CLASSES FOR ARTICLE LIST -----------------------------------*/
 .article-list-container {
