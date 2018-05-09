@@ -4,11 +4,13 @@ import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import articlesAll from './articlesAll';
 import article from './article';
+import navbar from './navbar';
 import user from './user';
 
 const reducer = combineReducers({
   articlesAll,
   article,
+  navbar,
   user
 });
 
@@ -20,4 +22,5 @@ const store = createStore(reducer, middleware);
 export default store;
 export * from './articlesAll';
 export * from './article';
+export * from './navbar';
 export * from './user';

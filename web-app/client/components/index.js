@@ -4,12 +4,16 @@
  * having to figure out which file they belong to!
  */
 
+export { default as AnalyticsFeatured } from './AnalyticsFeatured';
 export { default as Article } from './Article';
 export { default as ArticleCard } from './ArticleCard';
 export { default as ArticleCardList } from './ArticleCardList';
 export { default as ArticleList } from './ArticleList';
 export { default as ArticleListItem } from './ArticleListItem';
-export { default as Navbar } from './NavBar';
+export { default as NavbarTop } from './NavbarTop';
+export { default as NavbarSideDesktop } from './NavbarSideDesktop';
+export { default as NavbarSideMobile } from './NavbarSideMobile';
+export { default as NavbarSideItems } from './NavbarSideItems';
 export { default as UserHome } from './UserHome';
 export { default as Home } from './Home';
 export { Login, Signup } from './AuthForm';
