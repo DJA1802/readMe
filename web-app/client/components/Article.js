@@ -7,57 +7,59 @@ import reactHtmlParser from 'react-html-parser';
 import { Container, Header } from 'semantic-ui-react';
 
 class Article extends Component {
+  constructor (props) {
+    super(props);
+    this.updateInterval = null;
+  }
+
   componentDidMount () {
     this.props.fetchArticle();
     this.addInteractionToLocalStorage();
-    setInterval(this.updateInteractionEndTime, 2000);
+    this.updateIntervalID = setInterval(this.updateInteractionEndTime, 2000);
+  }
+
+  componentWillUnmount () {
+    clearInterval(this.updateIntervalID);
   }
 
   addInteractionToLocalStorage () {
-    console.log(this.props);
     const interaction = {
       articleId: Number(this.props.match.params.id),
       startTime: new Date(),
       endTime: new Date()
     };
-    //localStorage.removeItem('readmeInteractions');
-    if (localStorage.getItem('readmeInteractions')) {
-      let existingStorage = JSON.parse(
-        localStorage.getItem('readmeInteractions')
-      );
-      let newStorage = {
+    if (localStorage.getItem('readmeDJA')) {
+      let existingStorage = JSON.parse(localStorage.getItem('readmeDJA'));
+      let newStorage = JSON.stringify({
         interactions: existingStorage.interactions.concat(interaction)
-      };
-      localStorage.setItem('readmeInteractions', JSON.stringify(newStorage));
+      });
+      localStorage.setItem('readmeDJA', newStorage);
     } else {
       localStorage.setItem(
-        'readmeInteractions',
+        'readmeDJA',
         JSON.stringify({ interactions: [interaction] })
       );
     }
   }
 
   updateInteractionEndTime () {
-    console.log(this);
-    if (localStorage.getItem('readmeInteractions')) {
-      const existingStorage = JSON.parse(
-        localStorage.getItem('readmeInteractions')
-      );
-      const lastInteraction =
-        existingStorage.interactions[existingStorage.interactions.length - 1];
+    if (localStorage.getItem('readmeDJA')) {
+      const oldLocalStorage = JSON.parse(localStorage.getItem('readmeDJA'));
+      const oldInteractions = oldLocalStorage.interactions;
+      const lastInteraction = oldInteractions[oldInteractions.length - 1];
       const updatedInteraction = Object.assign({}, lastInteraction, {
         endTime: new Date()
       });
-      const updatedLocalStorage = {
-        interactions: existingStorage.interactions
-          .slice(0, existingStorage.length - 1)
-          .concat(updatedInteraction)
-      };
-      localStorage.setItem(
-        'readmeInteractions',
-        JSON.stringify(updatedLocalStorage)
-      );
+      const updatedLocalStorage =
+        lastInteraction.articleId === Number(this.props.match.params.id) &&
+        JSON.stringify({
+          interactions: oldInteractions
+            .slice(0, oldInteractions.length - 1)
+            .concat(updatedInteraction)
+        });
+      localStorage.setItem('readmeDJA', updatedLocalStorage);
       console.log(localStorage);
+      console.log(JSON.parse(localStorage.readmeDJA));
     }
   }
 
