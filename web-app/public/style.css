@@ -24,14 +24,15 @@ form div {
   margin: 0 !important;
 }
 
-/* CLASSES FOR ARTICLE CARDS ON HOMEPAGE ----------------------*/
-.article-card-list {
+.authform-container {
+  width: 300px;
+  text-align: center;
+  margin: 0 auto !important;
 }
 
-.article-card {
+.authform-btn-oauth {
+  margin: 10px 0 !important;
 }
-/* END CLASSES ARTICLE CARDS ON HOMEPAGE-----------------------*/
-/*-------------------------------------------------------------*/
 
 /* CLASSES FOR ARTICLE LIST -----------------------------------*/
 .article-list-container {
