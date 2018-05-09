@@ -2,14 +2,14 @@
 import React from 'react';
 import { ArticleListItem } from '../components';
 import { connect } from 'react-redux';
-import { Header, List } from 'semantic-ui-react';
+import { Header, List, Segment } from 'semantic-ui-react';
 
 const ArticleList = props => {
   const { articles } = props;
   return (
-    <div className="article-list">
+    <div className="article-list-container">
       <Header as="h1">Your Saved Articles</Header>
-      <List>
+      <List divided relaxed as={Segment} className="article-list">
         {articles &&
           articles.map(article => (
             <ArticleListItem
