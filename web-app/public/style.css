@@ -20,6 +20,10 @@ form div {
   display: inline-block;
 }
 
+.no-margin {
+  margin: 0 !important;
+}
+
 /* CLASSES FOR ARTICLE CARDS ON HOMEPAGE ----------------------*/
 .article-card-list {
 }

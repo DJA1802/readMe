@@ -11,6 +11,7 @@ export const UserHome = props => {
   return (
     <div>
       <h3>Welcome, {email}</h3>
+      <h2>This is the User Home component</h2>
     </div>
   );
 };
