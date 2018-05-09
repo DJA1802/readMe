@@ -24,6 +24,8 @@ form div {
   margin: 0 !important;
 }
 
+/*---------------------------------*/
+
 .authform-container {
   width: 300px;
   text-align: center;
@@ -33,6 +35,29 @@ form div {
 .authform-btn-oauth {
   margin: 10px 0 !important;
 }
+/*---------------------------------*/
+
+#home-container {
+  display: flex;
+}
+
+#home-content {
+  padding: 30px;
+  flex: 4;
+  height: calc(100vh - 40px);
+}
+
+#nav-sidebar {
+  flex: 1;
+  min-width: 200px;
+}
+/*---------------------------------*/
+#navbar-top {
+  margin-bottom: 0;
+  height: 40px;
+}
+
+/*---------------------------------*/
 
 /* CLASSES FOR ARTICLE LIST -----------------------------------*/
 .article-list-container {

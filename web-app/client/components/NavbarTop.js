@@ -4,13 +4,22 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../store';
 import { Dropdown, Icon, Menu } from 'semantic-ui-react';
+import MediaQuery from 'react-responsive';
+import { desktop } from '../utils/constants';
 
-const NavBar = ({ handleLogoutClick, isLoggedIn, email }) => {
+const NavbarTop = ({ handleLogoutClick, isLoggedIn, email }) => {
   return (
-    <Menu>
-      <Menu.Item header as={Link} to="/home">
-        ReadMe
-      </Menu.Item>
+    <Menu id="navbar-top">
+      <MediaQuery minWidth={desktop}>
+        <Menu.Item header as={Link} to="/home">
+          ReadMe
+        </Menu.Item>
+      </MediaQuery>
+      <MediaQuery maxWidth={desktop}>
+        <Menu.Item>
+          <Icon name="content" size="large" />
+        </Menu.Item>
+      </MediaQuery>
       {isLoggedIn ? (
         <React.Fragment>
           <Menu.Item name="articles" as={Link} to="/articles" />
@@ -71,12 +80,12 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+export default connect(mapStateToProps, mapDispatchToProps)(NavbarTop);
 
 /**
  * PROP TYPES
  */
-NavBar.propTypes = {
+NavbarTop.propTypes = {
   handleLogoutClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 };
