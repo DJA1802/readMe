@@ -20,8 +20,9 @@ class AuthForm extends Component {
     const password = evt.target.password.value;
     axios
       .post(`http://localhost:8080/auth/${formName}`, { email, password })
-      .then(() => {
+      .then(user => {
         console.log('logged in!');
+        console.log('user ==>', user.data);
         this.setState({ isLoggedIn: true });
       })
       .catch(err => {
@@ -40,16 +41,6 @@ class AuthForm extends Component {
       })
       .catch(err => console.log(err));
   }
-
-  // handleGoogleAuth = () => {
-  //   axios
-  //     .get('http://localhost:8080/auth/google')
-  //     .then(() => {
-  //       console.log('authenticed with Google!');
-  //       this.setState({ isLoggedIn: true });
-  //     })
-  //     .catch(err => console.log(err));
-  // };
 
   render () {
     const isLoggedIn = this.state.isLoggedIn;
