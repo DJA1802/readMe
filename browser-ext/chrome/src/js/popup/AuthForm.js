@@ -4,7 +4,7 @@ import { hot } from 'react-hot-loader';
 import { Button, Input } from 'semantic-ui-react';
 
 class AuthForm extends Component {
-  constructor() {
+  constructor () {
     super();
     this.state = {
       isLoggedIn: false
@@ -13,7 +13,7 @@ class AuthForm extends Component {
     this.handleLogout = this.handleLogout.bind(this);
   }
 
-  handleLogin(evt) {
+  handleLogin (evt) {
     evt.preventDefault();
     const formName = evt.target.name;
     const email = evt.target.email.value;
@@ -30,7 +30,7 @@ class AuthForm extends Component {
       });
   }
 
-  handleLogout(evt) {
+  handleLogout (evt) {
     evt.preventDefault();
     const formName = evt.target.name;
     axios
@@ -42,13 +42,13 @@ class AuthForm extends Component {
       .catch(err => console.log(err));
   }
 
-  testMe() {
+  testMe () {
     axios
       .get('http://localhost:8080/auth/me')
-      .then(res => console.log('RESDATA--->', res.data));
+      .then(res => console.log('res.data ==>', res.data));
   }
 
-  render() {
+  render () {
     const isLoggedIn = this.state.isLoggedIn;
     this.testMe();
 
