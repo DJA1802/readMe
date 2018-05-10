@@ -8,6 +8,10 @@ export function getLocalInteractions () {
   return JSON.parse(localStorage.getItem(readmeLocalStorageKey));
 }
 
+export function clearLocalInteractions () {
+  return localStorage.removeItem(readmeLocalStorageKey);
+}
+
 export function setLocalInteractions (newInteractionsArr) {
   localStorage.setItem(
     readmeLocalStorageKey,

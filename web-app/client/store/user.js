@@ -1,5 +1,6 @@
 import axios from 'axios';
 import history from '../history';
+import { clearLocalInteractions } from '../utils/helperFuncs';
 
 /**
  * ACTION TYPES
@@ -58,7 +59,7 @@ export const postCachedInteractions = interactions => dispatch =>
     .post('/api/interactions', interactions)
     .then(_ => {
       dispatch(acPostCachedInteractions());
-      localStorage.removeItem('readmeIacts');
+      clearLocalInteractions();
     })
     .catch(err => console.log(err));
 

@@ -13,6 +13,10 @@ import {
   UserHome
 } from './components';
 import { me, postCachedInteractions } from './store';
+import {
+  localInteractionsExist,
+  getLocalInteractions
+} from './utils/helperFuncs';
 
 /**
  * COMPONENT
@@ -20,8 +24,8 @@ import { me, postCachedInteractions } from './store';
 class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData();
-    if (localStorage.getItem('readmeIacts')) {
-      let interactions = JSON.parse(localStorage.getItem('readmeIacts'));
+    if (localInteractionsExist()) {
+      let interactions = getLocalInteractions();
       this.props.transferLocalStorageToDb(interactions);
     }
   }
