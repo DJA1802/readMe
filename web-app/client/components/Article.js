@@ -10,12 +10,16 @@ class Article extends Component {
   constructor (props) {
     super(props);
     this.updateInterval = null;
+    this.addInteractionToLocalStorage = this.addInteractionToLocalStorage.bind(
+      this
+    );
+    this.updateInteractionEndTime = this.updateInteractionEndTime.bind(this);
   }
 
   componentDidMount () {
     this.props.fetchArticle();
     this.addInteractionToLocalStorage();
-    this.updateIntervalID = setInterval(this.updateInteractionEndTime, 2000);
+    this.updateIntervalID = setInterval(this.updateInteractionEndTime, 1000);
   }
 
   componentWillUnmount () {
