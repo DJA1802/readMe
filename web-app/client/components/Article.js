@@ -32,38 +32,32 @@ class Article extends Component {
       startTime: new Date(),
       endTime: new Date()
     };
-    if (localStorage.getItem('readmeDJA')) {
-      let existingStorage = JSON.parse(localStorage.getItem('readmeDJA'));
-      let newStorage = JSON.stringify({
-        interactions: existingStorage.interactions.concat(interaction)
-      });
-      localStorage.setItem('readmeDJA', newStorage);
+    if (localStorage.getItem('readmeIacts')) {
+      let existingStorage = JSON.parse(localStorage.getItem('readmeIacts'));
+      let newStorage = JSON.stringify(existingStorage.concat(interaction));
+      localStorage.setItem('readmeIacts', newStorage);
     } else {
-      localStorage.setItem(
-        'readmeDJA',
-        JSON.stringify({ interactions: [interaction] })
-      );
+      localStorage.setItem('readmeIacts', JSON.stringify([interaction]));
     }
   }
 
   updateInteractionEndTime () {
-    if (localStorage.getItem('readmeDJA')) {
-      const oldLocalStorage = JSON.parse(localStorage.getItem('readmeDJA'));
-      const oldInteractions = oldLocalStorage.interactions;
-      const lastInteraction = oldInteractions[oldInteractions.length - 1];
+    if (localStorage.getItem('readmeIacts')) {
+      const oldLocalStorage = JSON.parse(localStorage.getItem('readmeIacts'));
+      const lastInteraction = oldLocalStorage[oldLocalStorage.length - 1];
       const updatedInteraction = Object.assign({}, lastInteraction, {
         endTime: new Date()
       });
       const updatedLocalStorage =
         lastInteraction.articleId === Number(this.props.match.params.id) &&
-        JSON.stringify({
-          interactions: oldInteractions
-            .slice(0, oldInteractions.length - 1)
+        JSON.stringify(
+          oldLocalStorage
+            .slice(0, oldLocalStorage.length - 1)
             .concat(updatedInteraction)
-        });
-      localStorage.setItem('readmeDJA', updatedLocalStorage);
+        );
+      localStorage.setItem('readmeIacts', updatedLocalStorage);
       console.log(localStorage);
-      console.log(JSON.parse(localStorage.readmeDJA));
+      console.log(JSON.parse(localStorage.readmeIacts));
     }
   }
 
