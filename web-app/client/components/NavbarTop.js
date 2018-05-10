@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout, toggleMobileSidebar } from '../store';
-import { Dropdown, Icon, Menu } from 'semantic-ui-react';
+import { Dropdown, Icon, Menu, Popup } from 'semantic-ui-react';
 import MediaQuery from 'react-responsive';
 import { desktop } from '../utils/constants';
+import { AddForm } from '.';
 
 const NavbarTop = ({
   email,
@@ -34,12 +35,25 @@ const NavbarTop = ({
       </MediaQuery>
       {isLoggedIn ? (
         <Menu.Menu position="right">
+          <Popup
+            trigger={
+              <Menu.Item>
+                <Icon className="no-margin" name="plus" size="large" />
+              </Menu.Item>
+            }
+            on="click"
+            position="bottom right"
+          >
+            <Popup.Content>
+              <AddForm />
+            </Popup.Content>
+          </Popup>
           <Menu.Item>
             <Icon
               className="no-margin"
+              fitted
               name="user circle outline"
               size="big"
-              fitted
             />
           </Menu.Item>
           <Dropdown item text={email}>

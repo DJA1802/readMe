@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
-  Home,
-  Login,
-  Signup,
+  Analytics,
   Article,
   ArticleList,
+  Home,
+  Login,
+  PageContainer,
+  Signup,
   UserHome
 } from './components';
 import { me } from './store';
@@ -36,9 +38,47 @@ class Routes extends Component {
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={Home} />
-            <Route path="/user-home" component={UserHome} />
-            <Route exact path="/articles" component={ArticleList} />
+            <Route
+              path="/home"
+              render={() => (
+                <PageContainer>
+                  <Home />
+                </PageContainer>
+              )}
+            />
+            <Route
+              path="/user-home"
+              render={() => (
+                <PageContainer>
+                  <UserHome />
+                </PageContainer>
+              )}
+            />
+            <Route
+              exact
+              path="/articles"
+              render={() => (
+                <PageContainer>
+                  <ArticleList title="Unread Articles" />
+                </PageContainer>
+              )}
+            />
+            <Route
+              path="/archive"
+              render={() => (
+                <PageContainer>
+                  <ArticleList title="Archive" />
+                </PageContainer>
+              )}
+            />
+            <Route
+              path="/analytics"
+              render={() => (
+                <PageContainer>
+                  <Analytics />
+                </PageContainer>
+              )}
+            />
             <Route path="/articles/:id" component={Article} />
           </Switch>
         )}
