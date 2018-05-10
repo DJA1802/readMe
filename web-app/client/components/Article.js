@@ -13,13 +13,18 @@ class Article extends Component {
     this.addInteractionToLocalStorage = this.addInteractionToLocalStorage.bind(
       this
     );
-    this.updateInteractionEndTime = this.updateInteractionEndTime.bind(this);
+    this.updateLastInteractionEndTime = this.updateLastInteractionEndTime.bind(
+      this
+    );
   }
 
   componentDidMount () {
     this.props.fetchArticle();
     this.addInteractionToLocalStorage();
-    this.updateIntervalID = setInterval(this.updateInteractionEndTime, 1000);
+    this.updateIntervalID = setInterval(
+      this.updateLastInteractionEndTime,
+      1000
+    );
   }
 
   componentWillUnmount () {
@@ -41,7 +46,7 @@ class Article extends Component {
     }
   }
 
-  updateInteractionEndTime () {
+  updateLastInteractionEndTime () {
     if (localStorage.getItem('readmeIacts')) {
       const oldLocalStorage = JSON.parse(localStorage.getItem('readmeIacts'));
       const lastInteraction = oldLocalStorage[oldLocalStorage.length - 1];
@@ -56,8 +61,6 @@ class Article extends Component {
             .concat(updatedInteraction)
         );
       localStorage.setItem('readmeIacts', updatedLocalStorage);
-      console.log(localStorage);
-      console.log(JSON.parse(localStorage.readmeIacts));
     }
   }
 
