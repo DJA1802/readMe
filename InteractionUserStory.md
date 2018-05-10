@@ -24,12 +24,10 @@ localStorage: {
 ```js
 localStorage: {
   // other properties
-  readmeDJA: {
-    interactions: [
-      {startDate: '10:13AM', endDate: '10:14AM', articleId: 1}
-      {startDate: '10:35AM', endDate: '10:35AM', articleId: 1}
-    ]
-  }
+  readmeIacts: [
+    { startDate: "10:13AM", endDate: "10:14AM", articleId: 1 },
+    { startDate: "10:35AM", endDate: "10:35AM", articleId: 1 }
+  ];
 }
 ```
 

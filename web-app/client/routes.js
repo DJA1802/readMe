@@ -22,7 +22,7 @@ class Routes extends Component {
     this.props.loadInitialData();
     if (localStorage.getItem('readmeIacts')) {
       let interactions = JSON.parse(localStorage.getItem('readmeIacts'));
-      this.props.transferLocalStorageToDb({ interactions });
+      this.props.transferLocalStorageToDb(interactions);
     }
   }
 
@@ -83,7 +83,14 @@ class Routes extends Component {
                 </PageContainer>
               )}
             />
-            <Route path="/articles/:id" component={Article} />
+            <Route
+              path="/articles/:id"
+              render={() => (
+                <Article
+                  transferLocalStorageToDb={this.props.transferLocalStorageToDb}
+                />
+              )}
+            />
           </Switch>
         )}
         {/* Displays our Home component as a fallback */}
@@ -110,7 +117,7 @@ const mapDispatch = dispatch => {
       dispatch(me());
     },
     transferLocalStorageToDb (interactions) {
-      dispatch(postCachedInteractions(interactions));
+      dispatch(postCachedInteractions({ interactions }));
     }
   };
 };
