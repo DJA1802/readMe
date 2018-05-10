@@ -12,7 +12,7 @@ import {
   Signup,
   UserHome
 } from './components';
-import { me } from './store';
+import { me, postCachedInteractions } from './store';
 
 /**
  * COMPONENT
@@ -20,6 +20,10 @@ import { me } from './store';
 class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData();
+    if (localStorage.getItem('readmeIacts')) {
+      let interactions = JSON.parse(localStorage.getItem('readmeIacts'));
+      this.props.transferLocalStorageToDb({ interactions });
+    }
   }
 
   render () {
@@ -104,6 +108,9 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData () {
       dispatch(me());
+    },
+    transferLocalStorageToDb (interactions) {
+      dispatch(postCachedInteractions(interactions));
     }
   };
 };
