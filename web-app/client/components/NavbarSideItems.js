@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu } from 'semantic-ui-react';
+import { Icon, Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { toggleMobileSidebar } from '../store';
@@ -8,10 +8,17 @@ const NavbarSideItems = ({ handleMenuClick }) => {
   return (
     <div>
       <Menu.Item as={Link} to="/articles" onClick={handleMenuClick}>
+        <Icon name="newspaper" className="left" size="large" />
         My List
       </Menu.Item>
-      <Menu.Item>Archive</Menu.Item>
-      <Menu.Item>Analytics</Menu.Item>
+      <Menu.Item as={Link} to="/archive" onClick={handleMenuClick}>
+        <Icon name="archive" className="left" size="large" />
+        Archive
+      </Menu.Item>
+      <Menu.Item as={Link} to="/analytics" onClick={handleMenuClick}>
+        <Icon name="pie graph" className="left" size="large" />
+        Analytics
+      </Menu.Item>
     </div>
   );
 };

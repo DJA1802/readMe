@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import { Header, List, Segment } from 'semantic-ui-react';
 
 const ArticleList = props => {
-  const { articles } = props;
+  const { articles, title } = props;
   return (
     <div className="article-list-container">
-      <Header as="h1">Your Saved Articles</Header>
+      <Header as="h1">{title}</Header>
       <List divided relaxed as={Segment} className="article-list">
         {articles &&
           articles.map(article => (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Sidebar } from 'semantic-ui-react';
+import { Icon, Menu, Sidebar } from 'semantic-ui-react';
 import MediaQuery from 'react-responsive';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -13,6 +13,7 @@ const NavbarSideMobile = ({ handleMenuClick, visible }) => {
       <MediaQuery maxWidth={desktop}>
         <Sidebar as={Menu} animation="overlay" visible={visible} vertical>
           <Menu.Item as={Link} to="/home" onClick={handleMenuClick}>
+            <Icon name="home" className="left" size="large" />
             Home
           </Menu.Item>
           <NavbarSideItems />
