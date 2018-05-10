@@ -1,1 +1,1 @@
-chrome.extension.sendMessage({ msg: 'Saved Article!' });
+// chrome.runtime.sendMessage({ msg: 'Saved Article!' });

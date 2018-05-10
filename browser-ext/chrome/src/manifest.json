@@ -1,5 +1,5 @@
 {
-  "name": "Context Browser Extension",
+  "name": "readMe Browser Extension",
   "options_page": "options.html",
   "background": {
     "persistent": false,
