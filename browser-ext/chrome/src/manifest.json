@@ -12,6 +12,12 @@
     "128": "icon-128.png"
   },
   "permissions": ["tabs", "activeTab", "cookies", "http://localhost:8080/"],
+  "content_scripts": [
+    {
+      "matches": ["http://*/*"],
+      "js": ["contentscript.bundle.js"]
+    }
+  ],
   "manifest_version": 2,
   "content_security_policy":
     "script-src 'self' 'unsafe-eval'; object-src 'self'"
