@@ -54,19 +54,30 @@ form div {
   width: 100vw;
 }
 
-#nav-sidebar {
-  flex: 1;
-  min-width: 200px;
-}
-
 .analytics-featured {
   margin-top: 30px;
 }
 
 /*---------------------------------*/
+/* STYLES FOR TOP AND SIDE NAVBARS ----------------------------*/
 #navbar-top {
   margin-bottom: 0;
   height: 40px;
+}
+
+#nav-sidebar {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* used to make icons sit left on sidebar */
+.ui.vertical.menu .item > i.icon.left {
+  float: none;
+  margin: 0em 0.5em 0em 0em;
+}
+
+#add-form {
+  width: 350px;
 }
 
 /*---------------------------------*/
@@ -74,7 +85,7 @@ form div {
 /* STYLES FOR ARTICLE LIST -----------------------------------*/
 .article-list-container {
   width: 60%;
-  margin: 20px auto;
+  margin: 0 auto;
 }
 
 .article-list {

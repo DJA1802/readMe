@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
+  Analytics,
   Article,
   ArticleList,
   Home,
@@ -58,7 +59,23 @@ class Routes extends Component {
               path="/articles"
               render={() => (
                 <PageContainer>
-                  <ArticleList />
+                  <ArticleList title="Unread Articles" />
+                </PageContainer>
+              )}
+            />
+            <Route
+              path="/archive"
+              render={() => (
+                <PageContainer>
+                  <ArticleList title="Archive" />
+                </PageContainer>
+              )}
+            />
+            <Route
+              path="/analytics"
+              render={() => (
+                <PageContainer>
+                  <Analytics />
                 </PageContainer>
               )}
             />
