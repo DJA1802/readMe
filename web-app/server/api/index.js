@@ -7,7 +7,7 @@ router.use(cors());
 
 router.use('/articles', require('./articles'));
 router.use('/users', require('./users'));
-router.use('/cats', require('./cats'));
+router.use('/interactions', require('./interactions'));
 
 router.use((req, res, next) => {
   const error = new Error('Not Found');
