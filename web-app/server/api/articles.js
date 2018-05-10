@@ -38,7 +38,8 @@ router.post('/', (req, res, next) => {
       sourceUrl: data.url,
       content: data.content,
       wordCount: data.wordCount,
-      publicationDate: data.publicationDate
+      publicationDate: data.publicationDate,
+      userId: req.user.id
     })
       .then(newArticle => res.status(201).json(newArticle))
       .catch(next);

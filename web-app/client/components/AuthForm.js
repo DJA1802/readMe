@@ -47,32 +47,11 @@ const AuthForm = props => {
         <Input name="password" type="password" placeholder="Password" />
 
         <div>
-<<<<<<< HEAD
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a href="/auth/google">{displayName} with Google</a>
-    </div>
-=======
           <Button type="submit">{displayName}</Button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
     </Segment>
->>>>>>> master
   );
 };
 
