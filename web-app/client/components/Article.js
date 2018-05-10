@@ -1,34 +1,27 @@
 // Single Article Page Component (i.e. where article a user reads an article)
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchArticle, postCachedInteractions } from '../store';
+import { fetchArticle } from '../store';
 import reactHtmlParser from 'react-html-parser';
-import { Container, Header } from 'semantic-ui-react';
+import { Header } from 'semantic-ui-react';
 import {
-  localInteractionsExist,
   getLocalInteractions,
-  setLocalInteractions,
-  getLastMemberOf
+  addInteractionToLocalStorage,
+  updateLastInteractionEndTime
 } from '../utils/helperFuncs';
 
 class Article extends Component {
   constructor (props) {
     super(props);
     this.updateInterval = null;
-    this.addInteractionToLocalStorage = this.addInteractionToLocalStorage.bind(
-      this
-    );
-    this.updateLastInteractionEndTime = this.updateLastInteractionEndTime.bind(
-      this
-    );
   }
 
   componentDidMount () {
     this.props.fetchArticle();
-    this.addInteractionToLocalStorage();
+    addInteractionToLocalStorage(this.props.match.params.id); // articleId. Cannot use article.id because "article" as a prop from Redux is not yet available.
     this.updateLastInteractionIntervalID = setInterval(
-      this.updateLastInteractionEndTime,
+      updateLastInteractionEndTime,
       1000
     );
   }
@@ -36,36 +29,6 @@ class Article extends Component {
   componentWillUnmount () {
     clearInterval(this.updateLastInteractionIntervalID);
     this.props.transferLocalStorageToDb(getLocalInteractions());
-  }
-
-  addInteractionToLocalStorage () {
-    const newInteraction = {
-      articleId: Number(this.props.match.params.id),
-      startTime: new Date(),
-      endTime: new Date()
-    };
-    if (localInteractionsExist()) {
-      const existingInteractions = getLocalInteractions();
-      setLocalInteractions(existingInteractions.concat(newInteraction));
-    } else {
-      setLocalInteractions([newInteraction]);
-    }
-  }
-
-  updateLastInteractionEndTime () {
-    if (localInteractionsExist()) {
-      const existingInteractions = getLocalInteractions();
-      const lastInteraction = getLastMemberOf(existingInteractions);
-      const updatedLastInteraction = Object.assign({}, lastInteraction, {
-        endTime: new Date()
-      });
-      const updatedInteractions =
-        lastInteraction.articleId === Number(this.props.match.params.id) &&
-        existingInteractions
-          .slice(0, existingInteractions.length - 1)
-          .concat(updatedLastInteraction);
-      setLocalInteractions(updatedInteractions);
-    }
   }
 
   render () {
