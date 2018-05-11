@@ -25,7 +25,6 @@ class ArticleCard extends Component {
         link
       >
         <Image
-          // src="http://fillmurray.com/200/200"
           style={{ backgroundImage: `url(http://fillmurray.com/300/200)` }}
           className="article-card-image"
           as={Link}
