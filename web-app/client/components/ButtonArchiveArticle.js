@@ -1,19 +1,31 @@
 import React from 'react';
 import { Icon } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { putArticleStatus } from '../store';
 
 /**
  * COMPONENT
  */
 
-const ButtonArchiveArticle = () => {
+const ButtonArchiveArticle = props => {
+  const { articleId, handleArchiveArticle } = props;
+
   return (
     <Icon
       name="archive"
       size="large"
-      onClick={() => console.log('click')}
+      onClick={() => handleArchiveArticle(articleId)}
       link
     />
   );
 };
 
-export default ButtonArchiveArticle;
+const mapDispatchToProps = dispatch => {
+  return {
+    handleArchiveArticle: articleId => {
+      dispatch(putArticleStatus(articleId, 'archive'));
+    }
+  };
+};
+
+export default connect(null, mapDispatchToProps)(ButtonArchiveArticle);

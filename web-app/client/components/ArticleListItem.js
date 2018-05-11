@@ -34,9 +34,9 @@ class ArticleListItem extends Component {
           {this.state.hover && (
             <React.Fragment>
               {type === 'my-list' ? (
-                <ButtonArchiveArticle />
+                <ButtonArchiveArticle articleId={articleId} />
               ) : (
-                <ButtonMyListArticle />
+                <ButtonMyListArticle articleId={articleId} />
               )}
               <ButtonDeleteArticle articleId={articleId} />
             </React.Fragment>

@@ -6,6 +6,7 @@ import history from '../history';
  */
 const GET_ARTICLES = 'GET_ARTICLES';
 const ADD_ARTICLE = 'ADD_ARTICLE';
+const UPDATE_ARTICLE_STATUS = 'UPDATE_ARTICLE_STATUS';
 const REMOVE_ARTICLE = 'REMOVE_ARTICLE';
 
 /**
@@ -13,6 +14,11 @@ const REMOVE_ARTICLE = 'REMOVE_ARTICLE';
  */
 const getArticles = articles => ({ type: GET_ARTICLES, articles });
 const addArticle = article => ({ type: ADD_ARTICLE, article });
+const updateArticleStatus = (articleId, status) => ({
+  type: UPDATE_ARTICLE_STATUS,
+  articleId,
+  status
+});
 const removeArticle = articleId => ({ type: REMOVE_ARTICLE, articleId });
 
 /**
@@ -29,6 +35,13 @@ export const postNewArticle = articleUrl => dispatch => {
   axios
     .post('/api/articles', { articleUrl })
     .then(res => dispatch(addArticle(res.data)))
+    .catch(err => console.log(err));
+};
+
+export const putArticleStatus = (articleId, status) => dispatch => {
+  axios
+    .put(`/api/articles/${articleId}`, { status })
+    .then(res => dispatch(updateArticleStatus(res.data.id, res.data.status)))
     .catch(err => console.log(err));
 };
 
