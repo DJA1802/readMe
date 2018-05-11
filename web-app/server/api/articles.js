@@ -8,10 +8,9 @@ const { Article, Author } = require('../db/models');
 // GET /api/articles
 router.get('/', (req, res, next) => {
   const userId = req.user.id;
-  const status = req.query.status;
 
   Article.findAll({
-    where: { userId, status },
+    where: { userId },
     include: [
       {
         model: Author
@@ -63,5 +62,12 @@ router.get('/:id', (req, res, next) => {
     ]
   })
     .then(article => res.json(article))
+    .catch(next);
+});
+
+router.delete('/:id', (req, res, next) => {
+  Article.findById(req.params.id)
+    .then(article => article.destroy())
+    .then(() => res.sendStatus(204))
     .catch(next);
 });

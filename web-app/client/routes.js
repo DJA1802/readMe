@@ -12,12 +12,7 @@ import {
   Signup,
   UserHome
 } from './components';
-import {
-  fetchMyListArticles,
-  fetchArchiveArticles,
-  me,
-  postCachedInteractions
-} from './store';
+import { fetchArticles, me, postCachedInteractions } from './store';
 import {
   localInteractionsExist,
   getLocalInteractions
@@ -132,8 +127,7 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData () {
       dispatch(me());
-      dispatch(fetchMyListArticles());
-      dispatch(fetchArchiveArticles());
+      dispatch(fetchArticles());
     },
     transferLocalStorageToDb (interactions) {
       dispatch(postCachedInteractions({ interactions }));

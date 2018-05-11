@@ -16,7 +16,8 @@ const Home = props => {
 
 const mapStateToProps = state => {
   return {
-    threeMostRecentArticles: state.articlesMyList
+    threeMostRecentArticles: state.articlesAll
+      .filter(article => article.status === 'my-list')
       .sort((articleA, articleB) => {
         return new Date(articleB.updatedAt) - new Date(articleA.updatedAt);
       })
