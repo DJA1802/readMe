@@ -14,7 +14,7 @@ router.post('/login', (req, res, next) => {
       } else {
         req.login(user, err => (err ? next(err) : res.json(user)));
       }
-    })
+    }) //.then(() => res.redirect(originalArticleUrl))
     .catch(next);
 });
 

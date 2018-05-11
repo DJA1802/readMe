@@ -46,7 +46,11 @@ router.post('/', (req, res, next) => {
       content: data.content,
       wordCount: data.wordCount,
       publicationDate: data.publicationDate,
+<<<<<<< HEAD
       userId
+=======
+      userId: req.user.id
+>>>>>>> master
     })
       .then(newArticle => res.status(201).json(newArticle))
       .catch(next);
