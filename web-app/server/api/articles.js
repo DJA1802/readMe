@@ -65,3 +65,15 @@ router.get('/:id', (req, res, next) => {
     .then(article => res.json(article))
     .catch(next);
 });
+
+router.delete('/:id', (req, res, next) => {
+  Article.findById(req.params.id, {
+    include: [
+      {
+        model: Author
+      }
+    ]
+  })
+    .then(article => res.json(article))
+    .catch(next);
+});
