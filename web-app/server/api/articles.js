@@ -67,13 +67,11 @@ router.get('/:id', (req, res, next) => {
 });
 
 router.delete('/:id', (req, res, next) => {
-  Article.findById(req.params.id, {
-    include: [
-      {
-        model: Author
-      }
-    ]
-  })
-    .then(article => res.json(article))
+  Article.findById(req.params.id)
+    .then(article => article.destroy())
+    .then(whatdis => {
+      console.log(whatdis);
+      res.json(whatdis);
+    })
     .catch(next);
 });
