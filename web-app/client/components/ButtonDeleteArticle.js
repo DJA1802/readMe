@@ -21,7 +21,11 @@ const ButtonDeleteArticle = props => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleDeleteArticle: articleId => dispatch(deleteArticle(articleId))
+    handleDeleteArticle: articleId => {
+      if (confirm('Are you sure you want to delete this article?')) {
+        dispatch(deleteArticle(articleId));
+      }
+    }
   };
 };
 
