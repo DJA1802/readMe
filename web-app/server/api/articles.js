@@ -2,7 +2,7 @@ const router = require('express').Router();
 module.exports = router;
 
 const request = require('request');
-const MERCURY_API_KEY = require('../../secrets');
+const MERCURY_API_KEY = process.env.MERCURY_API_KEY;
 const { Article, Author } = require('../db/models');
 
 // GET /api/articles
