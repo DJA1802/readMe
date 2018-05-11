@@ -3,13 +3,13 @@ import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import articlesAll from './articlesAll';
-import article from './article';
+import articleSingle from './articleSingle';
 import navbar from './navbar';
 import user from './user';
 
 const reducer = combineReducers({
   articlesAll,
-  article,
+  articleSingle,
   navbar,
   user
 });
@@ -21,6 +21,6 @@ const store = createStore(reducer, middleware);
 
 export default store;
 export * from './articlesAll';
-export * from './article';
+export * from './articleSingle';
 export * from './navbar';
 export * from './user';

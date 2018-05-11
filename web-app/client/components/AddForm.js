@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Header, Input } from 'semantic-ui-react';
+import { postNewArticle } from '../store';
 
 /**
  * COMPONENT
@@ -27,7 +28,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleSubmit: null
+    handleSubmit: evt => {
+      evt.preventDefault();
+      dispatch(postNewArticle(evt.target.url.value));
+    }
   };
 };
 
