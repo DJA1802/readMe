@@ -22,11 +22,15 @@ export const fetchAllArticles = () => dispatch =>
     .then(res => dispatch(getAllArticles(res.data)))
     .catch(err => console.log(err));
 
-export const postNewArticle = articleUrl => dispatch =>
+export const postNewArticle = articleUrl => dispatch => {
+  history.push('/home');
   axios
     .post('/api/articles', { articleUrl })
-    .then(res => dispatch(addNewArticle(res.data)))
+    .then(res => {
+      dispatch(addNewArticle(res.data));
+    })
     .catch(err => console.log(err));
+};
 
 /**
  * REDUCER

@@ -4,7 +4,8 @@
  * having to figure out which file they belong to!
  */
 
-export { default as AddForm } from './AddForm';
+export { default as AddArticleButton } from './AddArticleButton';
+export { default as AddArticleForm } from './AddArticleForm';
 export { default as Analytics } from './Analytics';
 export { default as AnalyticsFeatured } from './AnalyticsFeatured';
 export { default as Article } from './Article';
