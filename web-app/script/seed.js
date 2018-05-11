@@ -65,6 +65,7 @@ async function seed () {
   await publication.setDefaultTopic(1);
 
   const article1 = await Article.create({
+    userId: user1.id,
     title: 'The Maraschino Mogul’s Secret Life',
     sourceUrl:
       'https://www.newyorker.com/magazine/2018/04/23/the-maraschino-moguls-secret-life',
@@ -74,13 +75,13 @@ async function seed () {
     wordCount: 6251
   });
 
-  await article1.setUser(user1.id);
   await article1.setAuthor(author1.id);
   await article1.setPublication(publication.id);
   await article1.setTopic(topics[0].id);
   await article1.setTags(tags);
 
   const article2 = await Article.create({
+    userId: user2.id,
     title: 'The Art of Longform',
     sourceUrl: 'https://www.ribbonfarm.com/2018/05/03/the-art-of-longform/',
     status: 'my-list',
@@ -89,7 +90,6 @@ async function seed () {
     wordCount: 728
   });
 
-  await article2.setUser(user2.id);
   await article2.setAuthor(author2.id);
   await article2.setPublication(publication.id);
   await article2.setTopic(topics[12].id);
