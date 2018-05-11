@@ -8,10 +8,9 @@ const { Article, Author } = require('../db/models');
 // GET /api/articles
 router.get('/', (req, res, next) => {
   const userId = req.user.id;
-  const status = req.query.status;
 
   Article.findAll({
-    where: { userId, status },
+    where: { userId },
     include: [
       {
         model: Author

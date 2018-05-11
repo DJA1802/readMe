@@ -28,7 +28,9 @@ const ArticleList = props => {
 const mapStateToProps = (state, ownProps) => {
   return {
     articles:
-      ownProps.type === 'my-list' ? state.articlesMyList : state.articlesArchive
+      ownProps.type === 'my-list'
+        ? state.articlesAll.filter(article => article.status === 'my-list')
+        : state.articlesAll.filter(article => article.status === 'archive')
   };
 };
 
