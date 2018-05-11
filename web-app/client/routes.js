@@ -12,7 +12,11 @@ import {
   Signup,
   UserHome
 } from './components';
-import { me } from './store';
+import { me, postCachedInteractions } from './store';
+import {
+  localInteractionsExist,
+  getLocalInteractions
+} from './utils/helperFuncs';
 
 /**
  * COMPONENT
@@ -20,6 +24,10 @@ import { me } from './store';
 class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData();
+    if (localInteractionsExist()) {
+      let interactions = getLocalInteractions();
+      this.props.transferLocalStorageToDb(interactions);
+    }
   }
 
   render () {
@@ -29,7 +37,15 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         {isLoggedIn ? (
-          <Route exact path="/" component={Home} />
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <PageContainer>
+                <Home />
+              </PageContainer>
+            )}
+          />
         ) : (
           <Route exact path="/" component={Login} />
         )}
@@ -79,7 +95,14 @@ class Routes extends Component {
                 </PageContainer>
               )}
             />
-            <Route path="/articles/:id" component={Article} />
+            <Route
+              path="/articles/:id"
+              render={() => (
+                <Article
+                  transferLocalStorageToDb={this.props.transferLocalStorageToDb}
+                />
+              )}
+            />
           </Switch>
         )}
         {/* Displays our Home component as a fallback */}
@@ -104,6 +127,9 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData () {
       dispatch(me());
+    },
+    transferLocalStorageToDb (interactions) {
+      dispatch(postCachedInteractions({ interactions }));
     }
   };
 };
