@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { Icon, List } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { ButtonArchiveArticle, ButtonDeleteArticle } from '.';
+import {
+  ButtonArchiveArticle,
+  ButtonDeleteArticle,
+  ButtonMyListArticle
+} from '.';
 
 class ArticleListItem extends Component {
   state = { hover: false };
@@ -15,7 +19,7 @@ class ArticleListItem extends Component {
   };
 
   render () {
-    const { articleId, title } = this.props;
+    const { articleId, title, type } = this.props;
     return (
       <List.Item
         className="article-list-item"
@@ -29,7 +33,11 @@ class ArticleListItem extends Component {
         <List.Content className="list-icon-container">
           {this.state.hover && (
             <React.Fragment>
-              <ButtonArchiveArticle />
+              {type === 'my-list' ? (
+                <ButtonArchiveArticle />
+              ) : (
+                <ButtonMyListArticle />
+              )}
               <ButtonDeleteArticle />
             </React.Fragment>
           )}

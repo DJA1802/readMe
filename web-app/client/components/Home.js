@@ -1,30 +1,22 @@
-// Single Article Page Component (i.e. where article is read from)
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { AnalyticsFeatured, ArticleCardList } from '.';
-import { fetchAllArticles } from '../store';
 
-class Home extends Component {
-  componentDidMount () {
-    this.props.getAllArticles();
-  }
-
-  render () {
-    return (
-      <React.Fragment>
-        <ArticleCardList
-          articles={this.props.threeMostRecentArticles}
-          className="article-card-list"
-        />
-        <AnalyticsFeatured />
-      </React.Fragment>
-    );
-  }
-}
+const Home = props => {
+  return (
+    <React.Fragment>
+      <ArticleCardList
+        articles={props.threeMostRecentArticles}
+        className="article-card-list"
+      />
+      <AnalyticsFeatured />
+    </React.Fragment>
+  );
+};
 
 const mapStateToProps = state => {
   return {
-    threeMostRecentArticles: state.articlesAll
+    threeMostRecentArticles: state.articlesMyList
       .sort((articleA, articleB) => {
         return new Date(articleB.updatedAt) - new Date(articleA.updatedAt);
       })
@@ -32,10 +24,4 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getAllArticles: () => dispatch(fetchAllArticles())
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps)(Home);

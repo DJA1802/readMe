@@ -7,7 +7,11 @@ const { Article, Author } = require('../db/models');
 
 // GET /api/articles
 router.get('/', (req, res, next) => {
+  const userId = req.user.id;
+  const status = req.query.status;
+
   Article.findAll({
+    where: { userId, status },
     include: [
       {
         model: Author
@@ -21,8 +25,7 @@ router.get('/', (req, res, next) => {
 // POST /api/articles
 router.post('/', (req, res, next) => {
   const { articleUrl } = req.body;
-  console.log('req.body: ', req.body);
-  console.log('articleUrl: ', articleUrl);
+  const userId = req.user.id;
 
   const mercuryRequestOptions = {
     url: `https://mercury.postlight.com/parser?url=${articleUrl}`,
@@ -43,7 +46,7 @@ router.post('/', (req, res, next) => {
       content: data.content,
       wordCount: data.wordCount,
       publicationDate: data.publicationDate,
-      userId: req.user.id
+      userId
     })
       .then(newArticle => res.status(201).json(newArticle))
       .catch(next);

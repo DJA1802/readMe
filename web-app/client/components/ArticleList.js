@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { Header, List, Segment } from 'semantic-ui-react';
 
 const ArticleList = props => {
-  const { articles, title } = props;
+  const { articles, type } = props;
+  const title = type === 'my-list' ? 'My List' : 'Archive';
   return (
     <div className="article-list-container">
       <Header as="h1">{title}</Header>
@@ -16,6 +17,7 @@ const ArticleList = props => {
               key={article.id}
               articleId={article.id}
               title={article.title}
+              type={type}
             />
           ))}
       </List>
@@ -23,9 +25,10 @@ const ArticleList = props => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    articles: state.articlesAll
+    articles:
+      ownProps.type === 'my-list' ? state.articlesMyList : state.articlesArchive
   };
 };
 

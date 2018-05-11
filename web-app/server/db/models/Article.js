@@ -22,6 +22,15 @@ const Article = db.define('article', {
   },
   wordCount: {
     type: Sequelize.INTEGER
+  },
+  status: {
+    type: Sequelize.ENUM('my-list', 'archive'),
+    allowNull: false,
+    defaultValue: 'my-list'
+  },
+  userId: {
+    type: Sequelize.INTEGER,
+    allowNull: false
   }
 });
 

@@ -12,7 +12,12 @@ import {
   Signup,
   UserHome
 } from './components';
-import { me, postCachedInteractions } from './store';
+import {
+  fetchMyListArticles,
+  fetchArchiveArticles,
+  me,
+  postCachedInteractions
+} from './store';
 import {
   localInteractionsExist,
   getLocalInteractions
@@ -75,7 +80,7 @@ class Routes extends Component {
               path="/articles"
               render={() => (
                 <PageContainer>
-                  <ArticleList title="Unread Articles" />
+                  <ArticleList type="my-list" />
                 </PageContainer>
               )}
             />
@@ -83,7 +88,7 @@ class Routes extends Component {
               path="/archive"
               render={() => (
                 <PageContainer>
-                  <ArticleList title="Archive" />
+                  <ArticleList type="archive" />
                 </PageContainer>
               )}
             />
@@ -127,6 +132,8 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData () {
       dispatch(me());
+      dispatch(fetchMyListArticles());
+      dispatch(fetchArchiveArticles());
     },
     transferLocalStorageToDb (interactions) {
       dispatch(postCachedInteractions({ interactions }));
