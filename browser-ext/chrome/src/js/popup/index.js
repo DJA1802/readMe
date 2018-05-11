@@ -4,12 +4,7 @@ import AuthForm from './AuthForm';
 import SaveButton from './SaveButton';
 
 const Popup = () => {
-  return (
-    <div>
-      <AuthForm />
-      <SaveButton />
-    </div>
-  );
+  return <div />;
 };
 
 export default hot(module)(Popup);

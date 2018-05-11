@@ -7,13 +7,9 @@ const fulfillSave = (articleUrl, tab) => {
   axios
     .post('http://localhost:8080/api/articles', { articleUrl })
     .then(() => {
-      console.log('request posted');
       // Create "Saved Article" notification
       chrome.notifications.getPermissionLevel(level => {
-        if (level === 'denied') {
-          console.log('Browser notification permission denied');
-        } else {
-          console.log('Creating notification!');
+        if (level === 'granted') {
           const notificationIcon = tab.favIconUrl
             ? tab.favIconUrl
             : 'icon-34.png';
@@ -26,7 +22,7 @@ const fulfillSave = (articleUrl, tab) => {
               message: `Saved "${notificationName}"`,
               eventTime: 5000
             },
-            () => console.log('notification saved for articleUrl', articleUrl)
+            () => {}
           );
         }
       });
@@ -43,22 +39,12 @@ chrome.browserAction.onClicked.addListener(tab => {
     })
     .then(data => {
       if (data.data) {
-        // logged in
-        console.log('User data ==>', data.data);
-        console.log('User is logged in.');
-        // Save article to this user's articles
+        // logged in - save article to this user's articles
         fulfillSave(articleUrl, tab);
       } else {
-        // not logged in
-        console.log('User is not logged in.');
-        // (B) redirect to login page
-        // chrome.windows.create({ // new popup window
-        //   url: 'http:/localhost:8080/auth/login',
-        //   type: 'popup',
-        //   focused: true
-        // });
+        // not logged in - redirect to login page
         chrome.tabs.create({ url: 'http://localhost:8080/auth/login' }); // new tab
-        // after successful login, go back to original url and fulfill (A)
+        // after successful login, go back to original url and fulfill
         // fulfillSave(articleUrl);
       }
     })
