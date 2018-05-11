@@ -11,13 +11,13 @@ const NavbarSideItems = ({ handleMenuClick }) => {
         <Icon name="newspaper" className="left" size="large" />
         My List
       </Menu.Item>
+      <Menu.Item as={Link} to="/analytics" onClick={handleMenuClick}>
+        <Icon name="bar graph" className="left" size="large" />
+        My Data
+      </Menu.Item>
       <Menu.Item as={Link} to="/archive" onClick={handleMenuClick}>
         <Icon name="archive" className="left" size="large" />
         Archive
-      </Menu.Item>
-      <Menu.Item as={Link} to="/analytics" onClick={handleMenuClick}>
-        <Icon name="pie graph" className="left" size="large" />
-        Analytics
       </Menu.Item>
     </div>
   );

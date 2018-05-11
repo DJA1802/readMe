@@ -2,7 +2,7 @@ const router = require('express').Router();
 module.exports = router;
 
 const request = require('request');
-const MERCURY_API_KEY = require('../../secrets');
+const MERCURY_API_KEY = process.env.MERCURY_API_KEY;
 const { Article, Author } = require('../db/models');
 
 // GET /api/articles
@@ -21,6 +21,8 @@ router.get('/', (req, res, next) => {
 // POST /api/articles
 router.post('/', (req, res, next) => {
   const { articleUrl } = req.body;
+  console.log('req.body: ', req.body);
+  console.log('articleUrl: ', articleUrl);
 
   const mercuryRequestOptions = {
     url: `https://mercury.postlight.com/parser?url=${articleUrl}`,
@@ -32,7 +34,9 @@ router.post('/', (req, res, next) => {
 
   // Make Mercury API request on URL received from Chrome extension
   request(mercuryRequestOptions, (apiErr, apiRes, apiBody) => {
+    if (apiErr) console.log(apiErr);
     const data = JSON.parse(apiBody);
+    console.log(data);
     Article.create({
       title: data.title,
       sourceUrl: data.url,

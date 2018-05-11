@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchArticle } from '../store';
+import { fetchArticle, clearArticle } from '../store';
 import reactHtmlParser from 'react-html-parser';
 import { Header } from 'semantic-ui-react';
 import {
@@ -18,7 +18,7 @@ class Article extends Component {
   }
 
   componentDidMount () {
-    this.props.fetchArticle();
+    this.props.handleFetchArticle();
     addInteractionToLocalStorage(this.props.match.params.id); // articleId. Cannot use article.id because "article" as a prop from Redux is not yet available.
     this.updateLastInteractionIntervalID = setInterval(
       updateLastInteractionEndTime,
@@ -29,6 +29,7 @@ class Article extends Component {
   componentWillUnmount () {
     clearInterval(this.updateLastInteractionIntervalID);
     this.props.transferLocalStorageToDb(getLocalInteractions());
+    this.props.handleClearArticle();
   }
 
   render () {
@@ -42,40 +43,38 @@ class Article extends Component {
       timeZone: 'UTC'
     };
 
-    return (
-      article && (
-        <div className="single-article">
-          <Header as="h1">{title}</Header>
-          Originally from <a href={sourceUrl}>[publication name]</a>
-          <p className="article-author">
-            {' '}
-            {author ? `by ${author.name}` : null}
-          </p>
-          <p>
-            {publicationDate
-              ? `Date Published: ${new Date(publicationDate).toLocaleDateString(
-                  'en-US',
-                  dateOptions
-                )}`
-              : null}
-          </p>
-          {reactHtmlParser(content)}
-        </div>
-      )
+    return article ? (
+      <div className="single-article">
+        <Header as="h1">{title}</Header>
+        Originally from <a href={sourceUrl}>[publication name]</a>
+        <p className="article-author"> {author ? `by ${author.name}` : null}</p>
+        <p>
+          {publicationDate
+            ? `Date Published: ${new Date(publicationDate).toLocaleDateString(
+                'en-US',
+                dateOptions
+              )}`
+            : null}
+        </p>
+        {reactHtmlParser(content)}
+      </div>
+    ) : (
+      <p>Loading... </p>
     );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    article: state.article
+    article: state.articleSelected
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   const articleId = Number(ownProps.match.params.id);
   return {
-    fetchArticle: () => dispatch(fetchArticle(articleId))
+    handleFetchArticle: () => dispatch(fetchArticle(articleId)),
+    handleClearArticle: () => dispatch(clearArticle())
   };
 };
 

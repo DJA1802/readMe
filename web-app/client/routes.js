@@ -37,7 +37,15 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         {isLoggedIn ? (
-          <Route exact path="/" component={Home} />
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <PageContainer>
+                <Home />
+              </PageContainer>
+            )}
+          />
         ) : (
           <Route exact path="/" component={Login} />
         )}

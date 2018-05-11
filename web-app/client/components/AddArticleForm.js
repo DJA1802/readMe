@@ -1,11 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Header, Input } from 'semantic-ui-react';
+import { postNewArticle } from '../store';
 
 /**
  * COMPONENT
  */
-const AddForm = ({ handleSubmit }) => {
+
+// TODO -- add form validations
+
+const AddArticleForm = ({ handleSubmit }) => {
   return (
     <div id="add-form">
       <Header as="h4">Save an Article</Header>
@@ -25,10 +29,14 @@ const mapStateToProps = state => {
   return {};
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    handleSubmit: null
+    handleSubmit: evt => {
+      evt.preventDefault();
+      dispatch(postNewArticle(evt.target.url.value));
+      ownProps.handleClose();
+    }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddForm);
+export default connect(mapStateToProps, mapDispatchToProps)(AddArticleForm);
