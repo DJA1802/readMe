@@ -36,7 +36,7 @@ class ArticleCard extends Component {
           {this.state.hover && (
             <React.Fragment>
               <ButtonArchiveArticle />
-              <ButtonDeleteArticle />
+              <ButtonDeleteArticle articleId={articleId} />
             </React.Fragment>
           )}
         </Card.Content>

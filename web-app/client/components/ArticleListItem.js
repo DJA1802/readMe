@@ -38,7 +38,7 @@ class ArticleListItem extends Component {
               ) : (
                 <ButtonMyListArticle />
               )}
-              <ButtonDeleteArticle />
+              <ButtonDeleteArticle articleId={articleId} />
             </React.Fragment>
           )}
         </List.Content>
