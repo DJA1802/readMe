@@ -25,7 +25,8 @@ const Article = db.define('article', {
   },
   status: {
     type: Sequelize.ENUM('my-list', 'archive'),
-    allowNull: false
+    allowNull: false,
+    defaultValue: 'my-list'
   }
 });
 

@@ -46,7 +46,6 @@ router.post('/', (req, res, next) => {
       content: data.content,
       wordCount: data.wordCount,
       publicationDate: data.publicationDate,
-      status: 'my-list',
       userId
     })
       .then(newArticle => res.status(201).json(newArticle))
