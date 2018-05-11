@@ -11,10 +11,16 @@
   "icons": {
     "128": "icon-128.png"
   },
-  "permissions": ["tabs", "activeTab", "cookies", "http://localhost:8080/"],
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "notifications",
+    "cookies",
+    "http://localhost:8080/"
+  ],
   "content_scripts": [
     {
-      "matches": ["http://*/*"],
+      "matches": ["http://*/*", "https://*/*"],
       "js": ["contentscript.bundle.js"]
     }
   ],

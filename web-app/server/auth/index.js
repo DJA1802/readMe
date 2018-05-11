@@ -13,9 +13,8 @@ router.post('/login', (req, res, next) => {
         res.status(401).send('Wrong username and/or password');
       } else {
         req.login(user, err => (err ? next(err) : res.json(user)));
-        // res.redirect(originalArticleUrl);
       }
-    })
+    }) //.then(() => res.redirect(originalArticleUrl))
     .catch(next);
 });
 
