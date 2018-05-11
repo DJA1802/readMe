@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Icon, Image } from 'semantic-ui-react';
+import { Card, Image } from 'semantic-ui-react';
+import { ButtonArchiveArticle, ButtonDeleteArticle } from '.';
 
 class ArticleCard extends Component {
   state = { hover: false };
 
   handleMouseEnter = () => {
-    console.log('mouse enter!');
     this.setState({ hover: true });
   };
 
   handleMouseLeave = () => {
-    console.log('mouse leave!');
     this.setState({ hover: false });
   };
 
@@ -37,18 +36,8 @@ class ArticleCard extends Component {
         <Card.Content extra className="card-icon-container">
           {this.state.hover && (
             <React.Fragment>
-              <Icon
-                name="archive"
-                size="large"
-                onClick={() => console.log('click')}
-                link
-              />
-              <Icon
-                name="trash outline"
-                size="large"
-                onClick={() => console.log('click')}
-                link
-              />
+              <ButtonArchiveArticle />
+              <ButtonDeleteArticle />
             </React.Fragment>
           )}
         </Card.Content>

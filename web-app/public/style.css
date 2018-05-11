@@ -94,7 +94,13 @@ form div {
 
 .article-list-item {
   padding: 15px !important;
+  height: 60px;
 }
+
+.list-icon-container {
+  text-align: right;
+}
+
 /* END STYLES FOR ARTICLE LIST --------------------------------*/
 /*-------------------------------------------------------------*/
 
