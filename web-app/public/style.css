@@ -94,8 +94,26 @@ form div {
 
 .article-list-item {
   padding: 15px !important;
+  height: 60px;
 }
+
+.list-icon-container {
+  text-align: right;
+}
+
 /* END STYLES FOR ARTICLE LIST --------------------------------*/
+/*-------------------------------------------------------------*/
+
+/* STYLES FOR ARTICLE CARDS -----------------------------------*/
+.card-icon-container {
+  height: 50px;
+  text-align: right;
+}
+
+.article-card-image {
+  height: 200px;
+}
+/* END STYLES FOR ARTICLE CARDS --------------------------------*/
 /*-------------------------------------------------------------*/
 
 /* STYLES FOR SINGLE ARTICLE VIEW ----------------------------*/

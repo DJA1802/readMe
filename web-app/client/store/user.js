@@ -1,11 +1,13 @@
 import axios from 'axios';
 import history from '../history';
+import { clearLocalInteractions } from '../utils/helperFuncs';
 
 /**
  * ACTION TYPES
  */
 const GET_USER = 'GET_USER';
 const REMOVE_USER = 'REMOVE_USER';
+const POST_CACHED_INTERACTIONS = 'POST_CACHED_INTERACTIONS';
 
 /**
  * INITIAL STATE
@@ -17,6 +19,7 @@ const defaultUser = {};
  */
 const getUser = user => ({ type: GET_USER, user });
 const removeUser = () => ({ type: REMOVE_USER });
+const acPostCachedInteractions = () => ({ type: POST_CACHED_INTERACTIONS });
 
 /**
  * THUNK CREATORS
@@ -48,6 +51,15 @@ export const logout = () => dispatch =>
     .then(_ => {
       dispatch(removeUser());
       history.push('/login');
+    })
+    .catch(err => console.log(err));
+
+export const postCachedInteractions = interactions => dispatch =>
+  axios
+    .post('/api/interactions', interactions)
+    .then(_ => {
+      dispatch(acPostCachedInteractions());
+      clearLocalInteractions();
     })
     .catch(err => console.log(err));
 
