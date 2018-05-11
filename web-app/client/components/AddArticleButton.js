@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Icon, Menu, Popup } from 'semantic-ui-react';
 import { AddArticleForm } from '.';
 
 /**
  * COMPONENT
  */
-class AddArticleButton extends Component {
+export default class AddArticleButton extends Component {
   state = { isOpen: false };
 
   handleOpen = () => {
@@ -38,16 +37,3 @@ class AddArticleButton extends Component {
     );
   }
 }
-
-/**
- * CONTAINER
- */
-const mapStateToProps = state => {
-  return {};
-};
-
-const mapDispatchToProps = dispatch => {
-  return {};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddArticleButton);
