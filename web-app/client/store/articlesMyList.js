@@ -4,22 +4,22 @@ import history from '../history';
 /**
  * ACTION TYPES
  */
-const GET_ALL_ARTICLES = 'GET_ALL_ARTICLES';
+const GET_MYLIST_ARTICLES = 'GET_MYLIST_ARTICLES';
 const ADD_NEW_ARTICLE = 'ADD_NEW_ARTICLE';
 
 /**
  * ACTION CREATORS
  */
-const getAllArticles = articles => ({ type: GET_ALL_ARTICLES, articles });
+const getMyListArticles = articles => ({ type: GET_MYLIST_ARTICLES, articles });
 const addNewArticle = article => ({ type: ADD_NEW_ARTICLE, article });
 
 /**
  * THUNKS
  */
-export const fetchAllArticles = () => dispatch =>
+export const fetchMyListArticles = () => dispatch =>
   axios
-    .get('/api/articles')
-    .then(res => dispatch(getAllArticles(res.data)))
+    .get('/api/articles?status=my-list')
+    .then(res => dispatch(getMyListArticles(res.data)))
     .catch(err => console.log(err));
 
 export const postNewArticle = articleUrl => dispatch => {
@@ -38,7 +38,7 @@ export const postNewArticle = articleUrl => dispatch => {
 
 export default function (state = [], action) {
   switch (action.type) {
-    case GET_ALL_ARTICLES:
+    case GET_MYLIST_ARTICLES:
       return action.articles;
     case ADD_NEW_ARTICLE:
       return [...state, action.article];

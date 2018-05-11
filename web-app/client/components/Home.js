@@ -2,11 +2,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AnalyticsFeatured, ArticleCardList } from '.';
-import { fetchAllArticles } from '../store';
+import { fetchMyListArticles } from '../store';
 
 class Home extends Component {
   componentDidMount () {
-    this.props.getAllArticles();
+    this.props.handleFetchMyListArticles();
   }
 
   render () {
@@ -24,7 +24,7 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-    threeMostRecentArticles: state.articlesAll
+    threeMostRecentArticles: state.articlesMyList
       .sort((articleA, articleB) => {
         return new Date(articleB.updatedAt) - new Date(articleA.updatedAt);
       })
@@ -34,7 +34,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getAllArticles: () => dispatch(fetchAllArticles())
+    handleFetchMyListArticles: () => dispatch(fetchMyListArticles())
   };
 };
 

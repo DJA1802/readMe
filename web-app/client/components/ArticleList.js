@@ -25,7 +25,7 @@ const ArticleList = props => {
 
 const mapStateToProps = state => {
   return {
-    articles: state.articlesAll
+    articles: state.articlesMyList
   };
 };
 
