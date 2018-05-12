@@ -4,7 +4,7 @@ module.exports = router;
 const request = require('request-promise-native');
 const MERCURY_API_KEY = process.env.MERCURY_API_KEY;
 const { Article, Author } = require('../db/models');
-const { getPublicationName } = require('../utils');
+const { getPublicationName, getCookieDomain } = require('../utils');
 
 // GET /api/articles
 router.get('/', (req, res, next) => {
@@ -38,12 +38,14 @@ router.post('/', (req, res, next) => {
 
   request({ url: articleUrl }, (htmlErr, htmlRes, htmlStr) => {
     if (htmlErr) console.log(htmlErr);
-    const publication = getPublicationName(htmlStr);
-    console.log('publication: ', publication);
-    console.log('htmlRes: ', htmlRes);
-    return publication;
-  }).then(publication => {
+    const publication1 = getPublicationName(htmlStr)
+      ? getPublicationName(htmlStr)
+      : getCookieDomain(htmlRes.headers['set-cookie'][0]);
+    console.log('publication1: ', publication1);
+    return publication1;
+  }).then(publication2 => {
     // Make Mercury API request on URL received from Chrome extension
+    //console.log('publication2: ', publication2);
     request(mercuryRequestOptions, (apiErr, apiRes, apiBody) => {
       if (apiErr) console.log(apiErr);
       const data = JSON.parse(apiBody);
