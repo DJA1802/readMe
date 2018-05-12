@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
+const sanitizeHTML = require('sanitize-html');
 
 const Article = db.define('article', {
   title: {
@@ -15,7 +16,10 @@ const Article = db.define('article', {
   },
   content: {
     type: Sequelize.TEXT,
-    allowNull: false
+    allowNull: false,
+    set () {
+      this.setDataValue('content', sanitizeHTML(this.getDataValue('content')));
+    }
   },
   publicationDate: {
     type: Sequelize.DATE
