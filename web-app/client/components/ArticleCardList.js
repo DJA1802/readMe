@@ -9,13 +9,12 @@ const ArticleCardList = props => {
       <Header as="h2">Recently-saved articles</Header>
       <Card.Group className="article-card-list">
         {props.articles.map(article => {
-          console.log('article.publication.name', article.publication.name);
           return (
             <ArticleCard
               key={article.id}
               articleId={article.id}
               title={article.title}
-              publicationName={article.publication.name}
+              publicationName={article.publication && article.publication.name}
             />
           );
         })}

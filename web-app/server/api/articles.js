@@ -52,6 +52,21 @@ router.post('/', (req, res, next) => {
             userId,
             publicationId: publication.id
           })
+            .then(newArticle =>
+              Article.findOne({
+                where: { id: newArticle.id },
+                attributes: [
+                  'id',
+                  'title',
+                  'sourceUrl',
+                  'status',
+                  'wordCount',
+                  'status',
+                  'createdAt'
+                ],
+                include: [{ model: Author }, { model: Publication }]
+              })
+            )
             .then(newArticle => res.status(201).json(newArticle))
             .catch(next);
         }

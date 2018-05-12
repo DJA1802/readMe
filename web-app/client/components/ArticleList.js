@@ -18,7 +18,7 @@ const ArticleList = props => {
               articleId={article.id}
               title={article.title}
               type={type}
-              publicationName={article.publication.name}
+              publicationName={article.publication && article.publication.name}
             />
           ))}
       </List>

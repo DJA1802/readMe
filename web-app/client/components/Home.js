@@ -19,7 +19,7 @@ const mapStateToProps = state => {
     threeMostRecentArticles: state.articlesAll
       .filter(article => article.status === 'my-list')
       .sort((articleA, articleB) => {
-        return new Date(articleB.updatedAt) - new Date(articleA.updatedAt);
+        return new Date(articleB.createdAt) - new Date(articleA.createdAt);
       })
       .slice(0, 3)
   };
