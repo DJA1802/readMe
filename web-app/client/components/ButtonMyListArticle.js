@@ -1,19 +1,31 @@
 import React from 'react';
-import { Icon } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { putArticleStatus } from '../store';
+import { ButtonIcon } from '.';
 
 /**
  * COMPONENT
  */
 
-const ButtonAddToMyListArticle = () => {
+const ButtonAddToMyListArticle = props => {
+  const { articleId, handleAddToMyListArticle } = props;
+
   return (
-    <Icon
-      name="newspaper"
-      size="large"
-      onClick={() => console.log('click')}
-      link
+    <ButtonIcon
+      articleId={articleId}
+      handleButtonClick={handleAddToMyListArticle}
+      iconName="newspaper"
+      popupLabel="My List"
     />
   );
 };
 
-export default ButtonAddToMyListArticle;
+const mapDispatchToProps = dispatch => {
+  return {
+    handleAddToMyListArticle: articleId => {
+      dispatch(putArticleStatus(articleId, 'my-list'));
+    }
+  };
+};
+
+export default connect(null, mapDispatchToProps)(ButtonAddToMyListArticle);

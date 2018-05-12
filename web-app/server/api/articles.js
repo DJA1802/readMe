@@ -65,6 +65,22 @@ router.get('/:id', (req, res, next) => {
     .catch(next);
 });
 
+router.put('/:id', (req, res, next) => {
+  const { status } = req.body;
+  const { id } = req.params;
+
+  Article.update(
+    { status },
+    {
+      where: { id },
+      returning: true,
+      plain: true
+    }
+  )
+    .then(article => res.json(article))
+    .catch(next);
+});
+
 router.delete('/:id', (req, res, next) => {
   Article.findById(req.params.id)
     .then(article => article.destroy())
