@@ -32,7 +32,7 @@ class ArticleCard extends Component {
         />
         <Card.Content header={title} as={Link} to={`/articles/${articleId}`} />
 
-        <Card.Content extra className="pub-extra">
+        <Card.Content extra className="card-extra">
           <div className="card-pubname">{publicationName}</div>
           {this.state.hover && (
             <div className="card-icon-container">

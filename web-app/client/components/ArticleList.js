@@ -18,6 +18,7 @@ const ArticleList = props => {
               articleId={article.id}
               title={article.title}
               type={type}
+              publicationName={article.publication.name}
             />
           ))}
       </List>

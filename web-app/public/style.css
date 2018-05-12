@@ -93,28 +93,42 @@ form div {
 }
 
 .article-list-item {
-  padding: 15px !important;
+  padding: 15px 15px 3px 15px !important;
+}
+
+.list-item-extra {
+  margin: 4px 0 0 0;
+  height: 25px;
+  display: flex;
+  justify-content: space-between;
+  color: gray;
+}
+
+.list-item-pubname {
+  flex: 3;
+  padding-top: 5px;
+  padding-left: 25px;
+  font-size: 0.9em;
 }
 
 .list-icon-container {
+  flex: 1;
   text-align: right;
-  margin: 4px 0 0 0;
-  height: 12px;
 }
 
 /* END STYLES FOR ARTICLE LIST --------------------------------*/
 /*-------------------------------------------------------------*/
 
 /* STYLES FOR ARTICLE CARDS -----------------------------------*/
+.card-extra {
+  display: flex;
+  justify-content: space-between;
+}
+
 .card-icon-container {
   height: 25px;
   flex: 1;
   text-align: right;
-}
-
-.pub-extra {
-  display: flex;
-  justify-content: space-between;
 }
 
 .card-pubName {
