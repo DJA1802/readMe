@@ -8,12 +8,17 @@ router.get('/', (req, res, next) => {
   const userId = req.user ? req.user.id : null;
   if (userId) {
     Article.findAll({
+      attributes: [
+        'id',
+        'title',
+        'sourceUrl',
+        'status',
+        'wordCount',
+        'status',
+        'createdAt'
+      ],
       where: { userId },
-      include: [
-        {
-          model: Author
-        }
-      ]
+      include: [{ model: Author }, { model: Publication }]
     })
       .then(articles => res.json(articles))
       .catch(next);
