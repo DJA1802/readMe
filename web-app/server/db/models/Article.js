@@ -16,10 +16,7 @@ const Article = db.define('article', {
   },
   content: {
     type: Sequelize.TEXT,
-    allowNull: false,
-    set () {
-      this.setDataValue('content', sanitizeHTML(this.getDataValue('content')));
-    }
+    allowNull: false
   },
   publicationDate: {
     type: Sequelize.DATE
@@ -36,6 +33,10 @@ const Article = db.define('article', {
     type: Sequelize.INTEGER,
     allowNull: false
   }
+});
+
+Article.beforeCreate(articleInstance => {
+  articleInstance.content = sanitizeHTML(articleInstance.content);
 });
 
 module.exports = Article;

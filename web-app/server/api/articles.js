@@ -38,7 +38,6 @@ router.post('/', (req, res, next) => {
   request(mercuryRequestOptions, (apiErr, apiRes, apiBody) => {
     if (apiErr) console.log(apiErr);
     const data = JSON.parse(apiBody);
-    console.log(data);
     Article.create({
       title: data.title,
       sourceUrl: data.url,
