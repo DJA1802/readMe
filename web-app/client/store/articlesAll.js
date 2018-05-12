@@ -14,10 +14,9 @@ const REMOVE_ARTICLE = 'REMOVE_ARTICLE';
  */
 const getArticles = articles => ({ type: GET_ARTICLES, articles });
 const addArticle = article => ({ type: ADD_ARTICLE, article });
-const updateArticleStatus = (articleId, status) => ({
+const updateArticleStatus = updatedArticle => ({
   type: UPDATE_ARTICLE_STATUS,
-  articleId,
-  status
+  updatedArticle
 });
 const removeArticle = articleId => ({ type: REMOVE_ARTICLE, articleId });
 
@@ -41,7 +40,10 @@ export const postNewArticle = articleUrl => dispatch => {
 export const putArticleStatus = (articleId, status) => dispatch => {
   axios
     .put(`/api/articles/${articleId}`, { status })
-    .then(res => dispatch(updateArticleStatus(res.data.id, res.data.status)))
+    .then(res => {
+      console.log('res from put request', res.data);
+      dispatch(updateArticleStatus(res.data[1]));
+    })
     .catch(err => console.log(err));
 };
 
@@ -68,6 +70,11 @@ export default function (state = [], action) {
       return action.articles;
     case ADD_ARTICLE:
       return [...state, action.article];
+    case UPDATE_ARTICLE_STATUS:
+      return [
+        ...state.filter(article => article.id !== action.updatedArticle.id),
+        action.updatedArticle
+      ];
     case REMOVE_ARTICLE:
       return state.filter(article => article.id !== action.articleId);
     default:

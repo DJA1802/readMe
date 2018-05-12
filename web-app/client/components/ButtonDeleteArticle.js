@@ -1,7 +1,7 @@
 import React from 'react';
-import { Icon } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { deleteArticle } from '../store';
+import { ButtonIcon } from '.';
 
 /**
  * COMPONENT
@@ -9,12 +9,13 @@ import { deleteArticle } from '../store';
 
 const ButtonDeleteArticle = props => {
   const { articleId, handleDeleteArticle } = props;
+
   return (
-    <Icon
-      size="large"
-      name="trash outline"
-      onClick={() => handleDeleteArticle(articleId)}
-      link
+    <ButtonIcon
+      articleId={articleId}
+      handleButtonClick={handleDeleteArticle}
+      iconName="trash outline"
+      popupLabel="Delete"
     />
   );
 };

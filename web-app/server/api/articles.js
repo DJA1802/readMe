@@ -67,14 +67,17 @@ router.get('/:id', (req, res, next) => {
 
 router.put('/:id', (req, res, next) => {
   const { status } = req.body;
-  const { id } = req.params.id;
+  const { id } = req.params;
+
   Article.update(
     { status },
     {
-      where: { id }
+      where: { id },
+      returning: true,
+      plain: true
     }
   )
-    .then(article => res.json({ id: article.id, status: article.status }))
+    .then(article => res.json(article))
     .catch(next);
 });
 

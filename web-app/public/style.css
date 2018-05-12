@@ -94,11 +94,12 @@ form div {
 
 .article-list-item {
   padding: 15px !important;
-  height: 60px;
 }
 
 .list-icon-container {
   text-align: right;
+  margin: 4px 0 0 0;
+  height: 12px;
 }
 
 /* END STYLES FOR ARTICLE LIST --------------------------------*/
