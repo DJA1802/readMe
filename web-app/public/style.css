@@ -107,8 +107,19 @@ form div {
 
 /* STYLES FOR ARTICLE CARDS -----------------------------------*/
 .card-icon-container {
-  height: 50px;
+  height: 25px;
+  flex: 1;
   text-align: right;
+}
+
+.pub-extra {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-pubName {
+  height: 30px;
+  flex: 3;
 }
 
 .article-card-image {

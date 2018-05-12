@@ -34,7 +34,14 @@ class Article extends Component {
 
   render () {
     const article = this.props.article;
-    const { title, sourceUrl, author, content, publicationDate } = article;
+    const {
+      title,
+      sourceUrl,
+      author,
+      content,
+      publication,
+      publicationDate
+    } = article;
     const dateOptions = {
       weekday: 'long',
       year: 'numeric',
@@ -46,7 +53,7 @@ class Article extends Component {
     return article ? (
       <div className="single-article">
         <Header as="h1">{title}</Header>
-        Originally from <a href={sourceUrl}>[publication name]</a>
+        {/* Originally from <a href={sourceUrl}>{publication.name}</a> */}
         <p className="article-author"> {author ? `by ${author.name}` : null}</p>
         <p>
           {publicationDate

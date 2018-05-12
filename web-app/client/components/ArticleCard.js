@@ -15,7 +15,7 @@ class ArticleCard extends Component {
   };
 
   render () {
-    const { articleId, title } = this.props;
+    const { articleId, publicationName, title } = this.props;
     return (
       <Card
         className="article-card"
@@ -32,12 +32,13 @@ class ArticleCard extends Component {
         />
         <Card.Content header={title} as={Link} to={`/articles/${articleId}`} />
 
-        <Card.Content extra className="card-icon-container">
+        <Card.Content extra className="pub-extra">
+          <div className="card-pubname">{publicationName}</div>
           {this.state.hover && (
-            <React.Fragment>
+            <div className="card-icon-container">
               <ButtonArchiveArticle articleId={articleId} />
               <ButtonDeleteArticle articleId={articleId} />
-            </React.Fragment>
+            </div>
           )}
         </Card.Content>
       </Card>
