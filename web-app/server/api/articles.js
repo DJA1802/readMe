@@ -1,24 +1,26 @@
 const router = require('express').Router();
 module.exports = router;
 
-const request = require('request');
+const request = require('request-promise-native');
 const MERCURY_API_KEY = process.env.MERCURY_API_KEY;
 const { Article, Author } = require('../db/models');
+const { getPublicationName } = require('../utils');
 
 // GET /api/articles
 router.get('/', (req, res, next) => {
-  const userId = req.user.id;
-
-  Article.findAll({
-    where: { userId },
-    include: [
-      {
-        model: Author
-      }
-    ]
-  })
-    .then(articles => res.json(articles))
-    .catch(next);
+  const userId = req.user ? req.user.id : null;
+  if (userId) {
+    Article.findAll({
+      where: { userId },
+      include: [
+        {
+          model: Author
+        }
+      ]
+    })
+      .then(articles => res.json(articles))
+      .catch(next);
+  }
 });
 
 // POST /api/articles
@@ -34,21 +36,28 @@ router.post('/', (req, res, next) => {
     }
   };
 
-  // Make Mercury API request on URL received from Chrome extension
-  request(mercuryRequestOptions, (apiErr, apiRes, apiBody) => {
-    if (apiErr) console.log(apiErr);
-    const data = JSON.parse(apiBody);
-    console.log(data);
-    Article.create({
-      title: data.title,
-      sourceUrl: data.url,
-      content: data.content,
-      wordCount: data.wordCount,
-      publicationDate: data.publicationDate,
-      userId
-    })
-      .then(newArticle => res.status(201).json(newArticle))
-      .catch(next);
+  request({ url: articleUrl }, (htmlErr, htmlRes, htmlStr) => {
+    if (htmlErr) console.log(htmlErr);
+    const publication = getPublicationName(htmlStr);
+    console.log(publication);
+    console.log(htmlRes);
+    return publication;
+  }).then(publication => {
+    // Make Mercury API request on URL received from Chrome extension
+    request(mercuryRequestOptions, (apiErr, apiRes, apiBody) => {
+      if (apiErr) console.log(apiErr);
+      const data = JSON.parse(apiBody);
+      Article.create({
+        title: data.title,
+        sourceUrl: data.url,
+        content: data.content,
+        wordCount: data.wordCount,
+        publicationDate: data.publicationDate,
+        userId
+      })
+        .then(newArticle => res.status(201).json(newArticle))
+        .catch(next);
+    });
   });
 });
 
