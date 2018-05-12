@@ -1,5 +1,5 @@
 {
-  "name": "readMe",
+  "name": "readme",
   "version": "1.0.0",
   "description":
     "An application which allows users to save articles they wish to read later (via browser extension), and view analytics on their reading habits and preferences.",
