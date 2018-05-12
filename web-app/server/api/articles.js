@@ -1,10 +1,7 @@
 const router = require('express').Router();
-module.exports = router;
-
-const request = require('request-promise-native');
-const MERCURY_API_KEY = process.env.MERCURY_API_KEY;
+const request = require('request');
 const { Article, Author, Publication } = require('../db/models');
-const { setPublicationName } = require('../utils');
+const { setPublicationName, buildMercuryJSONRequest } = require('../utils');
 
 // GET /api/articles
 router.get('/', (req, res, next) => {
@@ -28,38 +25,32 @@ router.post('/', (req, res, next) => {
   const { articleUrl } = req.body;
   const userId = req.user.id;
 
-  const mercuryRequestOptions = {
-    url: `https://mercury.postlight.com/parser?url=${articleUrl}`,
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': MERCURY_API_KEY
-    }
-  };
-
   request({ url: articleUrl }, (htmlErr, htmlRes, htmlStr) => {
     if (htmlErr) console.log(htmlErr);
     const publicationName = setPublicationName(htmlStr, articleUrl);
-    console.log(publicationName);
     return Publication.findOrCreate({
       where: {
         name: publicationName
       }
     }).then(([publication]) => {
-      request(mercuryRequestOptions, (apiErr, apiRes, apiBody) => {
-        if (apiErr) console.log(apiErr);
-        const data = JSON.parse(apiBody);
-        Article.create({
-          title: data.title,
-          sourceUrl: data.url,
-          content: data.content,
-          wordCount: data.wordCount,
-          publicationDate: data.publicationDate,
-          userId,
-          publicationId: publication.id
-        })
-          .then(newArticle => res.status(201).json(newArticle))
-          .catch(next);
-      });
+      request(
+        buildMercuryJSONRequest(articleUrl),
+        (apiErr, apiRes, apiBody) => {
+          if (apiErr) console.log(apiErr);
+          const data = JSON.parse(apiBody);
+          Article.create({
+            title: data.title,
+            sourceUrl: data.url,
+            content: data.content,
+            wordCount: data.wordCount,
+            publicationDate: data.publicationDate,
+            userId,
+            publicationId: publication.id
+          })
+            .then(newArticle => res.status(201).json(newArticle))
+            .catch(next);
+        }
+      );
     });
   });
 });
@@ -99,3 +90,5 @@ router.delete('/:id', (req, res, next) => {
     .then(() => res.sendStatus(204))
     .catch(next);
 });
+
+module.exports = router;

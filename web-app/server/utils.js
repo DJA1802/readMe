@@ -1,3 +1,13 @@
+function buildMercuryJSONRequest (articleUrl) {
+  return {
+    url: `https://mercury.postlight.com/parser?url=${articleUrl}`,
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': process.env.MERCURY_API_KEY
+    }
+  };
+}
+
 function getPublicationName (htmlString) {
   const metaTagOgSiteName = '<meta property="og:site_name" content="';
   const metaTagAppName = '<meta name="application-name" content="';
@@ -34,4 +44,4 @@ function setPublicationName (htmlString, articleUrl) {
   }
 }
 
-module.exports = { setPublicationName };
+module.exports = { setPublicationName, buildMercuryJSONRequest };
