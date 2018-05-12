@@ -39,8 +39,8 @@ router.post('/', (req, res, next) => {
   request({ url: articleUrl }, (htmlErr, htmlRes, htmlStr) => {
     if (htmlErr) console.log(htmlErr);
     const publication = getPublicationName(htmlStr);
-    console.log(publication);
-    console.log(htmlRes);
+    console.log('publication: ', publication);
+    console.log('htmlRes: ', htmlRes);
     return publication;
   }).then(publication => {
     // Make Mercury API request on URL received from Chrome extension
