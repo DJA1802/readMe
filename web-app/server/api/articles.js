@@ -8,12 +8,17 @@ router.get('/', (req, res, next) => {
   const userId = req.user ? req.user.id : null;
   if (userId) {
     Article.findAll({
+      attributes: [
+        'id',
+        'title',
+        'sourceUrl',
+        'status',
+        'wordCount',
+        'status',
+        'createdAt'
+      ],
       where: { userId },
-      include: [
-        {
-          model: Author
-        }
-      ]
+      include: [{ model: Author }, { model: Publication }]
     })
       .then(articles => res.json(articles))
       .catch(next);
@@ -47,6 +52,21 @@ router.post('/', (req, res, next) => {
             userId,
             publicationId: publication.id
           })
+            .then(newArticle =>
+              Article.findOne({
+                where: { id: newArticle.id },
+                attributes: [
+                  'id',
+                  'title',
+                  'sourceUrl',
+                  'status',
+                  'wordCount',
+                  'status',
+                  'createdAt'
+                ],
+                include: [{ model: Author }, { model: Publication }]
+              })
+            )
             .then(newArticle => res.status(201).json(newArticle))
             .catch(next);
         }
@@ -58,11 +78,7 @@ router.post('/', (req, res, next) => {
 // GET /api/articles/:id
 router.get('/:id', (req, res, next) => {
   Article.findById(req.params.id, {
-    include: [
-      {
-        model: Author
-      }
-    ]
+    include: [{ model: Author }, { model: Publication }]
   })
     .then(article => res.json(article))
     .catch(next);
