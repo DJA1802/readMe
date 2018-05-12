@@ -35,10 +35,12 @@ const Article = db.define('article', {
   }
 });
 
-Article.beforeCreate(articleInstance => {
-  // sanitizeHTML before creating article
-  articleInstance.content = sanitizeHTML(articleInstance.content);
-  // attempt to find a thumbnail image for this article
-});
+// Article.beforeCreate(articleInstance => {
+//   // sanitizeHTML before creating article
+//   articleInstance.content = sanitizeHTML(articleInstance.content);
+//   // set some tags on this article
+
+//   // attempt to find a thumbnail image for this article
+// });
 
 module.exports = Article;

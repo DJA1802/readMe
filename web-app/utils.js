@@ -34,6 +34,29 @@ const getTags = (article, numTags = 2) => {
 
 // Test
 // Article.findOne({
-//   where: { id: 31 }
+//   where: { id: 6 }
 //   // get 2 topics of 5 terms each for this article
 // }).then(article => console.log(getTags(article)));
+
+const getThumbnailImage = article => {
+  var m,
+    imgUrls = [],
+    str = article.dataValues.content,
+    regex = /<img[^>]+src="?([^"\s]+)"?\s*\/>/g;
+
+  while ((m = regex.exec(str))) {
+    imgUrls.push(m[1]);
+  }
+
+  return imgUrls;
+};
+
+// Test
+Article.findOne({
+  where: { id: 6 }
+}).then(article => console.log(article.content));
+
+module.exports = {
+  getTags,
+  getThumbnailImage
+};
