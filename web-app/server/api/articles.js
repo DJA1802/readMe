@@ -63,11 +63,7 @@ router.post('/', (req, res, next) => {
 // GET /api/articles/:id
 router.get('/:id', (req, res, next) => {
   Article.findById(req.params.id, {
-    include: [
-      {
-        model: Author
-      }
-    ]
+    include: [{ model: Author }, { model: Publication }]
   })
     .then(article => res.json(article))
     .catch(next);
