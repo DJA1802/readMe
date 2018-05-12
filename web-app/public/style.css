@@ -1,3 +1,6 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css?family=Lora');
+
 body {
   font-family: sans-serif;
 }
@@ -119,10 +122,10 @@ form div {
 
 /* STYLES FOR SINGLE ARTICLE VIEW ----------------------------*/
 .single-article {
-  font-family: serif;
+  font-family: "Lora", serif;
   width: 60%;
   max-width: 800px;
-  margin: 20px auto;
+  margin: 100px auto;
   font-size: 1em;
 }
 
@@ -134,11 +137,13 @@ form div {
 }
 
 .single-article figcaption {
-  font-size: 0.75em;
+  font-style: italic;
+  font-size: 1em;
 }
 
 .article-author {
   font-style: italic;
 }
+
 /* END STYLES FOR SINGLE ARTICLE VIEW ------------------------*/
 /*-------------------------------------------------------------*/

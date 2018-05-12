@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const request = require('request');
+const request = require('request-promise-native');
 const { Article, Author, Publication } = require('../db/models');
 const { setPublicationName, buildMercuryJSONRequest } = require('../utils');
 
@@ -36,8 +36,11 @@ router.post('/', (req, res, next) => {
       request(
         buildMercuryJSONRequest(articleUrl),
         (apiErr, apiRes, apiBody) => {
-          if (apiErr) console.log(apiErr);
           const data = JSON.parse(apiBody);
+          if (data.message === 'Internal server error') {
+            throw new Error('Article unable to be parsed');
+          }
+
           Article.create({
             title: data.title,
             sourceUrl: data.url,
@@ -50,7 +53,7 @@ router.post('/', (req, res, next) => {
             .then(newArticle => res.status(201).json(newArticle))
             .catch(next);
         }
-      );
+      ).catch(next);
     });
   });
 });
