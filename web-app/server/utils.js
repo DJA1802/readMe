@@ -7,28 +7,31 @@ function getPublicationName (htmlString) {
 
   for (let i = 0; i < nameTests.length; i++) {
     if (htmlString.search(nameTests[i]) !== -1) {
-      return extractMetaContent(htmlString, nameTests[i]);
+      return extractMetaContentFromHtml(htmlString, nameTests[i]);
     }
   }
 }
 
-function getCookieDomain (cookieString) {
-  let beginning = cookieString.search('omain=.') + 'omain=.'.length;
-  let end =
-    cookieString.indexOf(';', beginning) !== -1
-      ? cookieString.indexOf(';', beginning)
-      : null;
-  if (end) {
-    return cookieString.slice(beginning, end);
+function extractMetaContentFromHtml (htmlString, metaPattern) {
+  let beginning = htmlString.search(metaPattern) + metaPattern.length;
+  let end = htmlString.indexOf('"', beginning);
+  return htmlString.slice(beginning, end);
+}
+
+function getDomainFromURLString (urlString) {
+  /* got the regex from
+  https://stackoverflow.com/questions/25703360/regular-expression-extract-subdomain-domain
+  */
+  var myRegexp = /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)/gim;
+  return myRegexp.exec(urlString)[1];
+}
+
+function setPublicationName (htmlString, articleUrl) {
+  if (getPublicationName(htmlString)) {
+    return getPublicationName(htmlString);
   } else {
-    return cookieString.slice(beginning);
+    return getDomainFromURLString(articleUrl);
   }
 }
 
-function extractMetaContent (htmlStr, metaPattern) {
-  let beginning = htmlStr.search(metaPattern) + metaPattern.length;
-  let end = htmlStr.indexOf('"', beginning);
-  return htmlStr.slice(beginning, end);
-}
-
-module.exports = { getPublicationName, getCookieDomain };
+module.exports = { setPublicationName };

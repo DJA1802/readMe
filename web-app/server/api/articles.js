@@ -3,8 +3,8 @@ module.exports = router;
 
 const request = require('request-promise-native');
 const MERCURY_API_KEY = process.env.MERCURY_API_KEY;
-const { Article, Author } = require('../db/models');
-const { getPublicationName, getCookieDomain } = require('../utils');
+const { Article, Author, Publication } = require('../db/models');
+const { setPublicationName } = require('../utils');
 
 // GET /api/articles
 router.get('/', (req, res, next) => {
@@ -38,27 +38,28 @@ router.post('/', (req, res, next) => {
 
   request({ url: articleUrl }, (htmlErr, htmlRes, htmlStr) => {
     if (htmlErr) console.log(htmlErr);
-    const publication1 = getPublicationName(htmlStr)
-      ? getPublicationName(htmlStr)
-      : getCookieDomain(htmlRes.headers['set-cookie'][0]);
-    console.log('publication1: ', publication1);
-    return publication1;
-  }).then(publication2 => {
-    // Make Mercury API request on URL received from Chrome extension
-    //console.log('publication2: ', publication2);
-    request(mercuryRequestOptions, (apiErr, apiRes, apiBody) => {
-      if (apiErr) console.log(apiErr);
-      const data = JSON.parse(apiBody);
-      Article.create({
-        title: data.title,
-        sourceUrl: data.url,
-        content: data.content,
-        wordCount: data.wordCount,
-        publicationDate: data.publicationDate,
-        userId
-      })
-        .then(newArticle => res.status(201).json(newArticle))
-        .catch(next);
+    const publicationName = setPublicationName(htmlStr, articleUrl);
+    console.log(publicationName);
+    return Publication.findOrCreate({
+      where: {
+        name: publicationName
+      }
+    }).then(([publication]) => {
+      request(mercuryRequestOptions, (apiErr, apiRes, apiBody) => {
+        if (apiErr) console.log(apiErr);
+        const data = JSON.parse(apiBody);
+        Article.create({
+          title: data.title,
+          sourceUrl: data.url,
+          content: data.content,
+          wordCount: data.wordCount,
+          publicationDate: data.publicationDate,
+          userId,
+          publicationId: publication.id
+        })
+          .then(newArticle => res.status(201).json(newArticle))
+          .catch(next);
+      });
     });
   });
 });
