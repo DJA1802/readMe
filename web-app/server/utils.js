@@ -37,11 +37,13 @@ function getDomainFromURLString (urlString) {
 }
 
 function setPublicationName (htmlString, articleUrl) {
+  let publicationName;
   if (getPublicationName(htmlString)) {
-    return getPublicationName(htmlString);
+    publicationName = getPublicationName(htmlString);
   } else {
-    return getDomainFromURLString(articleUrl);
+    publicationName = getDomainFromURLString(articleUrl);
   }
+  return publicationName.split(' - ')[0]; // in case of descriptions in same string, i.e 'Yahoo News - Latest News & Headlines'
 }
 
 module.exports = { setPublicationName, buildMercuryJSONRequest };
