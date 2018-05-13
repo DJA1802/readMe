@@ -17,7 +17,10 @@ const App = () => {
             return (
               <Sidebar.Pushable className="page-height">
                 <NavbarSideMobile />
-                <Sidebar.Pusher className="page-height">
+                <Sidebar.Pusher
+                  id="mobile-push-container"
+                  className="page-height"
+                >
                   <Routes />
                 </Sidebar.Pusher>
               </Sidebar.Pushable>

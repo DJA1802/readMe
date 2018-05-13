@@ -1,5 +1,5 @@
 /* Fonts */
-@import url('https://fonts.googleapis.com/css?family=Lora');
+@import url("https://fonts.googleapis.com/css?family=Lora");
 html {
   min-height: 100%;
 }
@@ -58,10 +58,11 @@ form div {
 }
 
 #page-content {
-  padding: 30px;
+  padding: 20px 3%;
   flex: 4;
   width: 100vw;
   overflow-y: scroll;
+  margin: 0 !important;
 }
 
 .analytics-featured {
@@ -91,11 +92,15 @@ form div {
   width: 350px;
 }
 
+#mobile-push-container {
+  overflow-y: scroll;
+}
+
 /*---------------------------------*/
 
 /* STYLES FOR ARTICLE LIST -----------------------------------*/
 .article-list-container {
-  width: 60%;
+  width: 80%;
   margin: 0 auto;
 }
 
@@ -147,6 +152,10 @@ form div {
   flex: 3;
 }
 
+.article-card {
+  flex-grow: 1;
+}
+
 .article-card-image {
   height: 200px;
 }
@@ -158,8 +167,9 @@ form div {
   font-family: "Lora", serif;
   width: 60%;
   max-width: 800px;
-  margin: 100px auto;
-  font-size: 1em;
+  margin: 20px auto;
+  font-size: 1.1em;
+  text-align: justify;
 }
 
 .single-article img {
@@ -171,7 +181,13 @@ form div {
 
 .single-article figcaption {
   font-style: italic;
-  font-size: 1em;
+  font-size: 0.9em;
+  margin-bottom: 2em;
+}
+
+.single-article blockquote {
+  font-size: 0.9em;
+  margin-bottom: 2em;
 }
 
 .article-author {
@@ -180,3 +196,35 @@ form div {
 
 /* END STYLES FOR SINGLE ARTICLE VIEW ------------------------*/
 /*-------------------------------------------------------------*/
+
+/*--MEDIA QUERIES--------------------------------*/
+
+/*----PHONE/MOBILE-----------------------------------------------*/
+
+@media screen and (max-width: 768px) {
+  .article-list-container {
+    width: 100%;
+  }
+
+  .single-article {
+    width: 85%;
+  }
+}
+
+/*----TABLET-----------------------------------------------*/
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .article-list-container {
+    width: 100%;
+  }
+
+  .single-article {
+    width: 75%;
+  }
+}
+
+/*----LARGE SCREENS--------------------------------------*/
+@media screen and (min-width: 1400px) {
+  .article-list-container {
+    width: 60%;
+  }
+}

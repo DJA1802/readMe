@@ -26,7 +26,11 @@ class ArticleCard extends Component {
         link
       >
         <Image
-          style={{ backgroundImage: `url(${thumbnail})` }}
+          style={{
+            backgroundImage: `url(${thumbnail})`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover'
+          }}
           className="article-card-image"
           as={Link}
           to={`/articles/${articleId}`}
