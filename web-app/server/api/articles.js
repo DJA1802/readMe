@@ -34,6 +34,9 @@ router.get('/', (req, res, next) => {
 // HELPER FUNCTIONS FOR POSTING ARTICLE -------------------------- //
 async function createNewArticle (userId, articleUrl, next) {
   if (!next) next = console.log;
+  console.log('----------------------------------------------------');
+  console.log('FETCHING TEXT FOR ARTICLE: ', articleUrl);
+
   const htmlStr = await request({ url: articleUrl }).catch(err => {
     next(err);
   });
@@ -56,9 +59,9 @@ async function createNewArticle (userId, articleUrl, next) {
   const mercuryArticle = JSON.parse(mercuryResponse);
   const parsedHtml = parse(mercuryArticle.content);
 
-  const imageAttrs = parsedHtml.querySelector('img').rawAttrs;
-  const imageRegExp = /src\s*=\s*"(.+?)"/;
-  const imageSrc = imageRegExp.exec(imageAttrs)[1];
+  // const imageAttrs = parsedHtml.querySelector('img').rawAttrs;
+  // const imageRegExp = /src\s*=\s*"(.+?)"/;
+  // const imageSrc = imageRegExp.exec(imageAttrs)[1];
 
   const newArticle = await Article.create({
     title: mercuryArticle.title,
@@ -67,8 +70,8 @@ async function createNewArticle (userId, articleUrl, next) {
     wordCount: mercuryArticle.wordCount,
     publicationDate: mercuryArticle.publicationDate,
     userId,
-    publicationId: publication.id,
-    thumbnailUrl: imageSrc
+    publicationId: publication.id
+    // thumbnailUrl: imageSrc
   }).catch(err => {
     next(err);
   });
