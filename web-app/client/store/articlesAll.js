@@ -34,7 +34,11 @@ export const postNewArticle = articleUrl => dispatch => {
   axios
     .post('/api/articles', { articleUrl })
     .then(res => dispatch(addArticle(res.data)))
-    .catch(err => console.log(err));
+    .catch(err =>
+      alert(
+        'Sorry, the server hosting the article does not allow it to be saved.'
+      )
+    );
 };
 
 export const putArticleStatus = (articleId, status) => dispatch => {

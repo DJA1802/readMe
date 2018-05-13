@@ -15,7 +15,8 @@ class ArticleCard extends Component {
   };
 
   render () {
-    const { articleId, publicationName, title } = this.props;
+    const { articleId, publicationName, title, thumbnail } = this.props;
+    console.log(thumbnail);
     return (
       <Card
         className="article-card"
@@ -25,7 +26,7 @@ class ArticleCard extends Component {
         link
       >
         <Image
-          style={{ backgroundImage: `url(http://fillmurray.com/300/200)` }}
+          style={{ backgroundImage: `url(${thumbnail})` }}
           className="article-card-image"
           as={Link}
           to={`/articles/${articleId}`}
