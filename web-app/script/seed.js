@@ -1,3 +1,4 @@
+require('../secrets.js');
 const db = require('../server/db');
 const {
   User,
@@ -9,6 +10,8 @@ const {
   Tag,
   Author
 } = require('../server/db/models');
+
+const { createNewArticle } = require('../server/api/articles');
 
 async function seed () {
   await db.sync({ force: true });
@@ -109,6 +112,22 @@ async function seed () {
   const duration = await interaction1.duration;
 
   console.log(`interaction duration VIRTUAL test:`, duration);
+
+  await createNewArticle(
+    1,
+    'https://www.newyorker.com/magazine/2018/04/23/the-maraschino-moguls-secret-life'
+  );
+
+  await createNewArticle(
+    1,
+    'https://www.ribbonfarm.com/2018/05/03/the-art-of-longform/'
+  );
+
+  await createNewArticle(
+    1,
+    'http://gothamist.com/2017/10/26/best_nyc_chicken_wings_2017.php'
+  );
+
   console.log(`seeded successfully`);
 }
 

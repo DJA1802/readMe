@@ -4,7 +4,7 @@ const cors = require('cors');
 
 router.use(cors());
 
-router.use('/articles', require('./articles'));
+router.use('/articles', require('./articles').router);
 router.use('/users', require('./users'));
 router.use('/interactions', require('./interactions'));
 
