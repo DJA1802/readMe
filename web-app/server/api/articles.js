@@ -1,22 +1,26 @@
 const router = require('express').Router();
 const request = require('request-promise-native');
+const { parse } = require('node-html-parser');
+
 const { Article, Author, Publication } = require('../db/models');
 const { setPublicationName, buildMercuryJSONRequest } = require('../utils');
+const articleQueryAttributes = [
+  'id',
+  'title',
+  'sourceUrl',
+  'status',
+  'wordCount',
+  'status',
+  'createdAt',
+  'thumbnailUrl'
+];
 
 // GET /api/articles
 router.get('/', (req, res, next) => {
   const userId = req.user ? req.user.id : null;
   if (userId) {
     Article.findAll({
-      attributes: [
-        'id',
-        'title',
-        'sourceUrl',
-        'status',
-        'wordCount',
-        'status',
-        'createdAt'
-      ],
+      attributes: articleQueryAttributes,
       where: { userId },
       include: [{ model: Author }, { model: Publication }]
     })
@@ -26,56 +30,57 @@ router.get('/', (req, res, next) => {
 });
 
 // POST /api/articles
-router.post('/', (req, res, next) => {
+router.post('/', async (req, res, next) => {
   const { articleUrl } = req.body;
   const userId = req.user.id;
-
-  request({ url: articleUrl }, (htmlErr, htmlRes, htmlStr) => {
-    if (htmlErr) console.log(htmlErr);
-    const publicationName = setPublicationName(htmlStr, articleUrl);
-    return Publication.findOrCreate({
-      where: {
-        name: publicationName
-      }
-    }).then(([publication]) => {
-      request(
-        buildMercuryJSONRequest(articleUrl),
-        (apiErr, apiRes, apiBody) => {
-          const data = JSON.parse(apiBody);
-          if (data.message === 'Internal server error') {
-            throw new Error('Article unable to be parsed');
-          }
-
-          Article.create({
-            title: data.title,
-            sourceUrl: data.url,
-            content: data.content,
-            wordCount: data.wordCount,
-            publicationDate: data.publicationDate,
-            userId,
-            publicationId: publication.id
-          })
-            .then(newArticle =>
-              Article.findOne({
-                where: { id: newArticle.id },
-                attributes: [
-                  'id',
-                  'title',
-                  'sourceUrl',
-                  'status',
-                  'wordCount',
-                  'status',
-                  'createdAt'
-                ],
-                include: [{ model: Author }, { model: Publication }]
-              })
-            )
-            .then(newArticle => res.status(201).json(newArticle))
-            .catch(next);
-        }
-      ).catch(next);
-    });
+  const htmlStr = await request({ url: articleUrl }).catch(err => {
+    next(err);
   });
+
+  const publicationName = setPublicationName(htmlStr, articleUrl);
+  const [publication] = await Publication.findOrCreate({
+    where: {
+      name: publicationName
+    }
+  }).catch(err => {
+    next(err);
+  });
+
+  const mercuryResponse = await request(
+    buildMercuryJSONRequest(articleUrl)
+  ).catch(err => {
+    next(err);
+  });
+
+  const mercuryArticle = JSON.parse(mercuryResponse);
+  const parsedHtml = parse(mercuryArticle.content);
+
+  const imageAttrs = parsedHtml.querySelector('img').rawAttrs;
+  const imageRegExp = /src\s*=\s*"(.+?)"/;
+  const imageSrc = imageRegExp.exec(imageAttrs)[1];
+
+  const newArticle = await Article.create({
+    title: mercuryArticle.title,
+    sourceUrl: mercuryArticle.url,
+    content: mercuryArticle.content,
+    wordCount: mercuryArticle.wordCount,
+    publicationDate: mercuryArticle.publicationDate,
+    userId,
+    publicationId: publication.id,
+    thumbnailUrl: imageSrc
+  }).catch(err => {
+    next(err);
+  });
+
+  const associatedArticle = await Article.findOne({
+    where: { id: newArticle.id },
+    attributes: articleQueryAttributes,
+    include: [{ model: Author }, { model: Publication }]
+  }).catch(err => {
+    next(err);
+  });
+
+  res.status(201).json(associatedArticle);
 });
 
 // GET /api/articles/:id

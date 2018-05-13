@@ -39,6 +39,10 @@ const Article = db.define('article', {
   userId: {
     type: Sequelize.INTEGER,
     allowNull: false
+  },
+  thumbnailUrl: {
+    type: Sequelize.TEXT,
+    defaultValue: 'http://fillmurray.com/300/200'
   }
 });
 

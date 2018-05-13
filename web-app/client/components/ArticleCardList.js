@@ -15,6 +15,7 @@ const ArticleCardList = props => {
               articleId={article.id}
               title={article.title}
               publicationName={article.publication && article.publication.name}
+              thumbnail={article.thumbnailUrl}
             />
           );
         })}

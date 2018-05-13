@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 /* Fonts */
 @import url('https://fonts.googleapis.com/css?family=Lora');
+=======
+html {
+  min-height: 100%;
+}
+>>>>>>> master
 
 body {
   font-family: sans-serif;
@@ -23,12 +29,16 @@ form div {
   display: inline-block;
 }
 
+#app {
+  height: 100%;
+}
+
 .no-margin {
   margin: 0 !important;
 }
 
-#main {
-  height: calc(100vh - 40px);
+.page-height {
+  height: calc(100% - 40px);
 }
 
 /*---------------------------------*/
@@ -47,7 +57,6 @@ form div {
 #page-container {
   display: flex;
   width: 100%;
-  height: calc(100vh - 40px);
   margin: 0;
 }
 
@@ -55,6 +64,7 @@ form div {
   padding: 30px;
   flex: 4;
   width: 100vw;
+  overflow-y: scroll;
 }
 
 .analytics-featured {
@@ -71,6 +81,7 @@ form div {
 #nav-sidebar {
   flex: 1;
   min-width: 200px;
+  height: 100%;
 }
 
 /* used to make icons sit left on sidebar */
