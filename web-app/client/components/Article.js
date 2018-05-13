@@ -50,24 +50,30 @@ class Article extends Component {
       timeZone: 'UTC'
     };
 
-    return article ? (
-      <div className="single-article">
-        <Header as="h1">{title}</Header>
-        Originally from{' '}
-        <a href={sourceUrl}>{publication && publication.name}</a>
-        <p className="article-author"> {author ? `by ${author.name}` : null}</p>
-        <p>
-          {publicationDate
-            ? `Date Published: ${new Date(publicationDate).toLocaleDateString(
-                'en-US',
-                dateOptions
-              )}`
-            : null}
-        </p>
-        {reactHtmlParser(content)}
+    return (
+      <div id="page-container">
+        {article ? (
+          <div id="single-article">
+            <Header as="h1">{title}</Header>
+            Originally from{' '}
+            <a href={sourceUrl}>{publication && publication.name}</a>
+            <p className="article-author">
+              {' '}
+              {author ? `by ${author.name}` : null}
+            </p>
+            <p>
+              {publicationDate
+                ? `Date Published: ${new Date(
+                    publicationDate
+                  ).toLocaleDateString('en-US', dateOptions)}`
+                : null}
+            </p>
+            {reactHtmlParser(content)}
+          </div>
+        ) : (
+          <p>Loading... </p>
+        )}
       </div>
-    ) : (
-      <p>Loading... </p>
     );
   }
 }

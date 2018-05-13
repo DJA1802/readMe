@@ -35,7 +35,7 @@ form div {
 }
 
 .page-height {
-  height: calc(100% - 40px);
+  height: calc(100% - 40px) !important;
 }
 
 /*---------------------------------*/
@@ -55,14 +55,18 @@ form div {
   display: flex;
   width: 100%;
   margin: 0;
+  height: calc(100% - 40px) !important;
+  position: relative;
 }
 
 #page-content {
-  padding: 20px 3%;
+  padding: 30px 3%;
   flex: 4;
-  width: 100vw;
-  overflow-y: scroll;
+  width: calc(100% - 200px);
   margin: 0 !important;
+  position: absolute;
+  top: 40px;
+  left: 200px;
 }
 
 .analytics-featured {
@@ -74,12 +78,22 @@ form div {
 #navbar-top {
   margin-bottom: 0;
   height: 40px;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
 }
 
 #nav-sidebar {
   flex: 1;
-  min-width: 200px;
-  height: 100%;
+  width: 200px;
+  height: calc(100% - 40px);
+  position: fixed;
+  top: 40px;
+}
+
+#nav-sidebar-mobile {
+  top: 40px;
+  height: calc(100% - 40px) !important;
 }
 
 /* used to make icons sit left on sidebar */
@@ -92,7 +106,8 @@ form div {
   width: 350px;
 }
 
-#mobile-push-container {
+#mobile-pusher-container {
+  height: 100%;
   overflow-y: scroll;
 }
 
@@ -163,29 +178,32 @@ form div {
 /*-------------------------------------------------------------*/
 
 /* STYLES FOR SINGLE ARTICLE VIEW ----------------------------*/
-.single-article {
+
+#single-article {
   font-family: "Lora", serif;
   width: 60%;
   max-width: 800px;
   margin: 20px auto;
   font-size: 1.1em;
   text-align: justify;
+  position: relative;
+  top: 40px;
 }
 
-.single-article img {
+#single-article img {
   display: block;
   margin-left: auto;
   margin-right: auto;
   max-width: 100%;
 }
 
-.single-article figcaption {
+#single-article figcaption {
   font-style: italic;
   font-size: 0.9em;
   margin-bottom: 2em;
 }
 
-.single-article blockquote {
+#single-article blockquote {
   font-size: 0.9em;
   margin-bottom: 2em;
 }
@@ -202,22 +220,26 @@ form div {
 /*----PHONE/MOBILE-----------------------------------------------*/
 
 @media screen and (max-width: 768px) {
-  .article-list-container {
-    width: 100%;
+  #single-article {
+    width: 85%;
+  }
+}
+
+/*----TABLET AND MOBILE-----------------------------------*/
+@media screen and (max-width: 1024px) {
+  #page-content {
+    width: 100% !important;
+    left: 0px;
   }
 
-  .single-article {
-    width: 85%;
+  .article-list-container {
+    width: 90%;
   }
 }
 
 /*----TABLET-----------------------------------------------*/
 @media screen and (min-width: 768px) and (max-width: 1024px) {
-  .article-list-container {
-    width: 100%;
-  }
-
-  .single-article {
+  #single-article {
     width: 75%;
   }
 }
