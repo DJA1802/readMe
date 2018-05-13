@@ -6,9 +6,10 @@ import { logout, toggleMobileSidebar } from '../store';
 import { Dropdown, Icon, Menu } from 'semantic-ui-react';
 import MediaQuery from 'react-responsive';
 import { desktop } from '../utils/constants';
-import { AddArticleButton } from '.';
+import { ButtonAddArticle, ButtonChangeStyle } from '.';
 
 const NavbarTop = ({
+  isArticleView,
   email,
   handleLogoutClick,
   isLoggedIn,
@@ -35,7 +36,7 @@ const NavbarTop = ({
       </MediaQuery>
       {isLoggedIn ? (
         <Menu.Menu position="right">
-          <AddArticleButton />
+          {isArticleView ? <ButtonChangeStyle /> : <ButtonAddArticle />}
           <Menu.Item>
             <Icon
               className="no-margin"
@@ -78,7 +79,8 @@ const NavbarTop = ({
 const mapStateToProps = state => {
   return {
     isLoggedIn: !!state.user.id,
-    email: state.user.email
+    email: state.user.email,
+    isArticleView: !!state.articleSelected.id
   };
 };
 

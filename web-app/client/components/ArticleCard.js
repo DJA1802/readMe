@@ -16,7 +16,6 @@ class ArticleCard extends Component {
 
   render () {
     const { articleId, publicationName, title, thumbnail } = this.props;
-    console.log(thumbnail);
     return (
       <Card
         className="article-card"

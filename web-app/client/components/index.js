@@ -4,8 +4,6 @@
  * having to figure out which file they belong to!
  */
 
-export { default as AddArticleButton } from './AddArticleButton';
-export { default as AddArticleForm } from './AddArticleForm';
 export { default as Analytics } from './Analytics';
 export { default as AnalyticsFeatured } from './AnalyticsFeatured';
 export { default as Article } from './Article';
@@ -13,15 +11,19 @@ export { default as ArticleCard } from './ArticleCard';
 export { default as ArticleCardList } from './ArticleCardList';
 export { default as ArticleList } from './ArticleList';
 export { default as ArticleListItem } from './ArticleListItem';
+export { default as ButtonAddArticle } from './ButtonAddArticle';
+export { default as ButtonChangeStyle } from './ButtonChangeStyle';
 export { default as ButtonArchiveArticle } from './ButtonArchiveArticle';
 export { default as ButtonDeleteArticle } from './ButtonDeleteArticle';
 export { default as ButtonIcon } from './ButtonIcon';
 export { default as ButtonMyListArticle } from './ButtonMyListArticle';
-export { default as PageContainer } from './PageContainer';
+export { default as FormAddArticle } from './FormAddArticle';
+export { default as FormChangeStyle } from './FormChangeStyle';
 export { default as NavbarTop } from './NavbarTop';
 export { default as NavbarSideDesktop } from './NavbarSideDesktop';
 export { default as NavbarSideMobile } from './NavbarSideMobile';
 export { default as NavbarSideItems } from './NavbarSideItems';
+export { default as PageContainer } from './PageContainer';
 export { default as UserHome } from './UserHome';
 export { default as Home } from './Home';
 export { Login, Signup } from './AuthForm';
