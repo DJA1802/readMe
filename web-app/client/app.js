@@ -5,6 +5,12 @@ import { NavbarTop, NavbarSideMobile } from './components';
 import { desktop } from './utils/constants';
 import Routes from './routes';
 
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+    .register('/service-worker.js')
+    .then(() => console.log('readMe Service Worker Registered'));
+}
+
 const App = () => {
   return (
     <React.Fragment>
