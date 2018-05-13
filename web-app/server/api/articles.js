@@ -33,19 +33,22 @@ router.post('/', async (req, res, next) => {
     next(err);
   });
   const publicationName = setPublicationName(htmlStr, articleUrl);
-  const publication = await Publication.findOrCreate({
+  const [publication] = await Publication.findOrCreate({
     where: {
       name: publicationName
     }
   }).catch(err => {
     next(err);
   });
+
   const mercuryResponse = await request(
     buildMercuryJSONRequest(articleUrl)
   ).catch(err => {
     next(err);
   });
   const mercuryArticle = JSON.parse(mercuryResponse);
+  const image = reactHtmlParser(mercuryArticle.content);
+  console.log(image);
 
   const newArticle = await Article.create({
     title: mercuryArticle.title,
@@ -70,7 +73,7 @@ router.post('/', async (req, res, next) => {
       'status',
       'createdAt'
     ],
-    include: [{ model: Author }, { model: Publication }]
+    include: [Author, Publication]
   }).catch(err => {
     next(err);
   });
@@ -81,7 +84,7 @@ router.post('/', async (req, res, next) => {
 // GET /api/articles/:id
 router.get('/:id', (req, res, next) => {
   Article.findById(req.params.id, {
-    include: [{ model: Author }, { model: Publication }]
+    include: [Author, Publication]
   })
     .then(article => res.json(article))
     .catch(next);
