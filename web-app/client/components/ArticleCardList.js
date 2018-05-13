@@ -8,13 +8,16 @@ const ArticleCardList = props => {
     <Container>
       <Header as="h2">Recently-saved articles</Header>
       <Card.Group className="article-card-list">
-        {props.articles.map(article => (
-          <ArticleCard
-            key={article.id}
-            articleId={article.id}
-            title={article.title}
-          />
-        ))}
+        {props.articles.map(article => {
+          return (
+            <ArticleCard
+              key={article.id}
+              articleId={article.id}
+              title={article.title}
+              publicationName={article.publication && article.publication.name}
+            />
+          );
+        })}
       </Card.Group>
     </Container>
   );

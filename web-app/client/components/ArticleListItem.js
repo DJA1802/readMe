@@ -19,7 +19,7 @@ class ArticleListItem extends Component {
   };
 
   render () {
-    const { articleId, title, type } = this.props;
+    const { articleId, title, type, publicationName } = this.props;
     return (
       <List.Item
         className="article-list-item"
@@ -30,16 +30,17 @@ class ArticleListItem extends Component {
         <List.Content as={Link} to={`/articles/${articleId}`}>
           <List.Header>{title}</List.Header>
         </List.Content>
-        <List.Content className="list-icon-container">
+        <List.Content className="list-item-extra">
+          <div className="list-item-pubname">{publicationName}</div>
           {this.state.hover && (
-            <React.Fragment>
+            <div className="list-icon-container">
               {type === 'my-list' ? (
                 <ButtonArchiveArticle articleId={articleId} />
               ) : (
                 <ButtonMyListArticle articleId={articleId} />
               )}
               <ButtonDeleteArticle articleId={articleId} />
-            </React.Fragment>
+            </div>
           )}
         </List.Content>
       </List.Item>
