@@ -1,19 +1,13 @@
 /*eslint-disable max-statements*/
-
 require('../secrets.js');
-const db = require('../server/db');
-const {
-  User,
-  Article,
-  Publication,
-  PublicationType,
-  Topic,
-  Interaction,
-  Tag,
-  Author
-} = require('../server/db/models');
+
+const moment = require('moment');
+const momentRandom = require('moment-random');
 
 const { createNewArticle } = require('../server/api/articles');
+
+const db = require('../server/db');
+const { User, Topic, Interaction } = require('../server/db/models');
 
 async function seed () {
   await db.sync({ force: true });
@@ -75,10 +69,6 @@ async function seed () {
     createNewArticle(1, 'http://gothamist.com/2016/02/02/bialys_in_nyc.php'),
     createNewArticle(
       1,
-      'https://www.buzzfeed.com/sapna/say-no-to-the-dress?utm_term=.xiEgWElRr#.xq3LWneqA'
-    ),
-    createNewArticle(
-      1,
       'https://thebigroundtable.com/don-quixotes-classroom-80b3bfaaa2c3'
     ),
     createNewArticle(
@@ -106,159 +96,42 @@ async function seed () {
       'https://www.nytimes.com/2016/11/18/books/review/michael-chabon-sandmeyer-reaction-short-story.html?smid=tw-nytbooks&smtyp=cur'
     ),
     createNewArticle(
-      1,
+      2,
       'https://www.newyorker.com/humor/daily-shouts/i-work-from-home'
     ),
     createNewArticle(
-      1,
+      2,
       'https://www.thrillist.com/news/nation/100-year-old-secret-long-life-guinness'
     ),
     createNewArticle(
-      1,
+      2,
       'http://gothamist.com/2016/07/27/gym-trification_frenchie.php'
     ),
     createNewArticle(
-      1,
+      2,
       'http://nymag.com/daily/intelligencer/2017/05/hillary-clinton-life-after-election.html'
     ),
     createNewArticle(
-      1,
+      2,
       'https://www.thecut.com/2017/04/fyre-festival-exumas-bahamas-disaster.html'
     ),
     createNewArticle(
-      1,
+      2,
       'http://nymag.com/daily/intelligencer/2017/07/climate-change-earth-too-hot-for-humans.html'
     ),
     createNewArticle(
-      1,
+      2,
       'https://thebigroundtable.com/consider-the-can-f5c5ebe7fb85'
     ),
     createNewArticle(
-      1,
+      2,
       'https://www.nationalgeographic.com/travel/destinations/north-america/united-states/happiest-cities-united-states-2017/'
     ),
     createNewArticle(
-      1,
+      2,
       'https://www.newyorker.com/magazine/2017/12/11/cat-person'
     )
   ]);
-
-  // await createNewArticle(
-  //   1,
-  //   'https://www.newyorker.com/magazine/2018/04/23/the-maraschino-moguls-secret-life'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'https://www.ribbonfarm.com/2018/05/03/the-art-of-longform/'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'https://www.smithsonianmag.com/science-nature/moral-cost-of-cats-180960505/'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'https://longreads.com/2018/05/11/is-new-york-the-most-corrupt-state-in-the-nation/'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'https://www.wired.com/2017/03/curse-bahia-emerald-giant-green-rock-wreaks-havoc-ruins-lives/'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'https://lithub.com/rebecca-solnit-the-loneliness-of-donald-trump/'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'https://www.newyorker.com/magazine/2017/01/30/doomsday-prep-for-the-super-rich'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'https://www.guernicamag.com/nina-simone-in-liberia/'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'https://www.wired.com/2016/05/the-perks-are-great-just-dont-ask-us-what-we-do/#.lzbhv2to7'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'https://www.newyorker.com/magazine/2017/02/27/why-facts-dont-change-our-minds'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'http://www.vulture.com/2017/09/the-ugliness-behind-hgtv-never-ending-fantasy-loop.html'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'http://gothamist.com/2016/02/02/bialys_in_nyc.php'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'https://www.buzzfeed.com/sapna/say-no-to-the-dress?utm_term=.xiEgWElRr#.xq3LWneqA'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'https://thebigroundtable.com/don-quixotes-classroom-80b3bfaaa2c3'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'https://www.thrillist.com/eat/nation/mothers-day-chain-restaurants-2018'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'http://gothamist.com/2016/03/31/stuy_town_affordable_housing.php'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'https://www.nationalgeographic.com/magazine/2017/06/dinosaur-nodosaur-fossil-discovery/'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'http://gothamist.com/2016/02/17/robert_caro_author_interview.php'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'https://www.wired.com/2017/03/humans-made-banana-perfect-soon-itll-gone/'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'https://www.nytimes.com/2016/11/18/books/review/michael-chabon-sandmeyer-reaction-short-story.html?smid=tw-nytbooks&smtyp=cur'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'https://www.newyorker.com/humor/daily-shouts/i-work-from-home'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'https://www.thrillist.com/news/nation/100-year-old-secret-long-life-guinness'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'http://gothamist.com/2016/07/27/gym-trification_frenchie.php'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'http://nymag.com/daily/intelligencer/2017/05/hillary-clinton-life-after-election.html'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'https://www.thecut.com/2017/04/fyre-festival-exumas-bahamas-disaster.html'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'http://nymag.com/daily/intelligencer/2017/07/climate-change-earth-too-hot-for-humans.html'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'https://thebigroundtable.com/consider-the-can-f5c5ebe7fb85'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'https://www.nationalgeographic.com/travel/destinations/north-america/united-states/happiest-cities-united-states-2017/'
-  // );
-  // await createNewArticle(
-  //   1,
-  //   'https://www.newyorker.com/magazine/2017/12/11/cat-person'
-  // );
 
   const topics = await Promise.all([
     Topic.create({ name: 'U.S. News' }),
@@ -277,15 +150,68 @@ async function seed () {
     // would be nice to have 'Local News' based on user's location
   ]);
 
+  // get a random article id
+  const randArticleId = () =>
+    Math.round(Math.random() * (articles.length - 1)) + 1;
+
+  // get a random duration under an hour in milliseconds
+  const randDurationUnderAnHour = () => Math.round(Math.random() * 3600000);
+
+  // get random start and end time for an interaction
+  const randStartEnd = () => {
+    const startDate = '2017-01-01',
+      endDate = '2018-05-10';
+    const startTime = momentRandom(endDate, startDate);
+    const endTime = startTime + randDurationUnderAnHour();
+
+    return { startTime, endTime };
+  };
+
+  // construct an interaction object with a random article, a random date since Jan 1, 2017, and a random duration under an hour
+  const randInteraction = () => {
+    const startEnd = randStartEnd();
+    const article = { articleId: randArticleId() };
+    return Object.assign(startEnd, article);
+  };
+
   const interactions = await Promise.all([
-    Interaction.create({
-      startTime: '2018-05-07T05:17:49.314Z',
-      endTime: '2018-05-07T05:47:19.114Z',
-      articleId: 1
-    }),
-    Interaction.create({
-      articleId: 1
-    })
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction()),
+    Interaction.create(randInteraction())
   ]);
 
   console.log(`created ${users.length} users`);
