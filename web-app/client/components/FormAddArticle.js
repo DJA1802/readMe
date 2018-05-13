@@ -9,7 +9,7 @@ import { postNewArticle } from '../store';
 
 // TODO -- add form validations
 
-const AddArticleForm = ({ handleSubmit }) => {
+const FormAddArticle = ({ handleSubmit }) => {
   return (
     <div id="add-form">
       <Header as="h4">Save an Article</Header>
@@ -39,4 +39,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddArticleForm);
+export default connect(mapStateToProps, mapDispatchToProps)(FormAddArticle);
