@@ -68,7 +68,7 @@ async function createNewArticle (userId, articleUrl, next) {
     sourceUrl: mercuryArticle.url,
     content: mercuryArticle.content,
     wordCount: mercuryArticle.word_count,
-    publicationDate: mercuryArticle.publicationDate,
+    publicationDate: mercuryArticle.date_published,
     userId,
     publicationId: publication.id,
     thumbnailUrl: imageSrc
