@@ -4,8 +4,10 @@ module.exports = router;
 
 router.get('/', (req, res, next) => {
   const { id } = req.user;
-  Interaction.findAll({ include: { model: Article } })
-    .then(interactions => res.json(interactions))
+  Interaction.findAll({ include: { model: Article, where: { userId: id } } })
+    .then(interactions => {
+      res.json(interactions);
+    })
     .catch(next);
 });
 
