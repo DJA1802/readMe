@@ -15,6 +15,8 @@ const articleQueryAttributes = [
   'thumbnailUrl'
 ];
 
+// ------------------------------------------------------------ //
+
 // GET /api/articles
 router.get('/', (req, res, next) => {
   const userId = req.user ? req.user.id : null;
@@ -29,10 +31,9 @@ router.get('/', (req, res, next) => {
   }
 });
 
-// POST /api/articles
-router.post('/', async (req, res, next) => {
-  const { articleUrl } = req.body;
-  const userId = req.user.id;
+// HELPER FUNCTIONS FOR POSTING ARTICLE -------------------------- //
+async function createNewArticle (userId, articleUrl, next) {
+  if (!next) next = console.log;
   const htmlStr = await request({ url: articleUrl }).catch(err => {
     next(err);
   });
@@ -72,16 +73,31 @@ router.post('/', async (req, res, next) => {
     next(err);
   });
 
+  return newArticle;
+}
+
+async function returnCreatedArticle (newArticle) {
   const associatedArticle = await Article.findOne({
     where: { id: newArticle.id },
     attributes: articleQueryAttributes,
     include: [{ model: Author }, { model: Publication }]
-  }).catch(err => {
-    next(err);
   });
 
-  res.status(201).json(associatedArticle);
+  return associatedArticle;
+}
+// ------------------------------------------------------------ //
+
+// POST /api/articles
+router.post('/', (req, res, next) => {
+  const userId = req.user.id;
+  const { articleUrl } = req.body;
+
+  createNewArticle(userId, articleUrl, next)
+    .then(newArticle => returnCreatedArticle(newArticle))
+    .then(associatedArticle => res.status(201).json(associatedArticle))
+    .catch(next);
 });
+// ------------------------------------------------------------ //
 
 // GET /api/articles/:id
 router.get('/:id', (req, res, next) => {
@@ -91,6 +107,8 @@ router.get('/:id', (req, res, next) => {
     .then(article => res.json(article))
     .catch(next);
 });
+
+// ------------------------------------------------------------ //
 
 router.put('/:id', (req, res, next) => {
   const { status } = req.body;
@@ -108,6 +126,8 @@ router.put('/:id', (req, res, next) => {
     .catch(next);
 });
 
+// ------------------------------------------------------------ //
+
 router.delete('/:id', (req, res, next) => {
   Article.findById(req.params.id)
     .then(article => article.destroy())
@@ -115,4 +135,6 @@ router.delete('/:id', (req, res, next) => {
     .catch(next);
 });
 
-module.exports = router;
+// ------------------------------------------------------------ //
+
+module.exports = { router, createNewArticle };
