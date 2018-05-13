@@ -28,6 +28,16 @@ function extractMetaContentFromHtml (htmlString, metaPattern) {
   return htmlString.slice(beginning, end);
 }
 
+function extractSrcAttribute (imgElement) {
+  if (imgElement) {
+    const imageAttrs = imgElement.rawAttrs;
+    const imageRegExp = /src\s*=\s*"(.+?)"/;
+    return imageRegExp.exec(imageAttrs)[1];
+  } else {
+    return null;
+  }
+}
+
 function getDomainFromURLString (urlString) {
   /* got the regex from
   https://stackoverflow.com/questions/25703360/regular-expression-extract-subdomain-domain
@@ -46,4 +56,8 @@ function setPublicationName (htmlString, articleUrl) {
   return publicationName.split(' - ')[0]; // in case of descriptions in same string, i.e 'Yahoo News - Latest News & Headlines'
 }
 
-module.exports = { setPublicationName, buildMercuryJSONRequest };
+module.exports = {
+  setPublicationName,
+  buildMercuryJSONRequest,
+  extractSrcAttribute
+};

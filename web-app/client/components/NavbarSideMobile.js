@@ -11,7 +11,13 @@ const NavbarSideMobile = ({ handleMenuClick, visible }) => {
   return (
     <React.Fragment>
       <MediaQuery maxWidth={desktop}>
-        <Sidebar as={Menu} animation="overlay" visible={visible} vertical>
+        <Sidebar
+          as={Menu}
+          animation="overlay"
+          visible={visible}
+          vertical
+          id="nav-sidebar-mobile"
+        >
           <Menu.Item as={Link} to="/home" onClick={handleMenuClick}>
             <Icon name="home" className="left" size="large" />
             Home

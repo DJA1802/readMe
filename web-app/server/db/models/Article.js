@@ -3,10 +3,13 @@ const db = require('../db');
 const sanitizeHTML = require('sanitize-html');
 const sanitizeOptions = {
   // include images in required tags
-  allowedTags: sanitizeHTML.defaults.allowedTags.concat(['img']),
+  allowedTags: sanitizeHTML.defaults.allowedTags
+    .concat(['img', 'figcaption', 'figure', 'time'])
+    .filter(tag => tag !== 'div' && tag !== 'iframe' && tag !== 'html'),
   allowedAttributes: {
     img: ['*']
-  }
+  },
+  nonTextTags: ['style', 'script', 'textarea', 'noscript', 'aside']
 };
 
 const Article = db.define('article', {

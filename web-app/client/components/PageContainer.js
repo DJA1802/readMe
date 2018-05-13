@@ -7,7 +7,7 @@ import { desktop } from '../utils/constants';
 
 const PageContainer = ({ children }) => {
   return (
-    <div id="page-container" className="page-height">
+    <div id="page-container">
       <MediaQuery minWidth={desktop}>
         <NavbarSideDesktop />
       </MediaQuery>

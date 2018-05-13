@@ -1,9 +1,12 @@
 const router = require('express').Router();
 const request = require('request-promise-native');
 const { parse } = require('node-html-parser');
-
 const { Article, Author, Publication } = require('../db/models');
-const { setPublicationName, buildMercuryJSONRequest } = require('../utils');
+const {
+  setPublicationName,
+  buildMercuryJSONRequest,
+  extractSrcAttribute
+} = require('../utils');
 const articleQueryAttributes = [
   'id',
   'title',
@@ -58,10 +61,7 @@ async function createNewArticle (userId, articleUrl, next) {
 
   const mercuryArticle = JSON.parse(mercuryResponse);
   const parsedHtml = parse(mercuryArticle.content);
-
-  // const imageAttrs = parsedHtml.querySelector('img').rawAttrs;
-  // const imageRegExp = /src\s*=\s*"(.+?)"/;
-  // const imageSrc = imageRegExp.exec(imageAttrs)[1];
+  const imageSrc = extractSrcAttribute(parsedHtml.querySelector('img'));
 
   const newArticle = await Article.create({
     title: mercuryArticle.title,
@@ -70,8 +70,8 @@ async function createNewArticle (userId, articleUrl, next) {
     wordCount: mercuryArticle.wordCount,
     publicationDate: mercuryArticle.publicationDate,
     userId,
-    publicationId: publication.id
-    // thumbnailUrl: imageSrc
+    publicationId: publication.id,
+    thumbnailUrl: imageSrc
   }).catch(err => {
     next(err);
   });
