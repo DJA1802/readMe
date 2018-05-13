@@ -31,9 +31,3 @@ const getTags = (article, numTags = 2) => {
 
   return tags.filter(tag => !badTags.includes(tag));
 };
-
-// Test
-// Article.findOne({
-//   where: { id: 31 }
-//   // get 2 topics of 5 terms each for this article
-// }).then(article => console.log(getTags(article)));

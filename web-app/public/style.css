@@ -1,3 +1,5 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css?family=Lora');
 html {
   min-height: 100%;
 }
@@ -153,22 +155,28 @@ form div {
 
 /* STYLES FOR SINGLE ARTICLE VIEW ----------------------------*/
 .single-article {
+  font-family: "Lora", serif;
   width: 60%;
   max-width: 800px;
-  margin: 20px auto;
+  margin: 100px auto;
   font-size: 1em;
 }
 
 .single-article img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   max-width: 100%;
 }
 
 .single-article figcaption {
-  font-size: 0.75em;
+  font-style: italic;
+  font-size: 1em;
 }
 
 .article-author {
   font-style: italic;
 }
+
 /* END STYLES FOR SINGLE ARTICLE VIEW ------------------------*/
 /*-------------------------------------------------------------*/
