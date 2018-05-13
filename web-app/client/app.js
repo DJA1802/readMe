@@ -1,19 +1,31 @@
 import React from 'react';
 import { Sidebar } from 'semantic-ui-react';
+import MediaQuery from 'react-responsive';
 import { NavbarTop, NavbarSideMobile } from './components';
+import { desktop } from './utils/constants';
 import Routes from './routes';
 
 const App = () => {
   return (
-    <div>
+    <React.Fragment>
       <NavbarTop />
-      <Sidebar.Pushable id="main">
-        <NavbarSideMobile />
-        <Sidebar.Pusher>
-          <Routes />
-        </Sidebar.Pusher>
-      </Sidebar.Pushable>
-    </div>
+      <MediaQuery minWidth={desktop}>
+        {matches => {
+          if (matches) {
+            return <Routes />;
+          } else {
+            return (
+              <Sidebar.Pushable className="page-height">
+                <NavbarSideMobile />
+                <Sidebar.Pusher className="page-height">
+                  <Routes />
+                </Sidebar.Pusher>
+              </Sidebar.Pushable>
+            );
+          }
+        }}
+      </MediaQuery>
+    </React.Fragment>
   );
 };
 
