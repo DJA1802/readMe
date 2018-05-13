@@ -34,10 +34,6 @@ form div {
   margin: 0 !important;
 }
 
-.page-height {
-  height: calc(100% - 40px);
-}
-
 /*---------------------------------*/
 
 .authform-container {
@@ -55,13 +51,18 @@ form div {
   display: flex;
   width: 100%;
   margin: 0;
+  height: calc(100% - 40px) !important;
+  position: relative;
 }
 
 #page-content {
-  padding: 30px;
+  padding: 30px 3%;
   flex: 4;
-  width: 100vw;
-  overflow-y: scroll;
+  width: calc(100% - 200px);
+  margin: 0 !important;
+  position: absolute;
+  top: 40px;
+  left: 200px;
 }
 
 .analytics-featured {
@@ -73,12 +74,22 @@ form div {
 #navbar-top {
   margin-bottom: 0;
   height: 40px;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
 }
 
 #nav-sidebar {
   flex: 1;
-  min-width: 200px;
-  height: 100%;
+  width: 200px;
+  height: calc(100% - 40px);
+  position: fixed;
+  top: 40px;
+}
+
+#nav-sidebar-mobile {
+  top: 40px;
+  height: calc(100% - 40px) !important;
 }
 
 /* used to make icons sit left on sidebar */
@@ -91,11 +102,16 @@ form div {
   width: 350px;
 }
 
+#mobile-pusher-container {
+  height: 100%;
+  overflow-y: scroll;
+}
+
 /*---------------------------------*/
 
 /* STYLES FOR ARTICLE LIST -----------------------------------*/
 .article-list-container {
-  width: 60%;
+  width: 80%;
   margin: 0 auto;
 }
 
@@ -147,6 +163,10 @@ form div {
   flex: 3;
 }
 
+.article-card {
+  flex-grow: 1;
+}
+
 .article-card-image {
   height: 200px;
 }
@@ -154,24 +174,34 @@ form div {
 /*-------------------------------------------------------------*/
 
 /* STYLES FOR SINGLE ARTICLE VIEW ----------------------------*/
-.single-article {
+
+#single-article {
   font-family: "Lora", serif;
   width: 60%;
   max-width: 800px;
-  margin: 100px auto;
-  font-size: 1em;
+  margin: 20px auto;
+  font-size: 1.1em;
+  text-align: justify;
+  position: relative;
+  top: 40px;
 }
 
-.single-article img {
+#single-article img {
   display: block;
   margin-left: auto;
   margin-right: auto;
   max-width: 100%;
 }
 
-.single-article figcaption {
+#single-article figcaption {
   font-style: italic;
-  font-size: 1em;
+  font-size: 0.9em;
+  margin-bottom: 2em;
+}
+
+#single-article blockquote {
+  font-size: 0.9em;
+  margin-bottom: 2em;
 }
 
 .article-author {
@@ -185,6 +215,38 @@ form div {
   width: 160px;
 }
 
-.test {
-  backgroundcolor: rgb(48, 48, 48);
+/*--MEDIA QUERIES--------------------------------*/
+
+/*----PHONE/MOBILE-----------------------------------------------*/
+
+@media screen and (max-width: 768px) {
+  #single-article {
+    width: 85%;
+  }
+}
+
+/*----TABLET AND MOBILE-----------------------------------*/
+@media screen and (max-width: 1024px) {
+  #page-content {
+    width: 100% !important;
+    left: 0px;
+  }
+
+  .article-list-container {
+    width: 90%;
+  }
+}
+
+/*----TABLET-----------------------------------------------*/
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  #single-article {
+    width: 75%;
+  }
+}
+
+/*----LARGE SCREENS--------------------------------------*/
+@media screen and (min-width: 1400px) {
+  .article-list-container {
+    width: 60%;
+  }
 }

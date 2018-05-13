@@ -15,9 +15,9 @@ const App = () => {
             return <Routes />;
           } else {
             return (
-              <Sidebar.Pushable className="page-height">
+              <Sidebar.Pushable id="mobile-pushable-container">
                 <NavbarSideMobile />
-                <Sidebar.Pusher className="page-height">
+                <Sidebar.Pusher id="mobile-pusher-container">
                   <Routes />
                 </Sidebar.Pusher>
               </Sidebar.Pushable>
