@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Icon, Menu, Popup } from 'semantic-ui-react';
-import { AddArticleForm } from '.';
+import { FormAddArticle } from '.';
 
 /**
  * COMPONENT
  */
-export default class AddArticleButton extends Component {
+export default class ButtonAddArticle extends Component {
   state = { isOpen: false };
 
   handleOpen = () => {
@@ -31,7 +31,7 @@ export default class AddArticleButton extends Component {
         position="bottom right"
       >
         <Popup.Content>
-          <AddArticleForm handleClose={this.handleClose} />
+          <FormAddArticle handleClose={this.handleClose} />
         </Popup.Content>
       </Popup>
     );

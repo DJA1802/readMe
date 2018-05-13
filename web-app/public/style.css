@@ -1,5 +1,5 @@
 /* Fonts */
-@import url('https://fonts.googleapis.com/css?family=Lora');
+@import url("https://fonts.googleapis.com/css?family=Lora");
 html {
   min-height: 100%;
 }
@@ -180,3 +180,11 @@ form div {
 
 /* END STYLES FOR SINGLE ARTICLE VIEW ------------------------*/
 /*-------------------------------------------------------------*/
+
+#style-form {
+  width: 160px;
+}
+
+.test {
+  backgroundcolor: rgb(48, 48, 48);
+}
