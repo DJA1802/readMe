@@ -1,6 +1,9 @@
 const router = require('express').Router();
 const request = require('request-promise-native');
+<<<<<<< HEAD
 const { parse } = require('node-html-parser');
+=======
+>>>>>>> bc29fd3aa8fd2eaa5f69b382ec102f63f3ed7d5f
 const { Article, Author, Publication } = require('../db/models');
 const { setPublicationName, buildMercuryJSONRequest } = require('../utils');
 const articleQueryAttributes = [
@@ -38,6 +41,7 @@ router.post('/', async (req, res, next) => {
 
   const publicationName = setPublicationName(htmlStr, articleUrl);
   const [publication] = await Publication.findOrCreate({
+
     where: {
       name: publicationName
     }
