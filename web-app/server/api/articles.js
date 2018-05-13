@@ -1,22 +1,25 @@
 const router = require('express').Router();
 const request = require('request-promise-native');
+const { parse } = require('node-html-parser');
 const { Article, Author, Publication } = require('../db/models');
 const { setPublicationName, buildMercuryJSONRequest } = require('../utils');
+const articleQueryAttributes = [
+  'id',
+  'title',
+  'sourceUrl',
+  'status',
+  'wordCount',
+  'status',
+  'createdAt',
+  'thumbnailUrl'
+];
 
 // GET /api/articles
 router.get('/', (req, res, next) => {
   const userId = req.user ? req.user.id : null;
   if (userId) {
     Article.findAll({
-      attributes: [
-        'id',
-        'title',
-        'sourceUrl',
-        'status',
-        'wordCount',
-        'status',
-        'createdAt'
-      ],
+      attributes: articleQueryAttributes,
       where: { userId },
       include: [{ model: Author }, { model: Publication }]
     })
@@ -32,6 +35,7 @@ router.post('/', async (req, res, next) => {
   const htmlStr = await request({ url: articleUrl }).catch(err => {
     next(err);
   });
+
   const publicationName = setPublicationName(htmlStr, articleUrl);
   const [publication] = await Publication.findOrCreate({
     where: {
@@ -46,9 +50,13 @@ router.post('/', async (req, res, next) => {
   ).catch(err => {
     next(err);
   });
+
   const mercuryArticle = JSON.parse(mercuryResponse);
-  const image = reactHtmlParser(mercuryArticle.content);
-  console.log(image);
+  const parsedHtml = parse(mercuryArticle.content);
+
+  const imageAttrs = parsedHtml.querySelector('img').rawAttrs;
+  const imageRegExp = /src\s*=\s*"(.+?)"/;
+  const imageSrc = imageRegExp.exec(imageAttrs)[1];
 
   const newArticle = await Article.create({
     title: mercuryArticle.title,
@@ -57,23 +65,16 @@ router.post('/', async (req, res, next) => {
     wordCount: mercuryArticle.wordCount,
     publicationDate: mercuryArticle.publicationDate,
     userId,
-    publicationId: publication.id
+    publicationId: publication.id,
+    thumbnailUrl: imageSrc
   }).catch(err => {
     next(err);
   });
 
   const associatedArticle = await Article.findOne({
     where: { id: newArticle.id },
-    attributes: [
-      'id',
-      'title',
-      'sourceUrl',
-      'status',
-      'wordCount',
-      'status',
-      'createdAt'
-    ],
-    include: [Author, Publication]
+    attributes: articleQueryAttributes,
+    include: [{ model: Author }, { model: Publication }]
   }).catch(err => {
     next(err);
   });
@@ -84,7 +85,7 @@ router.post('/', async (req, res, next) => {
 // GET /api/articles/:id
 router.get('/:id', (req, res, next) => {
   Article.findById(req.params.id, {
-    include: [Author, Publication]
+    include: [{ model: Author }, { model: Publication }]
   })
     .then(article => res.json(article))
     .catch(next);
