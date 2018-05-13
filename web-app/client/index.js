@@ -9,6 +9,12 @@ import App from './app';
 // establishes socket connection
 import './socket';
 
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+    .register('/service-worker.js')
+    .then(() => console.log('readMe Service Worker Registered'));
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
