@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
+const Article = require('./Article');
+const { convertMilliseconds, average } = require('../../utils');
 
 const Interaction = db.define('interaction', {
   startTime: {
@@ -19,5 +21,25 @@ const Interaction = db.define('interaction', {
     }
   }
 });
+
+Interaction.getAverageForUser = function (
+  userId,
+  units = 'minutes',
+  digitsAfterDecimal = 2
+) {
+  return Interaction.findAll({
+    include: [
+      {
+        model: Article,
+        where: { userId }
+      }
+    ]
+  }).then(interactions => {
+    const durations = interactions.map(interaction => interaction.duration);
+    return convertMilliseconds(average(durations), units).toFixed(
+      digitsAfterDecimal
+    );
+  });
+};
 
 module.exports = Interaction;
