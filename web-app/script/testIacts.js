@@ -20,3 +20,6 @@ Article.getMostReadByDuration().then(data =>
 Article.groupByInteractionCount().then(data =>
   console.log('groupByInteractionCount ', data)
 );
+Interaction.readingTimeByDate(1).then(data =>
+  console.log('userReadingTimePerX day ', data)
+);

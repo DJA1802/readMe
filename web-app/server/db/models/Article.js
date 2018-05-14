@@ -61,7 +61,7 @@ Article.beforeCreate(articleInstance => {
 Article.groupByTimeRead = function () {
   return db
     .query(
-      'SELECT articles.id, articles.title, articles."sourceUrl", articles."publicationDate", articles."wordCount", articles.status, articles."publicationId", SUM(EXTRACT(EPOCH FROM interactions."endTime"-interactions."startTime"))*1000 AS "duration" FROM articles INNER JOIN interactions on articles.id = interactions."articleId" GROUP BY articles.id, articles.title, articles."sourceUrl", articles."publicationDate", articles."wordCount", articles.status, articles."publicationId" ORDER BY "duration" DESC;'
+      'SELECT articles.id, articles.title, articles."sourceUrl", articles."publicationDate", articles."wordCount", articles.status, articles."publicationId", SUM(EXTRACT(MILLISECONDS FROM interactions."endTime"-interactions."startTime")) AS "duration" FROM articles INNER JOIN interactions on articles.id = interactions."articleId" GROUP BY articles.id, articles.title, articles."sourceUrl", articles."publicationDate", articles."wordCount", articles.status, articles."publicationId" ORDER BY "duration" DESC;'
     )
     .then(data => data[0]);
 };
@@ -73,9 +73,11 @@ Article.getMostReadByDuration = function () {
 };
 
 Article.groupByInteractionCount = function () {
-  return db.query(
-    'SELECT articles.id, articles.title, articles."sourceUrl", articles."publicationDate", articles."wordCount", articles.status, articles."publicationId", COUNT(interactions."startTime") AS "interactionCount" FROM articles INNER JOIN interactions on articles.id = interactions."articleId" GROUP BY articles.id ORDER BY "interactionCount" DESC;'
-  );
+  return db
+    .query(
+      'SELECT articles.id, articles.title, articles."sourceUrl", articles."publicationDate", articles."wordCount", articles.status, articles."publicationId", COUNT(interactions."startTime") AS "interactionCount" FROM articles INNER JOIN interactions on articles.id = interactions."articleId" GROUP BY articles.id ORDER BY "interactionCount" DESC;'
+    )
+    .then(data => data[0]);
 };
 
 module.exports = Article;

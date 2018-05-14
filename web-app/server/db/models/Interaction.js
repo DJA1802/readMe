@@ -46,4 +46,12 @@ Interaction.getAverageLength = function (
   });
 };
 
+Interaction.readingTimeByDate = function (userId) {
+  return db
+    .query(
+      `SELECT DATE_TRUNC('day', interactions."startTime") AS "day", SUM(EXTRACT(MILLISECONDS FROM interactions."endTime"-interactions."startTime")) AS "duration" FROM interactions JOIN articles on interactions."articleId" = articles.id JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} GROUP BY date_trunc('day', interactions."startTime") ORDER BY "day";`
+    )
+    .then(data => data[0]);
+};
+
 module.exports = Interaction;
