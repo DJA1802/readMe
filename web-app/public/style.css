@@ -34,6 +34,10 @@ form div {
   margin: 0 !important;
 }
 
+.no-padding {
+  padding: 0 !important;
+}
+
 /*---------------------------------*/
 
 #authform-container {
@@ -182,11 +186,11 @@ form div {
 /* STYLES FOR SINGLE ARTICLE VIEW ----------------------------*/
 
 #single-article {
-  font-family: "Lora", serif;
+  /* font-family: "Lora", serif; */
   width: 60%;
   max-width: 800px;
   margin: 20px auto;
-  font-size: 1.1em;
+  /* font-size: 1.1em; */
   text-align: justify;
   position: relative;
   top: 40px;
@@ -214,12 +218,38 @@ form div {
   font-style: italic;
 }
 
-/* END STYLES FOR SINGLE ARTICLE VIEW ------------------------*/
-/*-------------------------------------------------------------*/
+/* ARTICLE STYLE FORM */
 
 #style-form {
   width: 160px;
 }
+
+.font-segment {
+  display: flex;
+  justify-content: space-between;
+}
+
+.font-name {
+  width: 85%;
+  text-align: center;
+}
+
+.font-check-icon {
+  width: 15%;
+}
+
+.scheme-picker {
+  padding: 5px 0 0 0 !important;
+  text-align: center;
+  width: 33% !important;
+}
+
+/* END STYLES FOR SINGLE ARTICLE VIEW ------------------------*/
+/*-------------------------------------------------------------*/
+
+/*-------------------------------------------------------------*/
+/*-------------------------------------------------------------*/
+/*-------------------------------------------------------------*/
 
 /*--MEDIA QUERIES--------------------------------*/
 
@@ -255,4 +285,8 @@ form div {
   .article-list-container {
     width: 60%;
   }
+}
+
+.test {
+  color: rgb(238, 232, 224);
 }

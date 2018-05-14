@@ -18,7 +18,9 @@ class Article extends Component {
   }
 
   componentDidMount () {
-    this.props.handleFetchArticle();
+    const { handleFetchArticle } = this.props;
+
+    handleFetchArticle();
     addInteractionToLocalStorage(this.props.match.params.id); // articleId. Cannot use article.id because "article" as a prop from Redux is not yet available.
     this.updateLastInteractionIntervalID = setInterval(
       updateLastInteractionEndTime,
@@ -27,13 +29,20 @@ class Article extends Component {
   }
 
   componentWillUnmount () {
+    const { handleClearArticle, transferLocalStorageToDb } = this.props;
+
     clearInterval(this.updateLastInteractionIntervalID);
-    this.props.transferLocalStorageToDb(getLocalInteractions());
-    this.props.handleClearArticle();
+    transferLocalStorageToDb(getLocalInteractions());
+    handleClearArticle();
+
+    // change background color back to default
+    document.getElementsByTagName('html')[0].style.backgroundColor = 'white';
+    document.getElementById('app').style.backgroundColor = 'white';
   }
 
   render () {
-    const article = this.props.article;
+    const { article } = this.props;
+    const { fontSize, fontFamily, color, backgroundColor } = this.props.style;
     const {
       title,
       sourceUrl,
@@ -50,11 +59,19 @@ class Article extends Component {
       timeZone: 'UTC'
     };
 
+    // change background color based on style state
+    document.getElementsByTagName(
+      'html'
+    )[0].style.backgroundColor = backgroundColor;
+    document.getElementById('app').style.backgroundColor = backgroundColor;
+
     return (
       <div id="page-container">
         {article ? (
-          <div id="single-article">
-            <Header as="h1">{title}</Header>
+          <div id="single-article" style={{ fontSize, fontFamily, color }}>
+            <Header as="h1" style={{ color }}>
+              {title}
+            </Header>
             Originally from{' '}
             <a href={sourceUrl}>{publication && publication.name}</a>
             <p className="article-author">
@@ -80,7 +97,8 @@ class Article extends Component {
 
 const mapStateToProps = state => {
   return {
-    article: state.articleSelected
+    article: state.articleSelected,
+    style: state.articleStyle
   };
 };
 
