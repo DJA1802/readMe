@@ -12,7 +12,13 @@ import {
   Signup,
   UserHome
 } from './components';
-import { fetchArticles, me, postCachedInteractions } from './store';
+import {
+  fetchArticles,
+  me,
+  postCachedInteractions,
+  acNetworkConnectionLost,
+  acNetworkConnectionRestored
+} from './store';
 import {
   localInteractionsExist,
   getLocalInteractions
@@ -32,6 +38,8 @@ class Routes extends Component {
 
   render () {
     const { isLoggedIn } = this.props;
+
+    setInterval(() => this.props.checkIfOnline(this.props.online), 1000);
 
     return (
       <Switch>
@@ -119,7 +127,8 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    online: state.online
   };
 };
 
@@ -131,6 +140,15 @@ const mapDispatch = dispatch => {
     },
     transferLocalStorageToDb (interactions) {
       dispatch(postCachedInteractions({ interactions }));
+    },
+    checkIfOnline (onlineStatus) {
+      if (navigator.onLine !== onlineStatus) {
+        if (!navigator.onLine) {
+          dispatch(acNetworkConnectionLost());
+        } else {
+          dispatch(acNetworkConnectionRestored());
+        }
+      }
     }
   };
 };
