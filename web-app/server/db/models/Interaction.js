@@ -22,11 +22,7 @@ const Interaction = db.define('interaction', {
   }
 });
 
-Interaction.getAverageForUser = function (
-  userId,
-  timeUnit = 'milliseconds',
-  digitsAfterDecimal = 2
-) {
+Interaction.getAllForUser = function (userId) {
   return Interaction.findAll({
     include: [
       {
@@ -34,7 +30,15 @@ Interaction.getAverageForUser = function (
         where: { userId }
       }
     ]
-  }).then(interactions => {
+  });
+};
+
+Interaction.getAverageLength = function (
+  userId,
+  timeUnit = 'milliseconds',
+  digitsAfterDecimal = 2
+) {
+  return Interaction.getAllForUser(userId).then(interactions => {
     const durations = interactions.map(interaction => interaction.duration);
     return convertMilliseconds(average(durations), timeUnit).toFixed(
       digitsAfterDecimal
