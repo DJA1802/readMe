@@ -1,12 +1,13 @@
 import React from 'react';
 import { Icon, Popup } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 
 /**
  * COMPONENT
  */
 
 const ButtonIcon = props => {
-  const { articleId, handleButtonClick, iconName, popupLabel } = props;
+  const { articleId, handleButtonClick, iconName, online, popupLabel } = props;
   const style = {
     opacity: 0.7,
     padding: '0.5em'
@@ -22,8 +23,9 @@ const ButtonIcon = props => {
         <Icon
           name={iconName}
           size="large"
-          onClick={() => handleButtonClick(articleId)}
-          link
+          onClick={online && (() => handleButtonClick(articleId))}
+          link={online && true}
+          className={!online && 'icon-disabled'}
         />
       }
       content={popupLabel}
@@ -31,4 +33,8 @@ const ButtonIcon = props => {
   );
 };
 
-export default ButtonIcon;
+const mapStateToProps = state => ({
+  online: state.online
+});
+
+export default connect(mapStateToProps)(ButtonIcon);

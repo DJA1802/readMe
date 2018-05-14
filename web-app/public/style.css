@@ -153,6 +153,10 @@ form div {
   text-align: right;
 }
 
+.icon-disabled {
+  color: rgb(209, 209, 209);
+}
+
 /* END STYLES FOR ARTICLE LIST --------------------------------*/
 /*-------------------------------------------------------------*/
 
