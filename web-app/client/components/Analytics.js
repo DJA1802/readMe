@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Header, Segment } from 'semantic-ui-react';
-import { VictoryAxis, VictoryArea, VictoryChart, VictoryTheme } from 'victory';
+import { VictoryAxis, VictoryBar, VictoryChart, VictoryTheme } from 'victory';
 import moment from 'moment';
 import { fetchInteractions } from '../store';
 
@@ -29,7 +29,7 @@ class Analytics extends Component {
               dependentAxis
               tickFormat={y => `${Math.floor(y / 60000)} min`}
             />
-            <VictoryArea id="chart" data={chartData} x="date" y="duration" />
+            <VictoryBar id="chart" data={chartData} x="date" y="duration" />
           </VictoryChart>
         </Segment>
       </div>
