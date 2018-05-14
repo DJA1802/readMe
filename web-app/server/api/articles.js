@@ -36,6 +36,10 @@ router.get('/', (req, res, next) => {
 
 // HELPER FUNCTIONS FOR POSTING ARTICLE -------------------------- //
 async function createNewArticle (userId, articleUrl, next) {
+  // TODO: break out into 3-4 small fn calls
+  // TODO: could be sequelize model method?
+  // TODO: don't handle errors in this file - wrap in try catch
+
   if (!next) next = console.log;
   console.log('----------------------------------------------------');
   console.log('FETCHING TEXT FOR ARTICLE: ', articleUrl);
@@ -55,9 +59,7 @@ async function createNewArticle (userId, articleUrl, next) {
 
   const mercuryResponse = await request(
     buildMercuryJSONRequest(articleUrl)
-  ).catch(err => {
-    next(err);
-  });
+  ).catch(next);
 
   const mercuryArticle = JSON.parse(mercuryResponse);
   const parsedHtml = parse(mercuryArticle.content);
@@ -92,11 +94,11 @@ async function returnCreatedArticle (newArticle) {
 
 // POST /api/articles
 router.post('/', (req, res, next) => {
-  const userId = req.user.id;
+  const userId = req.user.id; // TODO: be consistent w destructuring
   const { articleUrl } = req.body;
 
   createNewArticle(userId, articleUrl, next)
-    .then(newArticle => returnCreatedArticle(newArticle))
+    .then(returnCreatedArticle)
     .then(associatedArticle => res.status(201).json(associatedArticle))
     .catch(next);
 });
