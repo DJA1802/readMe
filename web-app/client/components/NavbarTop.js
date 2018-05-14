@@ -80,7 +80,7 @@ const mapStateToProps = state => {
   return {
     isLoggedIn: !!state.user.id,
     email: state.user.email,
-    isArticleView: !!state.articleSelected.id
+    isArticleView: !!state.articleSelected
   };
 };
 

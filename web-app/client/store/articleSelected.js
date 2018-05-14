@@ -3,13 +3,13 @@ import axios from 'axios';
 /**
  * ACTION TYPES
  */
-const GET_ARTICLE = 'GET_ARTICLE';
+const GET_ARTICLE_ID = 'GET_ARTICLE_ID';
 const CLEAR_ARTICLE = 'CLEAR_ARTICLE';
 
 /**
  * ACTION CREATORS
  */
-export const getArticle = article => ({ type: GET_ARTICLE, article });
+export const getArticle = articleId => ({ type: GET_ARTICLE_ID, articleId });
 export const clearArticle = () => ({ type: CLEAR_ARTICLE });
 
 /**
@@ -24,12 +24,12 @@ export const clearArticle = () => ({ type: CLEAR_ARTICLE });
 /**
  * REDUCER
  */
-export default function (state = {}, action) {
+export default function (state = null, action) {
   switch (action.type) {
-    case GET_ARTICLE:
-      return action.article;
+    case GET_ARTICLE_ID:
+      return action.articleId;
     case CLEAR_ARTICLE:
-      return {};
+      return null;
     default:
       return state;
   }

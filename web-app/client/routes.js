@@ -139,7 +139,7 @@ const mapDispatch = dispatch => {
       dispatch(fetchArticles());
     },
     transferLocalStorageToDb (interactions) {
-      dispatch(postCachedInteractions({ interactions }));
+      if (interactions) dispatch(postCachedInteractions({ interactions }));
     },
     checkIfOnline (onlineStatus) {
       if (navigator.onLine !== onlineStatus) {

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import store, { getArticle, clearArticle } from '../store';
+import { getArticle, clearArticle } from '../store';
 import reactHtmlParser from 'react-html-parser';
 import { Header } from 'semantic-ui-react';
 import {
@@ -43,14 +43,18 @@ class Article extends Component {
   render () {
     const { article } = this.props;
     const { fontSize, fontFamily, color, backgroundColor } = this.props.style;
-    const {
-      title,
-      sourceUrl,
-      author,
-      content,
-      publication,
-      publicationDate
-    } = article;
+
+    let title, sourceUrl, author, content, publication, publicationDate;
+
+    article &&
+      ({
+        title,
+        sourceUrl,
+        author,
+        content,
+        publication,
+        publicationDate
+      } = article);
     const dateOptions = {
       weekday: 'long',
       year: 'numeric',
@@ -97,7 +101,9 @@ class Article extends Component {
 
 const mapStateToProps = state => {
   return {
-    article: state.articleSelected,
+    article: state.articlesAll.filter(
+      article => article.id === state.articleSelected
+    )[0],
     style: state.articleStyle
   };
 };
@@ -106,11 +112,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const articleId = Number(ownProps.match.params.id);
   return {
     handleGetArticle: () => {
-      const selectedArticle = store
-        .getState()
-        .articlesAll.filter(article => article.id === articleId)[0];
-      console.log('selected article in handlegetarticle', selectedArticle);
-      dispatch(getArticle(selectedArticle));
+      dispatch(getArticle(articleId));
     },
     handleClearArticle: () => dispatch(clearArticle())
   };
