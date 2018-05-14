@@ -176,7 +176,7 @@ form div {
 /* STYLES FOR SINGLE ARTICLE VIEW ----------------------------*/
 
 #single-article {
-  font-family: "Lora", serif;
+  /* font-family: "Lora", serif; */
   width: 60%;
   max-width: 800px;
   margin: 20px auto;
@@ -249,4 +249,8 @@ form div {
   .article-list-container {
     width: 60%;
   }
+}
+
+.test {
+  color: rgb(216, 204, 189);
 }
