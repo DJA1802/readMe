@@ -6,9 +6,11 @@
     "scripts": ["background.bundle.js"]
   },
   "browser_action": {
-    "default_icon": "icon-34.png"
+    "default_icon": "icon-64.png"
   },
   "icons": {
+    "32": "icon-32.png",
+    "64": "icon-64.png",
     "128": "icon-128.png"
   },
   "permissions": [
