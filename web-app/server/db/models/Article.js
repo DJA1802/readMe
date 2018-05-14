@@ -58,14 +58,24 @@ Article.beforeCreate(articleInstance => {
   // set some tags on this article
 });
 
-Article.getMostReadByTime = function () {
+Article.groupByTimeRead = function () {
   return db
     .query(
-      'SELECT articles.id, articles.title, articles."sourceUrl", articles."publicationDate", articles."wordCount", articles.status, articles."publicationId", SUM(EXTRACT(EPOCH FROM interactions."endTime"-interactions."startTime"))*1000 AS "duration" FROM articles INNER JOIN interactions on articles.id = interactions."articleId" GROUP BY articles.id, articles.title, articles."sourceUrl", articles."publicationDate", articles."wordCount", articles.status, articles."publicationId" ORDER BY "duration";'
+      'SELECT articles.id, articles.title, articles."sourceUrl", articles."publicationDate", articles."wordCount", articles.status, articles."publicationId", SUM(EXTRACT(EPOCH FROM interactions."endTime"-interactions."startTime"))*1000 AS "duration" FROM articles INNER JOIN interactions on articles.id = interactions."articleId" GROUP BY articles.id, articles.title, articles."sourceUrl", articles."publicationDate", articles."wordCount", articles.status, articles."publicationId" ORDER BY "duration" DESC;'
     )
-    .then(data => {
-      return data[0].length ? data[0][0] : null;
-    });
+    .then(data => data[0]);
+};
+
+Article.getMostReadByDuration = function () {
+  return Article.groupByTimeRead().then(data => {
+    return data.length ? data[0] : null;
+  });
+};
+
+Article.groupByInteractionCount = function () {
+  return db.query(
+    'SELECT articles.id, articles.title, articles."sourceUrl", articles."publicationDate", articles."wordCount", articles.status, articles."publicationId", COUNT(interactions."startTime") AS "interactionCount" FROM articles INNER JOIN interactions on articles.id = interactions."articleId" GROUP BY articles.id ORDER BY "interactionCount" DESC;'
+  );
 };
 
 module.exports = Article;

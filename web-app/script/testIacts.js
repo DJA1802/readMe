@@ -13,4 +13,10 @@ const { Interaction, Article } = require('../server/db/models');
 // Interaction.getAverageLength(1, 'hours').then(userAvgTime =>
 //   console.log('Average in hours: ', userAvgTime)
 // );
-Article.getMostReadByTime().then(console.log);
+Article.groupByTimeRead().then(data => console.log('groupbyTimeRead ', data));
+Article.getMostReadByDuration().then(data =>
+  console.log('getMostReadByDuration ', data)
+);
+Article.groupByInteractionCount().then(data =>
+  console.log('groupByInteractionCount ', data)
+);
