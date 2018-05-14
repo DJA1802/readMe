@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchArticle, clearArticle } from '../store';
+import store, { getArticle, clearArticle } from '../store';
 import reactHtmlParser from 'react-html-parser';
 import { Header } from 'semantic-ui-react';
 import {
@@ -18,9 +18,9 @@ class Article extends Component {
   }
 
   componentDidMount () {
-    const { handleFetchArticle } = this.props;
+    const { handleGetArticle } = this.props;
 
-    handleFetchArticle();
+    handleGetArticle();
     addInteractionToLocalStorage(this.props.match.params.id); // articleId. Cannot use article.id because "article" as a prop from Redux is not yet available.
     this.updateLastInteractionIntervalID = setInterval(
       updateLastInteractionEndTime,
@@ -105,7 +105,13 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   const articleId = Number(ownProps.match.params.id);
   return {
-    handleFetchArticle: () => dispatch(fetchArticle(articleId)),
+    handleGetArticle: () => {
+      const selectedArticle = store
+        .getState()
+        .articlesAll.filter(article => article.id === articleId)[0];
+      console.log('selected article in handlegetarticle', selectedArticle);
+      dispatch(getArticle(selectedArticle));
+    },
     handleClearArticle: () => dispatch(clearArticle())
   };
 };

@@ -1,6 +1,6 @@
-self.addEventListener('install', function (event) {
+self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open('readme').then(function (cache) {
+    caches.open('readme').then(cache => {
       return cache.addAll([
         '/',
         '/index.html',
@@ -12,11 +12,12 @@ self.addEventListener('install', function (event) {
   );
 });
 
-self.addEventListener('fetch', function (event) {
+self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request).then(function (cachedResponse) {
+    caches.match(event.request).then(cachedResponse => {
       // Cache hit - return response
-      if (cachedResponse) {
+      if (cachedResponse && !navigator.onLine) {
+        console.log('returning cached response!');
         return cachedResponse;
       }
 
@@ -26,7 +27,7 @@ self.addEventListener('fetch', function (event) {
       // to clone the response.
       const fetchRequest = event.request.clone();
 
-      return fetch(fetchRequest).then(function (serverResponse) {
+      return fetch(fetchRequest).then(serverResponse => {
         // Check if we received a valid response
         if (
           !serverResponse ||
@@ -42,11 +43,8 @@ self.addEventListener('fetch', function (event) {
         // to clone it so we have two streams.
         const responseToCache = serverResponse.clone();
 
-        caches.open('readme').then(function (cache) {
-          if (
-            event.request.url.indexOf('socket.io') === -1 &&
-            event.request.method === 'GET'
-          ) {
+        caches.open('readme').then(cache => {
+          if (event.request.method === 'GET') {
             cache.put(event.request, responseToCache);
           }
         });
