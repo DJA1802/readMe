@@ -12,10 +12,6 @@ self.addEventListener('install', function (event) {
   );
 });
 
-// self.addEventListener('activate', function (event) {
-//   event.waitUntil(createDB());
-// });
-
 self.addEventListener('fetch', function (event) {
   event.respondWith(
     caches.match(event.request).then(function (cachedResponse) {
@@ -60,30 +56,3 @@ self.addEventListener('fetch', function (event) {
     })
   );
 });
-
-// function createDB () {
-//   idb.open('readme', 1, function (db) {
-//     var store = db.createObjectStore('interactions', {
-//       keyPath: 'startTime'
-//     });
-//     store.put({
-//       // Seed with one interaction
-//       startTime: '2018-05-07T05:17:49.314Z',
-//       endTime: '2018-05-07T05:47:19.114Z',
-//       articleId: 1
-//     });
-//   });
-// }
-
-// function readDB () {
-//   idb
-//     .open('readme', 1)
-//     .then(function (db) {
-//       var tx = db.transaction(['interactions'], 'readonly');
-//       var store = tx.objectStore('interactions');
-//       return store.getAll();
-//     })
-//     .then(function (items) {
-//       // Use the data
-//     });
-// }
