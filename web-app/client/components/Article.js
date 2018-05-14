@@ -33,7 +33,8 @@ class Article extends Component {
   }
 
   render () {
-    const article = this.props.article;
+    const { article } = this.props;
+    const { fontSize } = this.props.style;
     const {
       title,
       sourceUrl,
@@ -53,7 +54,7 @@ class Article extends Component {
     return (
       <div id="page-container">
         {article ? (
-          <div id="single-article">
+          <div id="single-article" style={{ fontSize }}>
             <Header as="h1">{title}</Header>
             Originally from{' '}
             <a href={sourceUrl}>{publication && publication.name}</a>
@@ -80,7 +81,8 @@ class Article extends Component {
 
 const mapStateToProps = state => {
   return {
-    article: state.articleSelected
+    article: state.articleSelected,
+    style: state.articleStyle
   };
 };
 

@@ -180,7 +180,7 @@ form div {
   width: 60%;
   max-width: 800px;
   margin: 20px auto;
-  font-size: 1.1em;
+  /* font-size: 1.1em; */
   text-align: justify;
   position: relative;
   top: 40px;
