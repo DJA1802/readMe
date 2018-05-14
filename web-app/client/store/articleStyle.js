@@ -77,7 +77,7 @@ const determineSchemeStyles = colorScheme => {
   switch (colorScheme) {
     case 'sepia':
       return {
-        backgroundColor: 'rgb(216, 204, 189)',
+        backgroundColor: 'rgb(238, 232, 224)',
         color: 'rgb(34, 34, 34)',
         scheme: 'sepia'
       };

@@ -34,6 +34,10 @@ form div {
   margin: 0 !important;
 }
 
+.no-padding {
+  padding: 0 !important;
+}
+
 /*---------------------------------*/
 
 .authform-container {
@@ -208,12 +212,38 @@ form div {
   font-style: italic;
 }
 
-/* END STYLES FOR SINGLE ARTICLE VIEW ------------------------*/
-/*-------------------------------------------------------------*/
+/* ARTICLE STYLE FORM */
 
 #style-form {
   width: 160px;
 }
+
+.font-segment {
+  display: flex;
+  justify-content: space-between;
+}
+
+.font-name {
+  width: 85%;
+  text-align: center;
+}
+
+.font-check-icon {
+  width: 15%;
+}
+
+.scheme-picker {
+  padding: 5px 0 0 0 !important;
+  text-align: center;
+  width: 33% !important;
+}
+
+/* END STYLES FOR SINGLE ARTICLE VIEW ------------------------*/
+/*-------------------------------------------------------------*/
+
+/*-------------------------------------------------------------*/
+/*-------------------------------------------------------------*/
+/*-------------------------------------------------------------*/
 
 /*--MEDIA QUERIES--------------------------------*/
 
@@ -252,5 +282,5 @@ form div {
 }
 
 .test {
-  color: rgb(216, 204, 189);
+  color: rgb(238, 232, 224);
 }

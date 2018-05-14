@@ -28,23 +28,34 @@ const FormChangeStyle = props => {
     <div id="style-form">
       <Segment.Group horizontal>
         <Segment
-          style={{ cursor: scheme !== 'light' && 'pointer' }}
+          style={{
+            cursor: scheme !== 'light' && 'pointer'
+          }}
+          className="scheme-picker"
           onClick={() => handleColorScheme()}
-        />
+        >
+          {scheme === 'light' && <Icon name="check" />}
+        </Segment>
         <Segment
           style={{
             backgroundColor: 'rgb(248, 242, 226)',
             cursor: scheme !== 'sepia' && 'pointer'
           }}
+          className="scheme-picker"
           onClick={() => handleColorScheme('sepia')}
-        />
+        >
+          {scheme === 'sepia' && <Icon name="check" />}
+        </Segment>
         <Segment
           style={{
             backgroundColor: 'rgb(50, 50, 50)',
             cursor: scheme !== 'dark' && 'pointer'
           }}
+          className="scheme-picker"
           onClick={() => handleColorScheme('dark')}
-        />
+        >
+          {scheme === 'dark' && <Icon name="check" inverted />}
+        </Segment>
       </Segment.Group>
       <Segment.Group style={{ textAlign: 'center' }}>
         <Segment
@@ -54,8 +65,12 @@ const FormChangeStyle = props => {
             backgroundColor: fontFamily === 'Lora' && 'rgb(245, 245, 245)'
           }}
           onClick={() => handleTypeface('Lora')}
+          className="font-segment"
         >
-          Lora
+          <div className="font-name">Lora</div>
+          {fontFamily === 'Lora' && (
+            <Icon name="check" className="font-check-icon" />
+          )}
         </Segment>
         <Segment
           style={{
@@ -64,8 +79,12 @@ const FormChangeStyle = props => {
             backgroundColor: fontFamily === 'Lato' && 'rgb(245, 245, 245)'
           }}
           onClick={() => handleTypeface('Lato')}
+          className="font-segment"
         >
-          Lato
+          <div className="font-name">Lato</div>
+          {fontFamily === 'Lato' && (
+            <Icon name="check" className="font-check-icon" />
+          )}
         </Segment>
         <Segment
           style={{
@@ -74,8 +93,12 @@ const FormChangeStyle = props => {
             backgroundColor: fontFamily === 'Helvetica' && 'rgb(245, 245, 245)'
           }}
           onClick={() => handleTypeface('Helvetica')}
+          className="font-segment"
         >
-          Helvetica
+          <div className="font-name">Helvetica</div>
+          {fontFamily === 'Helvetica' && (
+            <Icon name="check" className="font-check-icon" />
+          )}
         </Segment>
         <Segment
           style={{
@@ -84,8 +107,12 @@ const FormChangeStyle = props => {
             backgroundColor: fontFamily === 'Georgia' && 'rgb(245, 245, 245)'
           }}
           onClick={() => handleTypeface('Georgia')}
+          className="font-segment"
         >
-          Georgia
+          <div className="font-name">Georgia</div>
+          {fontFamily === 'Georgia' && (
+            <Icon name="check" className="font-check-icon" />
+          )}
         </Segment>
       </Segment.Group>
       <div style={{ display: 'flex' }}>
