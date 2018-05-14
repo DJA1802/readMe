@@ -7,13 +7,15 @@ import articleSelected from './articleSelected';
 import articleStyle from './articleStyle';
 import navbar from './navbar';
 import user from './user';
+import online from './online';
 
 const reducer = combineReducers({
   articlesAll,
   articleSelected,
   articleStyle,
   navbar,
-  user
+  user,
+  online
 });
 
 const middleware = composeWithDevTools(
@@ -27,3 +29,4 @@ export * from './articleSelected';
 export * from './articleStyle';
 export * from './navbar';
 export * from './user';
+export * from './online';

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import history from '../history';
+import { fetchArticles } from '.';
 import { clearLocalInteractions } from '../utils/helperFuncs';
 
 /**
@@ -36,6 +37,7 @@ export const auth = (email, password, method) => dispatch =>
     .then(
       res => {
         dispatch(getUser(res.data));
+        dispatch(fetchArticles());
         history.push('/home');
       },
       authError => {
