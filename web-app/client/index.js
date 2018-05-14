@@ -12,7 +12,8 @@ import './socket';
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
     .register('/service-worker.js')
-    .then(() => console.log('readMe Service Worker Registered'));
+    .then(() => console.log('readMe Service Worker Registered'))
+    .catch(err => console.log(err));
 }
 
 ReactDOM.render(
