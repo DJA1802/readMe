@@ -24,7 +24,7 @@ const Interaction = db.define('interaction', {
 
 Interaction.getAverageForUser = function (
   userId,
-  units = 'minutes',
+  timeUnit = 'milliseconds',
   digitsAfterDecimal = 2
 ) {
   return Interaction.findAll({
@@ -36,7 +36,7 @@ Interaction.getAverageForUser = function (
     ]
   }).then(interactions => {
     const durations = interactions.map(interaction => interaction.duration);
-    return convertMilliseconds(average(durations), units).toFixed(
+    return convertMilliseconds(average(durations), timeUnit).toFixed(
       digitsAfterDecimal
     );
   });

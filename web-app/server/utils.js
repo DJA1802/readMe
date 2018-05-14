@@ -26,6 +26,8 @@ function convertMilliseconds (milliseconds, units) {
       return msToMinutes(milliseconds);
     case 'hours':
       return msToHours(milliseconds);
+    case 'milliseconds':
+      return milliseconds;
     default:
       return milliseconds;
   }
