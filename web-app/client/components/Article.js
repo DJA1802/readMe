@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchArticle, clearArticle } from '../store';
+import { getArticle, clearArticle } from '../store';
 import reactHtmlParser from 'react-html-parser';
 import { Header } from 'semantic-ui-react';
 import {
@@ -18,9 +18,9 @@ class Article extends Component {
   }
 
   componentDidMount () {
-    const { handleFetchArticle } = this.props;
+    const { handleGetArticle } = this.props;
 
-    handleFetchArticle();
+    handleGetArticle();
     addInteractionToLocalStorage(this.props.match.params.id); // articleId. Cannot use article.id because "article" as a prop from Redux is not yet available.
     this.updateLastInteractionIntervalID = setInterval(
       updateLastInteractionEndTime,
@@ -43,14 +43,18 @@ class Article extends Component {
   render () {
     const { article } = this.props;
     const { fontSize, fontFamily, color, backgroundColor } = this.props.style;
-    const {
-      title,
-      sourceUrl,
-      author,
-      content,
-      publication,
-      publicationDate
-    } = article;
+
+    let title, sourceUrl, author, content, publication, publicationDate;
+
+    article &&
+      ({
+        title,
+        sourceUrl,
+        author,
+        content,
+        publication,
+        publicationDate
+      } = article);
     const dateOptions = {
       weekday: 'long',
       year: 'numeric',
@@ -97,7 +101,9 @@ class Article extends Component {
 
 const mapStateToProps = state => {
   return {
-    article: state.articleSelected,
+    article: state.articlesAll.filter(
+      article => article.id === state.articleSelected
+    )[0],
     style: state.articleStyle
   };
 };
@@ -105,7 +111,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   const articleId = Number(ownProps.match.params.id);
   return {
-    handleFetchArticle: () => dispatch(fetchArticle(articleId)),
+    handleGetArticle: () => {
+      dispatch(getArticle(articleId));
+    },
     handleClearArticle: () => dispatch(clearArticle())
   };
 };
