@@ -18,40 +18,42 @@ const AuthForm = props => {
   const { name, displayName, handleSubmit, error } = props;
 
   return (
-    <Segment className="authform-container">
-      <Header as="h3">{displayName}</Header>
-      <Button
-        className="authform-btn-oauth"
-        as="a"
-        href="/auth/google"
-        icon
-        labelPosition="left"
-      >
-        <Icon name="google" />
-        {displayName} with Google
-      </Button>
-      <Button
-        className="authform-btn-oauth"
-        as="a"
-        href="/auth/twitter"
-        icon
-        labelPosition="left"
-      >
-        <Icon name="twitter" />
-        {displayName} with Twitter
-      </Button>
-      <Divider horizontal>Or</Divider>
-      <form onSubmit={handleSubmit} name={name}>
-        <Input name="email" type="text" placeholder="Email" />
+    <div id="authform-container">
+      <Segment id="authform">
+        <Header as="h3">{displayName}</Header>
+        <Button
+          className="authform-btn-oauth"
+          as="a"
+          href="/auth/google"
+          icon
+          labelPosition="left"
+        >
+          <Icon name="google" />
+          {displayName} with Google
+        </Button>
+        <Button
+          className="authform-btn-oauth"
+          as="a"
+          href="/auth/twitter"
+          icon
+          labelPosition="left"
+        >
+          <Icon name="twitter" />
+          {displayName} with Twitter
+        </Button>
+        <Divider horizontal>Or</Divider>
+        <form onSubmit={handleSubmit} name={name}>
+          <Input name="email" type="text" placeholder="Email" />
 
-        <Input name="password" type="password" placeholder="Password" />
+          <Input name="password" type="password" placeholder="Password" />
 
-        <div>
-          <Button type="submit">{displayName}</Button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-    </Segment>
+          <div>
+            <Button type="submit">{displayName}</Button>
+          </div>
+          {error && error.response && <div> {error.response.data} </div>}
+        </form>
+      </Segment>
+    </div>
   );
 };
 
