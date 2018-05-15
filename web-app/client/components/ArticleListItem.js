@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Icon, List } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { Link, Header } from 'react-router-dom';
 import {
   ButtonArchiveArticle,
   ButtonDeleteArticle,
@@ -29,8 +29,8 @@ class ArticleListItem extends Component {
         onMouseLeave={this.handleMouseLeave}
       >
         <Icon name="book" />
-        <List.Content as={Link} to={`/articles/${articleId}`}>
-          <List.Header className="list-item-title">{title}</List.Header>
+        <List.Content as={Header} className="list-item-title">
+          {title}
         </List.Content>
         <List.Content className="list-item-extra">
           <div className="list-item-pubname">{publicationName}</div>

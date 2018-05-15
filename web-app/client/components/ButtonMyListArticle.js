@@ -16,6 +16,7 @@ const ButtonAddToMyListArticle = props => {
       handleButtonClick={handleAddToMyListArticle}
       iconName="newspaper"
       popupLabel="My List"
+      successMessage="Article added back to reading list"
     />
   );
 };

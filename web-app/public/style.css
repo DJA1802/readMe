@@ -189,6 +189,7 @@ form div {
 .list-item-title {
   font-family: "nimbus_monoregular", "Lato", sans-serif !important;
   font-size: 1.1em;
+  color: black;
 }
 
 .list-item-extra {
