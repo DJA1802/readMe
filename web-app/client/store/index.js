@@ -8,6 +8,7 @@ import interactions from './interactions';
 import articleStyle from './articleStyle';
 import message from './message';
 import navbar from './navbar';
+import pageScroll from './pageScroll';
 import user from './user';
 import online from './online';
 
@@ -18,6 +19,7 @@ const reducer = combineReducers({
   articleStyle,
   message,
   navbar,
+  pageScroll,
   user,
   online
 });
@@ -34,5 +36,6 @@ export * from './interactions';
 export * from './articleStyle';
 export * from './message';
 export * from './navbar';
+export * from './pageScroll';
 export * from './user';
 export * from './online';

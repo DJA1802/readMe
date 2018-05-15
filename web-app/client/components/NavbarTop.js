@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout, toggleMobileSidebar } from '../store';
-import { Dropdown, Icon, Menu } from 'semantic-ui-react';
+import { Dropdown, Icon, Menu, Visibility } from 'semantic-ui-react';
 import MediaQuery from 'react-responsive';
 import { desktop } from '../utils/constants';
 import { ButtonAddArticle, ButtonChangeStyle, ButtonUserIcon } from '.';
 
-const NavbarTop = ({
-  isArticleView,
-  email,
-  handleLogoutClick,
-  isLoggedIn,
-  handleMenuClick
-}) => {
+const NavbarTop = props => {
+  const {
+    isArticleView,
+    email,
+    handleLogoutClick,
+    isLoggedIn,
+    handleMenuClick
+  } = props;
+
   return (
     <Menu id="navbar-top">
       <MediaQuery maxWidth={desktop}>

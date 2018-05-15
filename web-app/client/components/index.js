@@ -29,5 +29,6 @@ export { default as NavbarSideMobile } from './NavbarSideMobile';
 export { default as NavbarSideItems } from './NavbarSideItems';
 export { default as PageContainer } from './PageContainer';
 export { default as UserHome } from './UserHome';
+export { default as VisContainer } from './VisContainer';
 export { default as Home } from './Home';
 export { Login, Signup } from './AuthForm';
