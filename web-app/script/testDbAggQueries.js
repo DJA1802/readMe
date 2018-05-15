@@ -8,6 +8,9 @@ Article.getMostReadByDuration(1).then(data =>
 Article.groupByInteractionCount(1).then(data =>
   console.log('groupByInteractionCount ', data)
 );
+Article.getAverageWordCount(1).then(data =>
+  console.log('getAverageWordCount ', data)
+);
 Interaction.readingTimeByDate(1).then(data =>
   console.log('readingTimeByDate ', data)
 );
@@ -17,6 +20,9 @@ Interaction.readingTimeByMonthYear(1).then(data =>
 Interaction.readingStartTimesByHour(1).then(data =>
   console.log('readingTimeByMonth ', data)
 );
-Article.getAverageWordCount(1).then(data =>
-  console.log('getAverageWordCount ', data)
+Interaction.getAverageLength(1).then(data =>
+  console.log('readingTimeByMonth ', data)
+);
+Interaction.getUserFirstEverInteraction(1).then(data =>
+  console.log('getUserFirstEverInteraction ', data)
 );

@@ -73,4 +73,12 @@ Interaction.readingStartTimesByHour = function (userId) {
     .then(data => data[0]);
 };
 
+Interaction.getUserFirstEverInteraction = function (userId) {
+  return db
+    .query(
+      `SELECT MIN("startTime") AS "firstInteraction" FROM interactions INNER JOIN articles on interactions."articleId" = articles.id INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId};`
+    )
+    .then(data => data[0][0].firstInteraction);
+};
+
 module.exports = Interaction;
