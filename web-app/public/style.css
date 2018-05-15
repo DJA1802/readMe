@@ -48,6 +48,14 @@ form div {
   margin: 0;
 }
 
+#noscript-message {
+  text-align: center;
+  vertical-align: center;
+  height: 100vh;
+  top: 45%;
+  position: relative;
+}
+
 /*---------------------------------*/
 
 #authform-container {
