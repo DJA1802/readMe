@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 // default styles for the page
 const initialState = {
   fontSize: '1.1em',

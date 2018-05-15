@@ -1,33 +1,44 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Header, Button } from 'semantic-ui-react';
-import { AnalyticsVisual } from '../components';
-import { fetchInteractions } from '../store';
+import { ReadingTimeGraphs } from '../components';
+import {
+  fetchInteractions,
+  fetchFirstInteraction,
+  fetchReadingHours
+} from '../store';
 import _ from 'lodash';
 
 class Analytics extends Component {
   constructor () {
     super();
-    this.state = { activeTab: 'charts' };
+    this.state = { activeTab: 'readingTimeGraphs' };
   }
 
   componentDidMount () {
     this.props.loadData();
+    this.props.getFirstInteraction();
+    this.props.getReadingHours();
   }
 
-  handleChartsTabClick = () => this.setState({ activeTab: 'charts' });
-  handleGraphsTabClick = () => this.setState({ activeTab: 'graphs' });
+  handleReadingTimeTabClick = () =>
+    this.setState({ activeTab: 'readingTimeGraphs' });
 
   render () {
     return (
       <div id="analytics-container">
         <Header as="h1">Analytics</Header>
-        <Button attached="left" onClick={this.handleChartsTabClick}>
-          Charts
+        <Button attached="left" onClick={this.handleReadingTimeTabClick}>
+          Reading Time
         </Button>
-        <Button onClick={this.handleGraphsTabClick}>Graphs</Button>
-        {this.state.activeTab === 'charts' ? (
-          <AnalyticsVisual interactions={this.props.interactions} />
+        {/*<Button onClick={this.handle} />*/}
+        {this.state.activeTab === 'readingTimeGraphs' ? (
+          <ReadingTimeGraphs
+            interactions={this.props.interactions}
+            userId={this.props.userId}
+            firstInteraction={this.props.firstInteraction}
+            readingHours={this.props.readingHours}
+          />
         ) : (
           <div />
         )}
@@ -38,13 +49,18 @@ class Analytics extends Component {
 
 const mapStateToProps = state => {
   return {
-    interactions: state.interactions
+    userId: state.user.id,
+    interactions: state.interactions,
+    firstInteraction: state.analytics.firstEverInteraction,
+    readingHours: state.analytics.readingHours
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadData: () => dispatch(fetchInteractions())
+    loadData: () => dispatch(fetchInteractions()),
+    getFirstInteraction: () => dispatch(fetchFirstInteraction()),
+    getReadingHours: () => dispatch(fetchReadingHours())
   };
 };
 

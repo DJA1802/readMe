@@ -10,6 +10,7 @@ import message from './message';
 import navbar from './navbar';
 import user from './user';
 import online from './online';
+import analytics from './analytics';
 
 const reducer = combineReducers({
   articlesAll,
@@ -19,7 +20,8 @@ const reducer = combineReducers({
   message,
   navbar,
   user,
-  online
+  online,
+  analytics
 });
 
 const middleware = composeWithDevTools(
@@ -36,3 +38,4 @@ export * from './message';
 export * from './navbar';
 export * from './user';
 export * from './online';
+export * from './analytics';

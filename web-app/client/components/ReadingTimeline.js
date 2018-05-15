@@ -9,8 +9,19 @@ import {
   VictoryLabel
 } from 'victory';
 
-class AnalyticsVisual extends Component {
-  state = { zoomDomain: { x: [new Date(2018, 5, 1), Date.now()] } };
+class ReadingTimeline extends Component {
+  constructor (props) {
+    super();
+    this.state = {
+      zoomDomain: { x: [new Date(props.firstInteraction), Date.now()] }
+    };
+  }
+
+  ComponentWillUnmount () {
+    this.setState({
+      zoomDomain: { x: [new Date(this.props.firstInteraction), Date.now()] }
+    });
+  }
 
   getInteractionData () {
     const { interactions } = this.props;
@@ -29,7 +40,7 @@ class AnalyticsVisual extends Component {
     const dateOptions = { month: 'short', day: 'numeric' };
 
     return (
-      <Segment id="chart-container">
+      <Segment>
         <VictoryChart
           width={600}
           height={470}
@@ -99,4 +110,4 @@ class AnalyticsVisual extends Component {
   }
 }
 
-export default AnalyticsVisual;
+export default ReadingTimeline;
