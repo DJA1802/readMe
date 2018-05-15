@@ -3,84 +3,115 @@ import { connect } from 'react-redux';
 import { Header, Segment } from 'semantic-ui-react';
 import {
   VictoryAxis,
-  // VictoryLine,
-  // VictoryScatter,
-  // VictoryZoomContainer,
+  VictoryLine,
+  VictoryBrushContainer,
+  VictoryZoomContainer,
   VictoryChart,
   VictoryTheme,
   VictoryGroup,
-  VictoryArea
+  VictoryArea,
+  VictoryLabel
 } from 'victory';
 import moment from 'moment';
 import { fetchInteractions } from '../store';
+import _ from 'lodash';
 
 class Analytics extends Component {
   constructor (props) {
     super();
-    // this.entireDomain = this.getEntireDomain(this.props);
-    // this.state = {
-    //   // local state for graph display state
-    //   zoomedXDomain: props.entireDomain.x
-    // };
+    this.state = {
+      zoomDomain: { x: [new Date(2018, 5, 1), Date.now()] }
+    };
   }
 
   componentDidMount () {
     this.props.loadData();
   }
 
+  handleZoom (domain) {
+    this.setState({ zoomDomain: domain });
+  }
+
   getInteractionData () {
     const { interactions } = this.props;
     const formattedInteractions = interactions.map(interaction => ({
       date: new Date(interaction.startTime),
-      duration: interaction.duration
+      duration: Math.floor(interaction.duration / 60000)
     }));
     return formattedInteractions;
   }
 
   render () {
-    // const { interactions } = this.props;
-
-    // const chartData = interactions.map(interaction => ({
-    //   date: new Date(interaction.startTime),
-    //   duration: interaction.duration
-    // }));
-    // console.log('chartData', chartData);
-
+    const dateOptions = { month: 'short', day: 'numeric' };
     return (
       <div id="analytics-container">
         <Header as="h1">Analytics</Header>
         <Segment id="chart-container">
-          <VictoryChart scale={{ x: 'time' }}>
-            <VictoryGroup
-              style={{
-                data: { strokeWidth: 1, fillOpacity: 0.5 }
-              }}
-            >
-              <VictoryArea
-                theme={VictoryTheme.material}
-                style={{
-                  data: { fill: 'magenta', stroke: 'magenta' }
-                }}
-                data={this.getInteractionData()}
-                x="date"
-                y="duration"
+          <VictoryChart
+            theme={VictoryTheme.material}
+            width={600}
+            height={470}
+            scale={{ x: 'time' }}
+            containerComponent={
+              <VictoryZoomContainer
+                zoomDimension="x"
+                zoomDomain={this.state.zoomDomain}
+                onZoomDomainChange={this.handleZoom.bind(this)}
               />
-            </VictoryGroup>
-            <VictoryAxis tickFormat={x => moment(x).format('MMM D YYYY')} />
-            <VictoryAxis
-              dependentAxis
-              tickFormat={y => `${Math.floor(y / 60000)}`}
+            }
+          >
+            <VictoryLabel
+              text="Minutes Spent Reading"
+              textAnchor="middle"
+              x={330}
+              y={30}
+            />
+            <VictoryArea
+              style={{
+                data: {
+                  strokeWidth: 1,
+                  fillOpacity: 0.6,
+                  stroke: 'gold',
+                  fill: 'gold'
+                }
+              }}
+              data={this.getInteractionData()}
+              x="date"
+              y="duration"
             />
           </VictoryChart>
-
-          {/*<VictoryChart theme={VictoryTheme.material} domainPadding={20}>
-            <VictoryAxis tickFormat={x => moment(x).format('MMM D YYYY')} />
+          <VictoryChart
+            padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
+            width={600}
+            height={100}
+            scale={{ x: 'time' }}
+            containerComponent={
+              <VictoryBrushContainer
+                brushDimensions="x"
+                brushDomain={this.state.zoomDomain}
+                onBrushDomainChange={this.handleZoom.bind(this)}
+              />
+            }
+          >
             <VictoryAxis
-              dependentAxis
-              tickFormat={y => `${Math.floor(y / 60000)} min`}
+              tickFormat={x =>
+                new Date(x).toLocaleDateString('en-US', dateOptions)
+              }
             />
-            <VictoryLine id="chart" data={chartData} x="date" y="duration" />
-          </VictoryChart>*/}
+            <VictoryArea
+              style={{
+                data: {
+                  strokeWidth: 1,
+                  fillOpacity: 0.6,
+                  stroke: 'gold',
+                  fill: 'gold'
+                }
+              }}
+              data={this.getInteractionData()}
+              x="date"
+              y="duration"
+            />
+          </VictoryChart>
         </Segment>
       </div>
     );

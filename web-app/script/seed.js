@@ -159,8 +159,8 @@ async function seed () {
 
   // get random start and end time for an interaction
   const randStartEnd = () => {
-    const startDate = '2017-01-01',
-      endDate = '2018-05-10';
+    const startDate = '2018-05-01',
+      endDate = '2018-05-12';
     const startTime = momentRandom(endDate, startDate);
     const endTime = startTime + randDurationUnderAnHour();
 

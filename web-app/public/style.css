@@ -226,8 +226,8 @@ form div {
 /* STYLES FOR ANALYTICS PAGE -----------------------------------*/
 
 #analytics-container {
-  max-width: 1000px;
-  height: 100%;
+  max-width: 700px;
+  /* height: 100%; */
   margin: 0 auto;
 }
 
