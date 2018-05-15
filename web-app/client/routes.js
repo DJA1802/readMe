@@ -143,7 +143,7 @@ const mapDispatchToProps = dispatch => {
   return {
     loadInitialData () {
       dispatch(me());
-      dispatch(fetchArticles());
+      // dispatch(fetchArticles());
     },
     transferLocalStorageToDb (interactions) {
       if (interactions) dispatch(postCachedInteractions({ interactions }));
