@@ -30,6 +30,7 @@
     "express-session": "^1.15.1",
     "heroku-ssl-redirect": "0.0.4",
     "history": "^4.6.3",
+    "lda": "^0.2.0",
     "lodash": "^4.17.10",
     "moment": "^2.22.1",
     "moment-random": "^1.0.3",

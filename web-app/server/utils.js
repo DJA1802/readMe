@@ -96,11 +96,31 @@ function sqlInList (arr) {
   return ` (${wrappedInSingleQuotes.join(', ')})`;
 }
 
+/* https://stackoverflow.com/questions/19700283/how-to-convert-time-milliseconds-to-hours-min-sec-format-in-javascript/32180863 */
+function msToTime (duration) {
+  var milliseconds = parseInt((duration % 1000) / 100, 10),
+    seconds = parseInt((duration / 1000) % 60, 10),
+    minutes = parseInt((duration / (1000 * 60)) % 60, 10),
+    hours = parseInt((duration / (1000 * 60 * 60)) % 24, 10);
+
+  // hours = hours < 10 ? '0' + hours : hours;
+  // minutes = minutes < 10 ? '0' + minutes : minutes;
+  // seconds = seconds < 10 ? '0' + seconds : seconds;
+  // return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+
+  if (hours) {
+    return hours + ' hr, ' + minutes + ' min';
+  } else {
+    return minutes + ' min';
+  }
+}
+
 module.exports = {
   setPublicationName,
   buildMercuryJSONRequest,
   extractSrcAttribute,
   convertMilliseconds,
   average,
-  sqlInList
+  sqlInList,
+  msToTime
 };
