@@ -16,12 +16,10 @@ const App = () => {
             return <Routes />;
           } else {
             return (
-              <Sidebar.Pushable id="mobile-pushable-container">
+              <React.Fragment>
                 <NavbarSideMobile />
-                <Sidebar.Pusher id="mobile-pusher-container">
-                  <Routes />
-                </Sidebar.Pusher>
-              </Sidebar.Pushable>
+                <Routes />
+              </React.Fragment>
             );
           }
         }}
