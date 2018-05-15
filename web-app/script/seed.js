@@ -96,39 +96,35 @@ async function seed () {
       'https://www.nytimes.com/2016/11/18/books/review/michael-chabon-sandmeyer-reaction-short-story.html?smid=tw-nytbooks&smtyp=cur'
     ),
     createNewArticle(
-      2,
+      1,
       'https://www.newyorker.com/humor/daily-shouts/i-work-from-home'
     ),
     createNewArticle(
-      2,
+      1,
       'https://www.thrillist.com/news/nation/100-year-old-secret-long-life-guinness'
     ),
     createNewArticle(
-      2,
+      1,
       'http://gothamist.com/2016/07/27/gym-trification_frenchie.php'
     ),
     createNewArticle(
-      2,
+      1,
       'http://nymag.com/daily/intelligencer/2017/05/hillary-clinton-life-after-election.html'
     ),
     createNewArticle(
-      2,
-      'https://www.thecut.com/2017/04/fyre-festival-exumas-bahamas-disaster.html'
-    ),
-    createNewArticle(
-      2,
+      1,
       'http://nymag.com/daily/intelligencer/2017/07/climate-change-earth-too-hot-for-humans.html'
     ),
     createNewArticle(
-      2,
+      1,
       'https://thebigroundtable.com/consider-the-can-f5c5ebe7fb85'
     ),
     createNewArticle(
-      2,
+      1,
       'https://www.nationalgeographic.com/travel/destinations/north-america/united-states/happiest-cities-united-states-2017/'
     ),
     createNewArticle(
-      2,
+      1,
       'https://www.newyorker.com/magazine/2017/12/11/cat-person'
     )
   ]);
