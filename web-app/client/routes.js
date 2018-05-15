@@ -36,10 +36,17 @@ class Routes extends Component {
     }
   }
 
+  componentWillUnmount () {
+    clearInterval(this.checkIfOnlineInterval);
+  }
+
   render () {
     const { isLoggedIn } = this.props;
 
-    setInterval(() => this.props.checkIfOnline(this.props.online), 1000);
+    this.checkIfOnlineInterval = setInterval(
+      () => this.props.checkIfOnline(this.props.online),
+      1000
+    );
 
     return (
       <Switch>
