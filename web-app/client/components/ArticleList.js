@@ -1,4 +1,3 @@
-// Single Article Page Component (i.e. where article is read from)
 import React from 'react';
 import { ArticleListItem } from '../components';
 import { connect } from 'react-redux';
@@ -9,7 +8,9 @@ const ArticleList = props => {
   const title = type === 'my-list' ? 'My List' : 'Archive';
   return (
     <div className="article-list-container">
-      <Header as="h1">{title}</Header>
+      <Header as="h1" className="nimbus-mono-bold">
+        {title}
+      </Header>
       <List divided relaxed as={Segment} className="article-list">
         {articles &&
           articles.map(article => (

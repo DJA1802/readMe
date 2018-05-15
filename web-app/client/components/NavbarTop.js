@@ -27,8 +27,8 @@ const NavbarTop = ({
             );
           } else {
             return (
-              <Menu.Item header as={Link} to="/home">
-                ReadMe
+              <Menu.Item header as={Link} to="/home" id="navbar-title">
+                readMe
               </Menu.Item>
             );
           }

@@ -33,11 +33,17 @@ const ButtonIcon = props => {
           size="large"
           onClick={
             online
-              ? () => handleButtonClick(articleId)
-              : () => handleMessage('No Internet Connection')
+              ? evt => {
+                  handleButtonClick(articleId);
+                  evt.preventDefault();
+                }
+              : evt => {
+                  handleMessage('No Internet Connection');
+                  evt.preventDefault();
+                }
           }
           link={online && true}
-          className={online ? '' : 'icon-disabled'}
+          className={online ? 'icon-active' : 'icon-disabled'}
         />
       }
       content={popupLabel}

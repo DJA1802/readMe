@@ -12,6 +12,9 @@ const sanitizeOptions = {
     a: ['href'],
     img: ['*']
   },
+  allowedSchemesByTag: {
+    img: ['data', 'https']
+  },
   nonTextTags: ['style', 'script', 'textarea', 'noscript', 'aside']
 };
 const articleQueryAttributes = [
@@ -73,6 +76,12 @@ Article.beforeCreate(articleInstance => {
     articleInstance.content,
     sanitizeOptions
   );
+  if (articleInstance.thumbnailUrl) {
+    articleInstance.thumbnailUrl = articleInstance.thumbnailUrl.replace(
+      /^http:\/\//i,
+      'https://'
+    );
+  }
 });
 
 Article.findAllForUser = function (userId) {
