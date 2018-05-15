@@ -14,10 +14,6 @@ class VisContainer extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {};
-};
-
 const mapDispatchToProps = dispatch => ({
   handleUpdate: (e, { calculations }) => {
     const { direction, pixelsPassed } = calculations;
@@ -26,4 +22,4 @@ const mapDispatchToProps = dispatch => ({
   handleUnmount: () => dispatch(clearScrollData())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(VisContainer);
+export default connect(null, mapDispatchToProps)(VisContainer);

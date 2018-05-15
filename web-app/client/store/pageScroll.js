@@ -1,6 +1,9 @@
 const initialState = {
   direction: 'none',
-  pixelsPassed: 0
+  pixelsPassed: 0,
+  hideNavbar: function () {
+    return this.direction === 'down' && this.pixelsPassed > 50;
+  }
 };
 
 /**
@@ -27,7 +30,7 @@ export const clearScrollData = () => ({
 export default function (state = initialState, action) {
   switch (action.type) {
     case UPDATE_PAGE_SCROLL:
-      return action.scrollData;
+      return { ...state, ...action.scrollData };
     case CLEAR_SCROLL_DATA:
       return initialState;
     default:
