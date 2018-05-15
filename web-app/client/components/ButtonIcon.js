@@ -14,11 +14,23 @@ const ButtonIcon = props => {
     handleMessage,
     iconName,
     online,
-    popupLabel
+    popupLabel,
+    successMessage
   } = props;
   const style = {
     opacity: 0.7,
     padding: '0.5em'
+  };
+
+  const handleClick = evt => {
+    if (online) {
+      handleMessage(successMessage);
+      handleButtonClick(articleId);
+      evt.preventDefault();
+    } else {
+      handleMessage('No Internet Connection');
+      evt.preventDefault();
+    }
   };
 
   return (
@@ -31,17 +43,7 @@ const ButtonIcon = props => {
         <Icon
           name={iconName}
           size="large"
-          onClick={
-            online
-              ? evt => {
-                  handleButtonClick(articleId);
-                  evt.preventDefault();
-                }
-              : evt => {
-                  handleMessage('No Internet Connection');
-                  evt.preventDefault();
-                }
-          }
+          onClick={handleClick}
           link={online && true}
           className={online ? 'icon-active' : 'icon-disabled'}
         />

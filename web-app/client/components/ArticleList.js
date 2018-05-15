@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import MediaQuery from 'react-responsive';
 import { ArticleListItem } from '../components';
 import { connect } from 'react-redux';
 import { Header, List, Segment } from 'semantic-ui-react';
+import { VisContainer } from '.';
+import { desktop } from '../utils/constants';
 import { fetchArticles } from '../store';
 
 class ArticleList extends Component {
@@ -36,6 +39,24 @@ class ArticleList extends Component {
   }
 }
 
+const ArticleListResponsiveContainer = props => {
+  return (
+    <MediaQuery minWidth={desktop}>
+      {matches => {
+        if (matches) {
+          return <ArticleList {...props} />;
+        } else {
+          return (
+            <VisContainer>
+              <ArticleList {...props} />
+            </VisContainer>
+          );
+        }
+      }}
+    </MediaQuery>
+  );
+};
+
 const mapStateToProps = (state, ownProps) => {
   return {
     articles:
@@ -49,4 +70,6 @@ const mapDispatchToProps = dispatch => ({
   loadArticles: () => dispatch(fetchArticles())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ArticleList);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  ArticleListResponsiveContainer
+);
