@@ -6,7 +6,7 @@ import { logout, toggleMobileSidebar } from '../store';
 import { Dropdown, Icon, Menu } from 'semantic-ui-react';
 import MediaQuery from 'react-responsive';
 import { desktop } from '../utils/constants';
-import { ButtonAddArticle, ButtonChangeStyle } from '.';
+import { ButtonAddArticle, ButtonChangeStyle, ButtonUserIcon } from '.';
 
 const NavbarTop = ({
   isArticleView,
@@ -37,29 +37,24 @@ const NavbarTop = ({
       {isLoggedIn ? (
         <Menu.Menu position="right">
           {isArticleView ? <ButtonChangeStyle /> : <ButtonAddArticle />}
-          <Menu.Item>
-            <Icon
-              className="no-margin"
-              fitted
-              name="user circle outline"
-              size="big"
-            />
-          </Menu.Item>
-          <Dropdown item text={email}>
-            <Dropdown.Menu>
-              <Dropdown.Item name="user-home" as={Link} to="/user-home">
-                User Home
-              </Dropdown.Item>
-              <Dropdown.Item
-                name="logout"
-                onClick={handleLogoutClick}
-                as={Link}
-                to="#"
-              >
-                Logout
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+          <ButtonUserIcon />
+          <MediaQuery minWidth={desktop}>
+            <Dropdown item text={email}>
+              <Dropdown.Menu>
+                <Dropdown.Item name="user-home" as={Link} to="/user-home">
+                  User Home
+                </Dropdown.Item>
+                <Dropdown.Item
+                  name="logout"
+                  onClick={handleLogoutClick}
+                  as={Link}
+                  to="#"
+                >
+                  Logout
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </MediaQuery>
         </Menu.Menu>
       ) : (
         <React.Fragment>

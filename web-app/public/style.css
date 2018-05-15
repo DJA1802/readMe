@@ -15,10 +15,6 @@
   font-style: normal;
 }
 
-html {
-  /* min-height: 100%; */
-}
-
 body {
   font-family: "Lato", sans-serif;
 }
@@ -47,10 +43,6 @@ form div {
 
 .nimbus-mono-reg {
   font-family: "nimbus_monoregular", "Lato", sans-serif !important;
-}
-
-#app {
-  /* height: 100%; */
 }
 
 .no-margin {
@@ -102,7 +94,6 @@ form div {
   display: flex;
   width: 100%;
   margin: 0;
-  /* height: calc(100% - 40px); */
   position: relative;
 }
 
@@ -110,7 +101,6 @@ form div {
   padding: 30px 3%;
   flex: 4;
   width: calc(100% - 200px);
-  /* height: 100%; */
   margin: 0 !important;
   position: absolute;
   top: 40px;
@@ -135,6 +125,16 @@ form div {
   position: fixed;
   width: 100%;
   z-index: 1;
+}
+
+#navbar-user-mobile {
+  padding-right: 0px;
+}
+
+#navbar-user-mobile > .triangle {
+  position: relative !important;
+  right: 1px;
+  top: 8px !important;
 }
 
 #nav-sidebar {
@@ -293,23 +293,6 @@ form div {
 
 /* ARTICLE STYLE FORM */
 
-/*---------------------------------*/
-
-/* STYLES FOR ANALYTICS PAGE -----------------------------------*/
-
-#analytics-container {
-  max-width: 700px;
-  /* height: 100%; */
-  margin: 0 auto;
-}
-
-#chart-container {
-  height: 80%;
-}
-
-/* END STYLES FOR ANALYTICS PAGE -----------------------------------*/
-/*---------------------------------*/
-
 #style-form {
   width: 160px;
 }
@@ -336,6 +319,22 @@ form div {
 
 /* END STYLES FOR SINGLE ARTICLE VIEW ------------------------*/
 /*-------------------------------------------------------------*/
+
+/*---------------------------------*/
+
+/* STYLES FOR ANALYTICS PAGE -----------------------------------*/
+
+#analytics-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+#chart-container {
+  height: 80%;
+}
+
+/* END STYLES FOR ANALYTICS PAGE -----------------------------------*/
+/*---------------------------------*/
 
 /*-------------------------------------------------------------*/
 /*-------------------------------------------------------------*/

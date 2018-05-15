@@ -14,6 +14,7 @@ export { default as ArticleCardList } from './ArticleCardList';
 export { default as ArticleList } from './ArticleList';
 export { default as ArticleListItem } from './ArticleListItem';
 export { default as ButtonAddArticle } from './ButtonAddArticle';
+export { default as ButtonUserIcon } from './ButtonUserIcon';
 export { default as ButtonChangeStyle } from './ButtonChangeStyle';
 export { default as ButtonArchiveArticle } from './ButtonArchiveArticle';
 export { default as ButtonDeleteArticle } from './ButtonDeleteArticle';
