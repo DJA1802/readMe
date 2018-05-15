@@ -73,7 +73,7 @@ class Article extends Component {
       <div id="page-container">
         {article ? (
           <div id="single-article" style={{ fontSize, fontFamily, color }}>
-            <Header as="h1" style={{ color }}>
+            <Header as="h1" style={{ color }} className="article-title">
               {title}
             </Header>
             Originally from{' '}

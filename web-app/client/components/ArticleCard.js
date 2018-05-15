@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Image } from 'semantic-ui-react';
+import { Card, Header, Image } from 'semantic-ui-react';
 import { ButtonArchiveArticle, ButtonDeleteArticle } from '.';
 
 class ArticleCard extends Component {
@@ -34,7 +34,11 @@ class ArticleCard extends Component {
           as={Link}
           to={`/articles/${articleId}`}
         />
-        <Card.Content header={title} as={Link} to={`/articles/${articleId}`} />
+        <Card.Content as={Link} to={`/articles/${articleId}`}>
+          <Header as="h3" className="nimbus-mono-reg">
+            {title}
+          </Header>
+        </Card.Content>
 
         <Card.Content extra className="card-extra">
           <div className="card-pubname">{publicationName}</div>

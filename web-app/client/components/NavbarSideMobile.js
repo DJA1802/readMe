@@ -18,7 +18,12 @@ const NavbarSideMobile = ({ handleMenuClick, visible }) => {
           vertical
           id="nav-sidebar-mobile"
         >
-          <Menu.Item as={Link} to="/home" onClick={handleMenuClick}>
+          <Menu.Item
+            as={Link}
+            to="/home"
+            onClick={handleMenuClick}
+            className="navbar-side-item"
+          >
             <Icon name="home" className="left" size="large" />
             Home
           </Menu.Item>

@@ -1,11 +1,26 @@
 /* Fonts */
 @import url("https://fonts.googleapis.com/css?family=Lora");
+
+@font-face {
+  font-family: "nimbus_monoregular";
+  src: url("nimbusmono-regular-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "nimbus_monobold";
+  src: url("nimbusmono-bold-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 html {
   min-height: 100%;
 }
 
 body {
-  font-family: sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 a {
@@ -24,6 +39,14 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.nimbus-mono-bold {
+  font-family: "nimbus_monobold", "Lato", sans-serif !important;
+}
+
+.nimbus-mono-reg {
+  font-family: "nimbus_monoregular", "Lato", sans-serif !important;
 }
 
 #app {
@@ -100,6 +123,12 @@ form div {
 
 /*---------------------------------*/
 /* STYLES FOR TOP AND SIDE NAVBARS ----------------------------*/
+#navbar-title {
+  font-family: "nimbus_monoregular", "Lato", sans-serif;
+  font-size: 1.6em;
+  padding: 0.4em;
+}
+
 #navbar-top {
   margin-bottom: 0;
   height: 40px;
@@ -119,6 +148,11 @@ form div {
 #nav-sidebar-mobile {
   top: 40px;
   height: calc(100% - 40px) !important;
+}
+
+.navbar-side-item {
+  font-family: "nimbus_monoregular", "Lato", sans-serif !important;
+  font-size: 1.2em;
 }
 
 /* used to make icons sit left on sidebar */
@@ -152,6 +186,11 @@ form div {
   padding: 15px 15px 3px 15px !important;
 }
 
+.list-item-title {
+  font-family: "nimbus_monoregular", "Lato", sans-serif !important;
+  font-size: 1.1em;
+}
+
 .list-item-extra {
   margin: 4px 0 0 0;
   height: 25px;
@@ -172,8 +211,12 @@ form div {
   text-align: right;
 }
 
+.icon-active {
+  color: rgb(119, 119, 119) !important;
+}
+
 .icon-disabled {
-  color: rgb(209, 209, 209);
+  color: rgb(209, 209, 209) !important;
 }
 
 /* END STYLES FOR ARTICLE LIST --------------------------------*/
@@ -239,6 +282,11 @@ form div {
 
 .article-author {
   font-style: italic;
+}
+
+.article-title {
+  font-family: "nimbus_monobold", "Lato", sans-serif !important;
+  font-size: 2.5em !important;
 }
 
 /* ARTICLE STYLE FORM */

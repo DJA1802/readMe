@@ -22,13 +22,15 @@ class ArticleListItem extends Component {
     const { articleId, title, type, publicationName } = this.props;
     return (
       <List.Item
+        as={Link}
+        to={`/articles/${articleId}`}
         className="article-list-item"
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
       >
         <Icon name="book" />
         <List.Content as={Link} to={`/articles/${articleId}`}>
-          <List.Header>{title}</List.Header>
+          <List.Header className="list-item-title">{title}</List.Header>
         </List.Content>
         <List.Content className="list-item-extra">
           <div className="list-item-pubname">{publicationName}</div>

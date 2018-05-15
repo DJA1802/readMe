@@ -6,7 +6,9 @@ import { Card, Container, Header } from 'semantic-ui-react';
 const ArticleCardList = props => {
   return (
     <Container>
-      <Header as="h2">Recently-saved articles</Header>
+      <Header as="h2" className="nimbus-mono-bold">
+        Recently-saved articles
+      </Header>
       <Card.Group className="article-card-list">
         {props.articles.map(article => {
           return (

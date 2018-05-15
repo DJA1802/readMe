@@ -7,15 +7,30 @@ import { toggleMobileSidebar } from '../store';
 const NavbarSideItems = ({ handleMenuClick }) => {
   return (
     <div>
-      <Menu.Item as={Link} to="/articles" onClick={handleMenuClick}>
+      <Menu.Item
+        as={Link}
+        to="/articles"
+        onClick={handleMenuClick}
+        className="navbar-side-item"
+      >
         <Icon name="newspaper" className="left" size="large" />
         My List
       </Menu.Item>
-      <Menu.Item as={Link} to="/analytics" onClick={handleMenuClick}>
+      <Menu.Item
+        as={Link}
+        to="/analytics"
+        onClick={handleMenuClick}
+        className="navbar-side-item"
+      >
         <Icon name="bar graph" className="left" size="large" />
         My Data
       </Menu.Item>
-      <Menu.Item as={Link} to="/archive" onClick={handleMenuClick}>
+      <Menu.Item
+        as={Link}
+        to="/archive"
+        onClick={handleMenuClick}
+        className="navbar-side-item"
+      >
         <Icon name="archive" className="left" size="large" />
         Archive
       </Menu.Item>
