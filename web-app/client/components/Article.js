@@ -4,12 +4,13 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getArticle, clearArticle } from '../store';
 import reactHtmlParser from 'react-html-parser';
-import { Header } from 'semantic-ui-react';
+import { Icon, Header, Segment } from 'semantic-ui-react';
 import {
   getLocalInteractions,
   addInteractionToLocalStorage,
   updateLastInteractionEndTime
 } from '../utils/helperFuncs';
+import history from '../history';
 
 class Article extends Component {
   constructor (props) {
@@ -90,6 +91,9 @@ class Article extends Component {
                 : null}
             </p>
             <div className="article-content">{reactHtmlParser(content)}</div>
+            <Segment onClick={history.goBack} className="back-button">
+              <Icon name="long arrow left" Back />back
+            </Segment>
           </div>
         ) : (
           <p>Loading... </p>

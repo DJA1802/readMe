@@ -93,7 +93,7 @@ form div {
 #page-container {
   display: flex;
   width: 100%;
-  margin: 0;
+  margin: 0 0 50px 0;
   position: relative;
 }
 
@@ -289,6 +289,19 @@ form div {
 
 .article-content {
   text-align: justify;
+  margin-bottom: 50px;
+}
+
+.back-button {
+  font-family: "nimbus_monoregular", "Lato", sans-serif !important;
+  cursor: pointer;
+  width: 100px;
+  height: 30px;
+  padding: 5px !important;
+}
+
+.back-button > .arrow {
+  margin-right: 15px !important;
 }
 
 /* ARTICLE STYLE FORM */
