@@ -33,6 +33,7 @@ Interaction.getAllForUser = function (userId) {
   });
 };
 
+// The below function defaults to milliseconds, but you can also supply "seconds", "minutes", or "hours".
 Interaction.getAverageLength = function (
   userId,
   timeUnit = 'milliseconds',
