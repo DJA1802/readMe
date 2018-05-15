@@ -1,20 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Header } from 'semantic-ui-react';
+import { Header, Button } from 'semantic-ui-react';
 import { AnalyticsVisual } from '../components';
 import { fetchInteractions } from '../store';
 import _ from 'lodash';
 
 class Analytics extends Component {
+  constructor () {
+    super();
+    this.state = { activeTab: 'charts' };
+  }
+
   componentDidMount () {
     this.props.loadData();
   }
+
+  handleChartsTabClick = () => this.setState({ activeTab: 'charts' });
+  handleGraphsTabClick = () => this.setState({ activeTab: 'graphs' });
 
   render () {
     return (
       <div id="analytics-container">
         <Header as="h1">Analytics</Header>
-        <AnalyticsVisual interactions={this.props.interactions} />
+        <Button attached="left" onClick={this.handleChartsTabClick}>
+          Charts
+        </Button>
+        <Button onClick={this.handleGraphsTabClick}>Graphs</Button>
+        {this.state.activeTab === 'charts' ? (
+          <AnalyticsVisual interactions={this.props.interactions} />
+        ) : (
+          <div />
+        )}
       </div>
     );
   }

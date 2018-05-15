@@ -5,7 +5,6 @@ import {
   VictoryBrushContainer,
   VictoryZoomContainer,
   VictoryChart,
-  VictoryTheme,
   VictoryArea,
   VictoryLabel
 } from 'victory';
