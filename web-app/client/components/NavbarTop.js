@@ -28,7 +28,7 @@ const NavbarTop = ({
           } else {
             return (
               <Menu.Item header as={Link} to="/home">
-                ReadMe
+                readMe
               </Menu.Item>
             );
           }
