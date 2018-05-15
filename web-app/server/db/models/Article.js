@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
+const Author = require('./Author');
+const Publication = require('./Publication');
 const sanitizeHTML = require('sanitize-html');
 const sanitizeOptions = {
   // include images in required tags
@@ -12,52 +14,82 @@ const sanitizeOptions = {
   },
   nonTextTags: ['style', 'script', 'textarea', 'noscript', 'aside']
 };
+const articleQueryAttributes = [
+  'id',
+  'content',
+  'createdAt',
+  'sourceUrl',
+  'status',
+  'title',
+  'thumbnailUrl',
+  'wordCount'
+];
 
-const Article = db.define('article', {
-  title: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  sourceUrl: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      isUrl: true
+const Article = db.define(
+  'article',
+  {
+    title: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    sourceUrl: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      validate: {
+        isUrl: true
+      }
+    },
+    content: {
+      type: Sequelize.TEXT,
+      allowNull: false
+    },
+    publicationDate: {
+      type: Sequelize.DATE
+    },
+    wordCount: {
+      type: Sequelize.INTEGER
+    },
+    status: {
+      type: Sequelize.ENUM('my-list', 'archive'),
+      allowNull: false,
+      defaultValue: 'my-list'
+    },
+    userId: {
+      type: Sequelize.INTEGER,
+      allowNull: false
+    },
+    thumbnailUrl: {
+      type: Sequelize.TEXT,
+      defaultValue: 'http://fillmurray.com/300/200'
     }
   },
-  content: {
-    type: Sequelize.TEXT,
-    allowNull: false
-  },
-  publicationDate: {
-    type: Sequelize.DATE
-  },
-  wordCount: {
-    type: Sequelize.INTEGER
-  },
-  status: {
-    type: Sequelize.ENUM('my-list', 'archive'),
-    allowNull: false,
-    defaultValue: 'my-list'
-  },
-  userId: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
-  thumbnailUrl: {
-    type: Sequelize.TEXT,
-    defaultValue: 'http://fillmurray.com/300/200'
+  {
+    paranoid: true
   }
-});
+);
 
 Article.beforeCreate(articleInstance => {
-  // sanitize html before creating article
   articleInstance.content = sanitizeHTML(
     articleInstance.content,
     sanitizeOptions
   );
-  // set some tags on this article
 });
+
+Article.findAllForUser = function (userId) {
+  return Article.findAll({
+    attributes: articleQueryAttributes,
+    where: { userId },
+    include: [{ model: Author }, { model: Publication }]
+  });
+};
+
+Article.findOneWithAssociations = function (articleId) {
+  return Article.findOne({
+    attributes: articleQueryAttributes,
+    where: { id: articleId },
+    include: [{ model: Author }, { model: Publication }]
+  });
+};
 
 Article.groupByTimeRead = function (userId) {
   return db
