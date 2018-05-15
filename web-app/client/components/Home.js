@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AnalyticsFeatured, ArticleCardList } from '.';
+import { fetchArticles } from '../store';
 
-const Home = props => {
-  return (
-    <React.Fragment>
-      <ArticleCardList
-        articles={props.threeMostRecentArticles}
-        className="article-card-list"
-      />
-      <AnalyticsFeatured />
-    </React.Fragment>
-  );
-};
+class Home extends Component {
+  componentDidMount () {
+    this.props.loadArticles();
+  }
+
+  render () {
+    return (
+      <React.Fragment>
+        <ArticleCardList
+          articles={this.props.threeMostRecentArticles}
+          className="article-card-list"
+        />
+        <AnalyticsFeatured />
+      </React.Fragment>
+    );
+  }
+}
 
 const mapStateToProps = state => {
   return {
@@ -25,4 +32,12 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = dispatch => {
+  return {
+    loadArticles () {
+      dispatch(fetchArticles());
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -7,16 +7,6 @@ const {
   buildMercuryJSONRequest,
   extractSrcAttribute
 } = require('../utils');
-const articleQueryAttributes = [
-  'id',
-  'content',
-  'createdAt',
-  'sourceUrl',
-  'status',
-  'title',
-  'thumbnailUrl',
-  'wordCount'
-];
 
 // ------------------------------------------------------------ //
 
@@ -24,11 +14,7 @@ const articleQueryAttributes = [
 router.get('/', (req, res, next) => {
   const userId = req.user ? req.user.id : null;
   if (userId) {
-    Article.findAll({
-      attributes: articleQueryAttributes,
-      where: { userId },
-      include: [{ model: Author }, { model: Publication }]
-    })
+    Article.findAllForUser(userId)
       .then(articles => res.json(articles))
       .catch(next);
   }
@@ -81,12 +67,9 @@ async function createNewArticle (userId, articleUrl, next) {
 }
 
 async function returnCreatedArticle (newArticle) {
-  const associatedArticle = await Article.findOne({
-    where: { id: newArticle.id },
-    attributes: articleQueryAttributes,
-    include: [{ model: Author }, { model: Publication }]
-  });
-
+  const associatedArticle = await Article.findOneWithAssociations(
+    newArticle.id
+  );
   return associatedArticle;
 }
 // ------------------------------------------------------------ //
@@ -126,6 +109,7 @@ router.put('/:id', (req, res, next) => {
       plain: true
     }
   )
+    .then(([_, article]) => Article.findOneWithAssociations(article.id))
     .then(article => res.json(article))
     .catch(next);
 });

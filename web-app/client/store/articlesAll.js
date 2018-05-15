@@ -1,5 +1,6 @@
 import axios from 'axios';
 import history from '../history';
+import message from './message';
 
 /**
  * ACTION TYPES
@@ -35,8 +36,12 @@ export const postNewArticle = articleUrl => dispatch => {
     .post('/api/articles', { articleUrl })
     .then(res => dispatch(addArticle(res.data)))
     .catch(err =>
-      alert(
-        'Sorry, the server hosting the article does not allow it to be saved.'
+      dispatch(
+        message(
+          `Sorry, the server hosting the article does not allow it to be saved. (Error: ${
+            err.name
+          }`
+        )
       )
     );
 };
@@ -45,7 +50,7 @@ export const putArticleStatus = (articleId, status) => dispatch => {
   axios
     .put(`/api/articles/${articleId}`, { status })
     .then(res => {
-      dispatch(updateArticleStatus(res.data[1]));
+      dispatch(updateArticleStatus(res.data));
     })
     .catch(err => console.log(err));
 };

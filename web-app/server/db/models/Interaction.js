@@ -27,7 +27,8 @@ Interaction.getAllForUser = function (userId) {
     include: [
       {
         model: Article,
-        where: { userId }
+        where: { userId },
+        paranoid: false
       }
     ]
   });

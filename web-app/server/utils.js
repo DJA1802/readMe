@@ -51,14 +51,14 @@ function getPublicationName (htmlString) {
   const nameTests = [metaTagOgSiteName, metaTagAppName, metaStarturl];
 
   for (let i = 0; i < nameTests.length; i++) {
-    if (htmlString.search(nameTests[i]) !== -1) {
+    if (htmlString.indexOf(nameTests[i]) !== -1) {
       return extractMetaContentFromHtml(htmlString, nameTests[i]);
     }
   }
 }
 
 function extractMetaContentFromHtml (htmlString, metaPattern) {
-  let beginning = htmlString.search(metaPattern) + metaPattern.length;
+  let beginning = htmlString.indexOf(metaPattern) + metaPattern.length;
   let end = htmlString.indexOf('"', beginning);
   return htmlString.slice(beginning, end);
 }

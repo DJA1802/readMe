@@ -26,3 +26,5 @@ Interaction.getAverageLength(1).then(data =>
 Interaction.getUserFirstEverInteraction(1).then(data =>
   console.log('getUserFirstEverInteraction ', data)
 );
+
+Interaction.getAllForUser(1).then(console.log);

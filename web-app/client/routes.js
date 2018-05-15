@@ -36,10 +36,17 @@ class Routes extends Component {
     }
   }
 
+  componentWillUnmount () {
+    clearInterval(this.checkIfOnlineInterval);
+  }
+
   render () {
     const { isLoggedIn } = this.props;
 
-    setInterval(() => this.props.checkIfOnline(this.props.online), 1000);
+    this.checkIfOnlineInterval = setInterval(
+      () => this.props.checkIfOnline(this.props.online),
+      1000
+    );
 
     return (
       <Switch>
@@ -123,7 +130,7 @@ class Routes extends Component {
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapStateToProps = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
@@ -132,7 +139,7 @@ const mapState = state => {
   };
 };
 
-const mapDispatch = dispatch => {
+const mapDispatchToProps = dispatch => {
   return {
     loadInitialData () {
       dispatch(me());
@@ -155,7 +162,7 @@ const mapDispatch = dispatch => {
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
-export default withRouter(connect(mapState, mapDispatch)(Routes));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Routes));
 
 /**
  * PROP TYPES
