@@ -9,6 +9,9 @@ const sanitizeOptions = {
   allowedAttributes: {
     img: ['*']
   },
+  allowedSchemesByTag: {
+    img: ['data', 'https']
+  },
   nonTextTags: ['style', 'script', 'textarea', 'noscript', 'aside']
 };
 
@@ -55,6 +58,12 @@ Article.beforeCreate(articleInstance => {
     articleInstance.content,
     sanitizeOptions
   );
+  if (articleInstance.thumbnailUrl) {
+    articleInstance.thumbnailUrl = articleInstance.thumbnailUrl.replace(
+      /^http:\/\//i,
+      'https://'
+    );
+  }
   // set some tags on this article
 });
 

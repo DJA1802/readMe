@@ -45,7 +45,6 @@ export const putArticleStatus = (articleId, status) => dispatch => {
   axios
     .put(`/api/articles/${articleId}`, { status })
     .then(res => {
-      console.log('res from put request', res.data);
       dispatch(updateArticleStatus(res.data[1]));
     })
     .catch(err => console.log(err));
