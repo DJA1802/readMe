@@ -227,6 +227,8 @@ form div {
 .card-extra {
   display: flex;
   justify-content: space-between;
+  padding: 8px 12px !important;
+  height: 40px;
 }
 
 .card-icon-container {

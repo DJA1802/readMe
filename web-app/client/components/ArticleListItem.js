@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, List } from 'semantic-ui-react';
+import { Icon, List, Transition } from 'semantic-ui-react';
 import { Link, Header } from 'react-router-dom';
 import {
   ButtonArchiveArticle,
@@ -34,7 +34,11 @@ class ArticleListItem extends Component {
         </List.Content>
         <List.Content className="list-item-extra">
           <div className="list-item-pubname">{publicationName}</div>
-          {this.state.hover && (
+          <Transition
+            visible={this.state.hover}
+            animation="fade"
+            duration={200}
+          >
             <div className="list-icon-container">
               {type === 'my-list' ? (
                 <ButtonArchiveArticle articleId={articleId} />
@@ -43,7 +47,7 @@ class ArticleListItem extends Component {
               )}
               <ButtonDeleteArticle articleId={articleId} />
             </div>
-          )}
+          </Transition>
         </List.Content>
       </List.Item>
     );
