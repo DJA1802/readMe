@@ -32,7 +32,6 @@ class AnalyticsVisual extends Component {
     return (
       <Segment id="chart-container">
         <VictoryChart
-          theme={VictoryTheme.material}
           width={600}
           height={470}
           scale={{ x: 'time' }}

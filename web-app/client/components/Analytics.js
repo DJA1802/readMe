@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Header } from 'semantic-ui-react';
-import { AnalyticsVisual } from './AnalyticsVisual';
+import { AnalyticsVisual } from '../components';
 import { fetchInteractions } from '../store';
 import _ from 'lodash';
 
