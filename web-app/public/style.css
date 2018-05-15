@@ -71,7 +71,7 @@ form div {
   display: flex;
   width: 100%;
   margin: 0;
-  height: calc(100% - 40px) !important;
+  height: calc(100% - 40px);
   position: relative;
 }
 
@@ -79,6 +79,7 @@ form div {
   padding: 30px 3%;
   flex: 4;
   width: calc(100% - 200px);
+  height: 100%;
   margin: 0 !important;
   position: absolute;
   top: 40px;
@@ -233,6 +234,23 @@ form div {
 }
 
 /* ARTICLE STYLE FORM */
+
+/*---------------------------------*/
+
+/* STYLES FOR ANALYTICS PAGE -----------------------------------*/
+
+#analytics-container {
+  max-width: 700px;
+  /* height: 100%; */
+  margin: 0 auto;
+}
+
+#chart-container {
+  height: 80%;
+}
+
+/* END STYLES FOR ANALYTICS PAGE -----------------------------------*/
+/*---------------------------------*/
 
 #style-form {
   width: 160px;
