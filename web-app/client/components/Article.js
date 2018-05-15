@@ -94,7 +94,7 @@ class Article extends Component {
               </p>
               <div className="article-content">{reactHtmlParser(content)}</div>
               <Segment onClick={history.goBack} className="back-button">
-                <Icon name="long arrow left" Back />back
+                <Icon name="long arrow left" />back
               </Segment>
             </div>
           ) : (
