@@ -18,13 +18,17 @@ Interaction.readingTimeByMonthYear(1).then(data =>
   console.log('readingTimeByMonth ', data)
 );
 Interaction.readingStartTimesByHour(1).then(data =>
-  console.log('readingTimeByMonth ', data)
+  console.log('readingStartTimesByHour ', data)
 );
 Interaction.getAverageLength(1).then(data =>
-  console.log('readingTimeByMonth ', data)
+  console.log('getAverageLength ', data)
 );
 Interaction.getUserFirstEverInteraction(1).then(data =>
   console.log('getUserFirstEverInteraction ', data)
 );
-
-Interaction.getAllForUser(1).then(console.log);
+Article.getTotalWordCount(1).then(data =>
+  console.log('getTotalWordCount ', data)
+);
+Article.getTotalWordCount(1, ['my-list']).then(data =>
+  console.log('getTotalWordCount my-list only ', data)
+);

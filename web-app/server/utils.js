@@ -91,10 +91,16 @@ function setPublicationName (htmlString, articleUrl) {
   return publicationName.split(' - ')[0]; // in case of descriptions in same string, i.e 'Yahoo News - Latest News & Headlines'
 }
 
+function sqlInList (arr) {
+  const wrappedInSingleQuotes = arr.map(elem => `'${elem}'`);
+  return ` (${wrappedInSingleQuotes.join(', ')})`;
+}
+
 module.exports = {
   setPublicationName,
   buildMercuryJSONRequest,
   extractSrcAttribute,
   convertMilliseconds,
-  average
+  average,
+  sqlInList
 };

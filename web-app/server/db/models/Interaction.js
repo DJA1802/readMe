@@ -56,6 +56,14 @@ Interaction.readingTimeByDate = function (userId) {
     .then(data => data[0]);
 };
 
+Interaction.readingTimeThisWeek = function (userId) {
+  return db
+    .query(
+      `SELECT EXTRACT(WEEK FROM DATE_TRUNC('week', interactions."startTime")), SUM(EXTRACT(MILLISECONDS FROM interactions."endTime"-interactions."startTime")) AS "duration" FROM interactions INNER JOIN articles on interactions."articleId" = articles.id INNER JOIN users ON articles."userId" = ${userId} WHERE users.id = 1 GROUP BY EXTRACT(WEEK FROM DATE_TRUNC('week', interactions."startTime")) HAVING EXTRACT(WEEK FROM DATE_TRUNC('week', interactions."startTime")) = EXTRACT(WEEK FROM NOW())`
+    )
+    .then(data => data[0]);
+};
+
 Interaction.readingTimeByMonthYear = function (userId) {
   return db
     .query(

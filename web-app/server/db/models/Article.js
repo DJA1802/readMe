@@ -3,6 +3,7 @@ const db = require('../db');
 const Author = require('./Author');
 const Publication = require('./Publication');
 const sanitizeHTML = require('sanitize-html');
+const { sqlInList } = require('../../utils');
 const sanitizeOptions = {
   // include images in required tags
   allowedTags: sanitizeHTML.defaults.allowedTags
@@ -100,32 +101,63 @@ Article.findOneWithAssociations = function (articleId) {
   });
 };
 
-Article.groupByTimeRead = function (userId) {
+Article.groupByTimeRead = function (
+  userId,
+  articleTypes = ['my-list', 'archive']
+) {
   return db
     .query(
-      `SELECT articles.id, articles.title, articles."sourceUrl", articles."publicationDate", articles."wordCount", articles.status, articles."publicationId", SUM(EXTRACT(MILLISECONDS FROM interactions."endTime"-interactions."startTime")) AS "duration" FROM articles INNER JOIN interactions on articles.id = interactions."articleId" INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} GROUP BY articles.id, articles.title, articles."sourceUrl", articles."publicationDate", articles."wordCount", articles.status, articles."publicationId" ORDER BY "duration" DESC;`
+      `SELECT articles.id, articles.title, articles."sourceUrl", articles."publicationDate", articles."wordCount", articles.status, articles."publicationId", SUM(EXTRACT(MILLISECONDS FROM interactions."endTime"-interactions."startTime")) AS "duration" FROM articles INNER JOIN interactions on articles.id = interactions."articleId" INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} AND articles.status IN ${sqlInList(
+        articleTypes
+      )} GROUP BY articles.id, articles.title, articles."sourceUrl", articles."publicationDate", articles."wordCount", articles.status, articles."publicationId" ORDER BY "duration" DESC;`
     )
     .then(data => data[0]);
 };
 
-Article.getMostReadByDuration = function (userId) {
-  return Article.groupByTimeRead(userId).then(data => {
+Article.getMostReadByDuration = function (
+  userId,
+  articleTypes = ['my-list', 'archive']
+) {
+  return Article.groupByTimeRead(userId, articleTypes).then(data => {
     return data.length ? data[0] : null;
   });
 };
 
-Article.groupByInteractionCount = function (userId) {
+Article.groupByInteractionCount = function (
+  userId,
+  articleTypes = ['my-list', 'archive']
+) {
   return db
     .query(
-      `SELECT articles.id, articles.title, articles."sourceUrl", articles."publicationDate", articles."wordCount", articles.status, articles."publicationId", COUNT(interactions."startTime") AS "interactionCount" FROM articles INNER JOIN interactions on articles.id = interactions."articleId" INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} GROUP BY articles.id ORDER BY "interactionCount" DESC;`
+      `SELECT articles.id, articles.title, articles."sourceUrl", articles."publicationDate", articles."wordCount", articles.status, articles."publicationId", COUNT(interactions."startTime") AS "interactionCount" FROM articles INNER JOIN interactions on articles.id = interactions."articleId" INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} AND articles.status IN ${sqlInList(
+        articleTypes
+      )} GROUP BY articles.id ORDER BY "interactionCount" DESC;`
     )
     .then(data => data[0]);
 };
 
-Article.getAverageWordCount = function (userId) {
+Article.getTotalWordCount = function (
+  userId,
+  articleTypes = ['my-list', 'archive']
+) {
   return db
     .query(
-      `SELECT AVG("wordCount") FROM articles INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId}`
+      `SELECT SUM("wordCount") FROM articles INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} AND articles.status IN ${sqlInList(
+        articleTypes
+      )}`
+    )
+    .then(data => Number(data[0][0].sum).toFixed(0));
+};
+
+Article.getAverageWordCount = function (
+  userId,
+  articleTypes = ['my-list', 'archive']
+) {
+  return db
+    .query(
+      `SELECT AVG("wordCount") FROM articles INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} AND articles.status IN ${sqlInList(
+        articleTypes
+      )}`
     )
     .then(data => Number(data[0][0].avg).toFixed(0));
 };
