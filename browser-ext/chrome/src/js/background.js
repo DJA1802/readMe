@@ -1,10 +1,16 @@
 import '../img/icon-128.png';
+import '../img/icon-selected-128.png';
 import '../img/icon-64.png';
+import '../img/icon-selected-64.png';
 import '../img/icon-32.png';
 import axios from 'axios';
 
 const fulfillSave = (articleUrl, tab) => {
   console.log('Saving article');
+  // update the icon
+  chrome.browserAction.setIcon({
+    path: 'icon-selected-64.png'
+  });
   axios
     .post('http://localhost:8080/api/articles', { articleUrl })
     .then(() => {
@@ -28,8 +34,20 @@ const fulfillSave = (articleUrl, tab) => {
         }
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      resetIcon();
+      console.log(err);
+    });
 };
+
+// change icon back to default when the current page is navigated away or closed
+const resetIcon = () => {
+  chrome.browserAction.setIcon({
+    path: 'icon-64.png'
+  });
+};
+chrome.tabs.onUpdated.addListener(resetIcon);
+chrome.tabs.onRemoved.addListener(resetIcon);
 
 chrome.browserAction.onClicked.addListener(tab => {
   const articleUrl = tab.url;
