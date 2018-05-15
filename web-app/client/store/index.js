@@ -4,6 +4,7 @@ import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import articlesAll from './articlesAll';
 import articleSelected from './articleSelected';
+import interactions from './interactions';
 import articleStyle from './articleStyle';
 import message from './message';
 import navbar from './navbar';
@@ -13,6 +14,7 @@ import online from './online';
 const reducer = combineReducers({
   articlesAll,
   articleSelected,
+  interactions,
   articleStyle,
   message,
   navbar,
@@ -28,6 +30,7 @@ const store = createStore(reducer, middleware);
 export default store;
 export * from './articlesAll';
 export * from './articleSelected';
+export * from './interactions';
 export * from './articleStyle';
 export * from './message';
 export * from './navbar';

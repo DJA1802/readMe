@@ -37,6 +37,7 @@ router.get('/', (req, res, next) => {
 // HELPER FUNCTIONS FOR POSTING ARTICLE -------------------------- //
 async function createNewArticle (userId, articleUrl, next) {
   if (!next) next = console.log;
+
   console.log('----------------------------------------------------');
   console.log('FETCHING TEXT FOR ARTICLE: ', articleUrl);
 
