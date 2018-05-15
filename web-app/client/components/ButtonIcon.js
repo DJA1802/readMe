@@ -1,12 +1,21 @@
 import React from 'react';
 import { Icon, Popup } from 'semantic-ui-react';
+import { message } from '../store';
+import { connect } from 'react-redux';
 
 /**
  * COMPONENT
  */
 
 const ButtonIcon = props => {
-  const { articleId, handleButtonClick, iconName, popupLabel } = props;
+  const {
+    articleId,
+    handleButtonClick,
+    handleMessage,
+    iconName,
+    online,
+    popupLabel
+  } = props;
   const style = {
     opacity: 0.7,
     padding: '0.5em'
@@ -22,8 +31,13 @@ const ButtonIcon = props => {
         <Icon
           name={iconName}
           size="large"
-          onClick={() => handleButtonClick(articleId)}
-          link
+          onClick={
+            online
+              ? () => handleButtonClick(articleId)
+              : () => handleMessage('No Internet Connection')
+          }
+          link={online && true}
+          className={online ? '' : 'icon-disabled'}
         />
       }
       content={popupLabel}
@@ -31,4 +45,12 @@ const ButtonIcon = props => {
   );
 };
 
-export default ButtonIcon;
+const mapStateToProps = state => ({
+  online: state.online
+});
+
+const mapDispatchToProps = dispatch => ({
+  handleMessage: messageContent => dispatch(message(messageContent))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ButtonIcon);

@@ -19,6 +19,7 @@ export { default as ButtonIcon } from './ButtonIcon';
 export { default as ButtonMyListArticle } from './ButtonMyListArticle';
 export { default as FormAddArticle } from './FormAddArticle';
 export { default as FormChangeStyle } from './FormChangeStyle';
+export { default as Message } from './Message';
 export { default as NavbarTop } from './NavbarTop';
 export { default as NavbarSideDesktop } from './NavbarSideDesktop';
 export { default as NavbarSideMobile } from './NavbarSideMobile';

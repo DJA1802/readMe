@@ -10,7 +10,7 @@ const db = require('./db');
 const sessionStore = new SequelizeStore({ db });
 const PORT = process.env.PORT || 8080;
 const app = express();
-const socketio = require('socket.io');
+// const socketio = require('socket.io');
 module.exports = app;
 
 /**
@@ -61,6 +61,9 @@ const createApp = () => {
 
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')));
+  app.use('/service-worker.js', (req, res, next) =>
+    res.sendFile(path.join(__dirname, '..', 'service-worker.js'))
+  );
 
   // any remaining requests with an extension (.js, .css, etc.) send 404
   app.use((req, res, next) => {
@@ -93,8 +96,8 @@ const startListening = () => {
   );
 
   // set up our socket control center
-  const io = socketio(server);
-  require('./socket')(io);
+  // const io = socketio(server);
+  // require('./socket')(io);
 };
 
 const syncDb = () => db.sync();

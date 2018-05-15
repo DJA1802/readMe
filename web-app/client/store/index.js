@@ -6,16 +6,20 @@ import articlesAll from './articlesAll';
 import articleSelected from './articleSelected';
 import interactions from './interactions';
 import articleStyle from './articleStyle';
+import message from './message';
 import navbar from './navbar';
 import user from './user';
+import online from './online';
 
 const reducer = combineReducers({
   articlesAll,
   articleSelected,
   interactions,
   articleStyle,
+  message,
   navbar,
-  user
+  user,
+  online
 });
 
 const middleware = composeWithDevTools(
@@ -28,5 +32,7 @@ export * from './articlesAll';
 export * from './articleSelected';
 export * from './interactions';
 export * from './articleStyle';
+export * from './message';
 export * from './navbar';
 export * from './user';
+export * from './online';

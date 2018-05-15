@@ -1,5 +1,6 @@
 import '../img/icon-128.png';
-import '../img/icon-34.png';
+import '../img/icon-64.png';
+import '../img/icon-32.png';
 import axios from 'axios';
 
 const fulfillSave = (articleUrl, tab) => {
@@ -12,7 +13,7 @@ const fulfillSave = (articleUrl, tab) => {
         if (level === 'granted') {
           const notificationIcon = tab.favIconUrl
             ? tab.favIconUrl
-            : 'icon-34.png';
+            : 'icon-32.png';
           const notificationName = tab.title ? `${tab.title}` : tab.url;
           chrome.notifications.create(
             {

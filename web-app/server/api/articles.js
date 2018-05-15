@@ -9,12 +9,13 @@ const {
 } = require('../utils');
 const articleQueryAttributes = [
   'id',
-  'title',
+  'content',
+  'createdAt',
   'sourceUrl',
   'status',
-  'wordCount',
-  'createdAt',
-  'thumbnailUrl'
+  'title',
+  'thumbnailUrl',
+  'wordCount'
 ];
 
 // ------------------------------------------------------------ //
