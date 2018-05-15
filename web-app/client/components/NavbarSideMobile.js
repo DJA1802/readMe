@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, Menu, Sidebar } from 'semantic-ui-react';
+import { Icon, Menu, Transition } from 'semantic-ui-react';
 import MediaQuery from 'react-responsive';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -11,24 +11,20 @@ const NavbarSideMobile = ({ handleMenuClick, visible }) => {
   return (
     <React.Fragment>
       <MediaQuery maxWidth={desktop}>
-        <Sidebar
-          as={Menu}
-          animation="overlay"
-          visible={visible}
-          vertical
-          id="nav-sidebar-mobile"
-        >
-          <Menu.Item
-            as={Link}
-            to="/home"
-            onClick={handleMenuClick}
-            className="navbar-side-item"
-          >
-            <Icon name="home" className="left" size="large" />
-            Home
-          </Menu.Item>
-          <NavbarSideItems />
-        </Sidebar>
+        <Transition visible={visible} animation="fade right" duration={500}>
+          <Menu vertical id="nav-sidebar-mobile">
+            <Menu.Item
+              as={Link}
+              to="/home"
+              onClick={handleMenuClick}
+              className="navbar-side-item"
+            >
+              <Icon name="home" className="left" size="large" />
+              Home
+            </Menu.Item>
+            <NavbarSideItems />
+          </Menu>
+        </Transition>
       </MediaQuery>
     </React.Fragment>
   );

@@ -1,29 +1,59 @@
-import React from 'react';
+import React, { Component } from 'react';
+import MediaQuery from 'react-responsive';
 import { ArticleListItem } from '../components';
 import { connect } from 'react-redux';
 import { Header, List, Segment } from 'semantic-ui-react';
+import { VisContainer } from '.';
+import { desktop } from '../utils/constants';
+import { fetchArticles } from '../store';
 
-const ArticleList = props => {
-  const { articles, type } = props;
-  const title = type === 'my-list' ? 'My List' : 'Archive';
+class ArticleList extends Component {
+  componentDidMount () {
+    this.props.loadArticles();
+  }
+
+  render () {
+    const { articles, type } = this.props;
+    const title = type === 'my-list' ? 'My List' : 'Archive';
+    return (
+      <div className="article-list-container">
+        <Header as="h1" className="nimbus-mono-bold">
+          {title}
+        </Header>
+        <List divided relaxed as={Segment} className="article-list">
+          {articles &&
+            articles.map(article => (
+              <ArticleListItem
+                key={article.id}
+                articleId={article.id}
+                title={article.title}
+                type={type}
+                publicationName={
+                  article.publication && article.publication.name
+                }
+              />
+            ))}
+        </List>
+      </div>
+    );
+  }
+}
+
+const ArticleListResponsiveContainer = props => {
   return (
-    <div className="article-list-container">
-      <Header as="h1" className="nimbus-mono-bold">
-        {title}
-      </Header>
-      <List divided relaxed as={Segment} className="article-list">
-        {articles &&
-          articles.map(article => (
-            <ArticleListItem
-              key={article.id}
-              articleId={article.id}
-              title={article.title}
-              type={type}
-              publicationName={article.publication && article.publication.name}
-            />
-          ))}
-      </List>
-    </div>
+    <MediaQuery minWidth={desktop}>
+      {matches => {
+        if (matches) {
+          return <ArticleList {...props} />;
+        } else {
+          return (
+            <VisContainer>
+              <ArticleList {...props} />
+            </VisContainer>
+          );
+        }
+      }}
+    </MediaQuery>
   );
 };
 
@@ -36,4 +66,10 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps)(ArticleList);
+const mapDispatchToProps = dispatch => ({
+  loadArticles: () => dispatch(fetchArticles())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  ArticleListResponsiveContainer
+);

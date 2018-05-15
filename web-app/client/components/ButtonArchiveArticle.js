@@ -16,6 +16,7 @@ const ButtonArchiveArticle = props => {
       handleButtonClick={handleAddToMyListArticle}
       iconName="archive"
       popupLabel="Archive"
+      successMessage="Article archived"
     />
   );
 };

@@ -16,6 +16,7 @@ const ButtonDeleteArticle = props => {
       handleButtonClick={handleDeleteArticle}
       iconName="trash outline"
       popupLabel="Delete"
+      successMessage="Article deleted"
     />
   );
 };

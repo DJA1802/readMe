@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Header, Image } from 'semantic-ui-react';
+import { Card, Header, Image, Transition } from 'semantic-ui-react';
 import { ButtonArchiveArticle, ButtonDeleteArticle } from '.';
 
 class ArticleCard extends Component {
@@ -42,12 +42,16 @@ class ArticleCard extends Component {
 
         <Card.Content extra className="card-extra">
           <div className="card-pubname">{publicationName}</div>
-          {this.state.hover && (
+          <Transition
+            visible={this.state.hover}
+            animation="fade"
+            duration={200}
+          >
             <div className="card-icon-container">
               <ButtonArchiveArticle articleId={articleId} />
               <ButtonDeleteArticle articleId={articleId} />
             </div>
-          )}
+          </Transition>
         </Card.Content>
       </Card>
     );
