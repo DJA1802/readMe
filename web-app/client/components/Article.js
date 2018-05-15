@@ -89,7 +89,7 @@ class Article extends Component {
                   ).toLocaleDateString('en-US', dateOptions)}`
                 : null}
             </p>
-            {reactHtmlParser(content)}
+            <div className="article-content">{reactHtmlParser(content)}</div>
           </div>
         ) : (
           <p>Loading... </p>

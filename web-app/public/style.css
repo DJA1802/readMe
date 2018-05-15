@@ -252,12 +252,9 @@ form div {
 /* STYLES FOR SINGLE ARTICLE VIEW ----------------------------*/
 
 #single-article {
-  /* font-family: "Lora", serif; */
   width: 60%;
   max-width: 800px;
   margin: 20px auto;
-  /* font-size: 1.1em; */
-  text-align: justify;
   position: relative;
   top: 40px;
 }
@@ -287,6 +284,10 @@ form div {
 .article-title {
   font-family: "nimbus_monobold", "Lato", sans-serif !important;
   font-size: 2.5em !important;
+}
+
+.article-content {
+  text-align: justify;
 }
 
 /* ARTICLE STYLE FORM */
