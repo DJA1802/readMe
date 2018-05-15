@@ -7,6 +7,7 @@ const sanitizeOptions = {
     .concat(['img', 'figcaption', 'figure', 'time'])
     .filter(tag => tag !== 'div' && tag !== 'iframe' && tag !== 'html'),
   allowedAttributes: {
+    a: ['href'],
     img: ['*']
   },
   allowedSchemesByTag: {
