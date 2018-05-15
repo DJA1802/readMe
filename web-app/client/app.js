@@ -1,7 +1,7 @@
 import React from 'react';
 import { Sidebar } from 'semantic-ui-react';
 import MediaQuery from 'react-responsive';
-import { NavbarTop, NavbarSideMobile } from './components';
+import { Message, NavbarTop, NavbarSideMobile } from './components';
 import { desktop } from './utils/constants';
 import Routes from './routes';
 
@@ -9,6 +9,7 @@ const App = () => {
   return (
     <React.Fragment>
       <NavbarTop />
+      <Message />
       <MediaQuery minWidth={desktop}>
         {matches => {
           if (matches) {
