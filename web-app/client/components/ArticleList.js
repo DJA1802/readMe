@@ -59,10 +59,12 @@ const ArticleListResponsiveContainer = props => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    articles:
-      ownProps.type === 'my-list'
-        ? state.articlesAll.filter(article => article.status === 'my-list')
-        : state.articlesAll.filter(article => article.status === 'archive')
+    articles: (ownProps.type === 'my-list'
+      ? state.articlesAll.filter(article => article.status === 'my-list')
+      : state.articlesAll.filter(article => article.status === 'archive')
+    ).sort((articleA, articleB) => {
+      return new Date(articleB.createdAt) - new Date(articleA.createdAt);
+    })
   };
 };
 
