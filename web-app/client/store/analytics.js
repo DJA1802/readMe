@@ -8,6 +8,7 @@ const GET_READING_HOURS = 'GET_READING_HOURS';
 const GET_PUB_COUNTS = 'GET_PUB_COUNTS';
 const GET_ZOOM = 'GET_ZOOM';
 const CHANGE_ZOOM = 'CHANGE_ZOOM';
+const GET_HOME_PAGE_STATS = 'GET_HOME_PAGE_STATS';
 
 /**
  * ACTION CREATORS
@@ -32,9 +33,15 @@ export const changeZoom = domain => ({
   domain
 });
 
+<<<<<<< HEAD
 export const getPubCounts = pubs => ({
   type: GET_PUB_COUNTS,
   pubs
+=======
+export const getHomePageStats = homePageStats => ({
+  type: GET_HOME_PAGE_STATS,
+  homePageStats
+>>>>>>> master
 });
 
 /**
@@ -56,11 +63,19 @@ export const fetchReadingHours = () => dispatch =>
     })
     .catch(err => console.log(err));
 
+<<<<<<< HEAD
 export const fetchPubCounts = () => dispatch =>
   axios
     .get(`api/interactions/pubs`)
     .then(res => {
       dispatch(getPubCounts(res.data));
+=======
+export const fetchHomePageStats = () => dispatch =>
+  axios
+    .get(`/api/users/homePageStats`)
+    .then(res => {
+      dispatch(getHomePageStats(res.data));
+>>>>>>> master
     })
     .catch(err => console.log(err));
 
@@ -72,7 +87,11 @@ const initialState = {
   firstEverInteraction: '',
   readingHours: [],
   zoom: {},
+<<<<<<< HEAD
   pubCounts: []
+=======
+  homePageStats: []
+>>>>>>> master
 };
 
 export default function (state = initialState, action) {
@@ -88,8 +107,13 @@ export default function (state = initialState, action) {
       };
     case CHANGE_ZOOM:
       return { ...state, zoom: action.domain };
+<<<<<<< HEAD
     case GET_PUB_COUNTS:
       return { ...state, pubCounts: action.pubs };
+=======
+    case GET_HOME_PAGE_STATS:
+      return { ...state, homePageStats: action.homePageStats };
+>>>>>>> master
     default:
       return state;
   }

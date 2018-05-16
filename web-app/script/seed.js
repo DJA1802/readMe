@@ -1,13 +1,23 @@
 /*eslint-disable max-statements*/
 require('../secrets.js');
 
-const moment = require('moment');
+const db = require('../server/db');
 const momentRandom = require('moment-random');
-
+const { User, Topic, Interaction } = require('../server/db/models');
 const { createNewArticle } = require('../server/api/articles');
 
-const db = require('../server/db');
-const { User, Topic, Interaction } = require('../server/db/models');
+/* "reflect" function slightly modified from:
+https://stackoverflow.com/questions/31424561/wait-until-all-es6-promises-complete-even-rejected-promises */
+function reflect (promise) {
+  return promise.then(
+    function (data) {
+      return { data, status: 'resolved' };
+    },
+    function (error) {
+      return { error, status: 'rejected' };
+    }
+  );
+}
 
 async function seed () {
   await db.sync({ force: true });
@@ -24,7 +34,7 @@ async function seed () {
     })
   ]);
 
-  const articles = await Promise.all([
+  const articlePromises = [
     createNewArticle(
       1,
       'https://www.newyorker.com/magazine/2018/04/23/the-maraschino-moguls-secret-life'
@@ -131,7 +141,17 @@ async function seed () {
       2,
       'https://www.newyorker.com/magazine/2017/12/11/cat-person'
     )
-  ]);
+  ];
+
+  const articlesRaw = await Promise.all(articlePromises.map(reflect));
+
+  // Show result of all createNewArticle() attempts
+  console.log(articlesRaw);
+
+  // Filter out failed attempts
+  const articles = articlesRaw.filter(
+    resultObj => resultObj.status === 'resolved'
+  );
 
   const topics = await Promise.all([
     Topic.create({ name: 'U.S. News' }),
@@ -162,11 +182,10 @@ async function seed () {
       endDate = '2018-05-12';
     const startTime = momentRandom(endDate, startDate);
     const endTime = startTime + randDurationUnderAnHour();
-
     return { startTime, endTime };
   };
 
-  // construct an interaction object with a random article, a random date since Jan 1, 2017, and a random duration under an hour
+  // construct an interaction object with a random article, a random date, and a random duration under an hour
   const randInteraction = () => {
     const startEnd = randStartEnd();
     const article = { articleId: randArticleId() };

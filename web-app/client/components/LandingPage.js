@@ -15,7 +15,7 @@ const LandingPage = () => {
         </Modal>
       </div>
       <div id="carousel">
-        <img src="/landing-page-1.jpg" className="carousel-image" />
+        <div className="carousel-image" />
         <div id="carousel-overlay">
           <img src="/splash-icon-800.png" id="land-pg-logo" />
           <div id="carousel-text">Your interests. Your habits. Your data.</div>

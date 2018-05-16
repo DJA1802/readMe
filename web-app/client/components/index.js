@@ -6,6 +6,7 @@
 
 export { default as Analytics } from './Analytics';
 export { default as AnalyticsFeatured } from './AnalyticsFeatured';
+export { default as AnalyticsStat } from './AnalyticsStat';
 export { default as Article } from './Article';
 export { default as ArticleCard } from './ArticleCard';
 export { default as ArticleCardList } from './ArticleCardList';

@@ -117,7 +117,15 @@ form div {
 }
 
 .analytics-featured {
-  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.ui.statistic .value {
+  font-family: "nimbus_monoregular", "Lato", sans-serif !important;
+}
+
+.ui.statistic .label {
+  font-family: "nimbus_monoregular", "Lato", sans-serif !important;
 }
 
 /*---------------------------------*/
@@ -400,6 +408,8 @@ form div {
   width: 100px;
   cursor: pointer;
   font-size: 1.1em;
+  text-align: right;
+  margin-right: 20px;
 }
 
 #land-pg-login-btn:hover {
@@ -422,8 +432,9 @@ form div {
   min-width: 100%;
   height: 100%;
   opacity: 1;
-  transition: opacity 1s;
   z-index: 0;
+  background-image: url("/landing-page-1.jpg");
+  background-size: cover;
 }
 
 #land-pg-logo {
@@ -478,9 +489,17 @@ form div {
   }
 
   #land-pg-logo {
-    width: 70vw;
-    height: 70vw;
+    width: 60vw;
+    height: 60vw;
   }
+
+  #carousel .carousel-image {
+    position: relative;
+  }
+
+  #carousel-overlay {
+    top: 15vh;
+    left: 0;
 }
 
 /*----TABLET AND MOBILE-----------------------------------*/
@@ -496,7 +515,7 @@ form div {
   }
 
   #land-pg-container {
-    width: 90%;
+    width: 100%;
   }
 }
 
