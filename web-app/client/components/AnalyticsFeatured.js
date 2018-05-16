@@ -3,14 +3,14 @@ import React from 'react';
 import { Container, Header, Statistic } from 'semantic-ui-react';
 import { AnalyticsStat } from '../components';
 
-const AnalyticsFeatured = props => {
+const AnalyticsFeatured = ({ stats }) => {
   return (
     <Container className="analytics-featured">
       <Header as="h2" className="nimbus-mono-bold">
         Featured Analytics
       </Header>
       <Statistic.Group widths="three" size="small">
-        {props.map((stat, idx) => (
+        {stats.map((stat, idx) => (
           <AnalyticsStat key={idx} value={stat.value} label={stat.label} />
         ))}
       </Statistic.Group>

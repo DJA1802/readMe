@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AnalyticsFeatured, ArticleCardList } from '.';
-import { fetchArticles } from '../store';
+import { fetchArticles, fetchHomePageStats } from '../store';
 
 class Home extends Component {
   componentDidMount () {
     this.props.loadArticles();
+    this.props.loadStats();
   }
 
   render () {
     return (
       <React.Fragment>
-        <AnalyticsFeatured />
+        <AnalyticsFeatured stats={this.props.stats} />
         <ArticleCardList
           articles={this.props.threeMostRecentArticles}
           className="article-card-list"
@@ -28,7 +29,8 @@ const mapStateToProps = state => {
       .sort((articleA, articleB) => {
         return new Date(articleB.createdAt) - new Date(articleA.createdAt);
       })
-      .slice(0, 3)
+      .slice(0, 3),
+    homePageStats: state.analytics.homePageStats
   };
 };
 
@@ -36,6 +38,9 @@ const mapDispatchToProps = dispatch => {
   return {
     loadArticles () {
       dispatch(fetchArticles());
+    },
+    loadStats () {
+      dispatch(fetchHomePageStats());
     }
   };
 };
