@@ -6,7 +6,7 @@ import { toggleMobileSidebar } from '../store';
 
 const NavbarSideItems = ({ handleMenuClick }) => {
   return (
-    <div>
+    <React.Fragment>
       <Menu.Item
         as={Link}
         to="/articles"
@@ -34,7 +34,7 @@ const NavbarSideItems = ({ handleMenuClick }) => {
         <Icon name="archive" className="left" size="large" />
         Archive
       </Menu.Item>
-    </div>
+    </React.Fragment>
   );
 };
 

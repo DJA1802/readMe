@@ -15,10 +15,6 @@
   font-style: normal;
 }
 
-html {
-  min-height: 100%;
-}
-
 body {
   font-family: "Lato", sans-serif;
 }
@@ -47,10 +43,6 @@ form div {
 
 .nimbus-mono-reg {
   font-family: "nimbus_monoregular", "Lato", sans-serif !important;
-}
-
-#app {
-  height: 100%;
 }
 
 .no-margin {
@@ -101,8 +93,7 @@ form div {
 #page-container {
   display: flex;
   width: 100%;
-  margin: 0;
-  height: calc(100% - 40px);
+  margin: 0 0 50px 0;
   position: relative;
 }
 
@@ -110,7 +101,6 @@ form div {
   padding: 30px 3%;
   flex: 4;
   width: calc(100% - 200px);
-  height: 100%;
   margin: 0 !important;
   position: absolute;
   top: 40px;
@@ -131,10 +121,21 @@ form div {
 
 #navbar-top {
   margin-bottom: 0;
+  top: 0;
   height: 40px;
   position: fixed;
   width: 100%;
-  z-index: 1;
+  z-index: 10;
+}
+
+#navbar-user-mobile {
+  padding-right: 0px;
+}
+
+#navbar-user-mobile > .triangle {
+  position: relative !important;
+  right: 1px;
+  top: 8px !important;
 }
 
 #nav-sidebar {
@@ -148,6 +149,9 @@ form div {
 #nav-sidebar-mobile {
   top: 40px;
   height: calc(100% - 40px) !important;
+  position: fixed !important;
+  z-index: 10;
+  margin: 0 !important;
 }
 
 .navbar-side-item {
@@ -163,11 +167,6 @@ form div {
 
 #add-form {
   width: 350px;
-}
-
-#mobile-pusher-container {
-  height: 100%;
-  overflow-y: scroll;
 }
 
 /*---------------------------------*/
@@ -189,6 +188,7 @@ form div {
 .list-item-title {
   font-family: "nimbus_monoregular", "Lato", sans-serif !important;
   font-size: 1.1em;
+  color: black;
 }
 
 .list-item-extra {
@@ -226,6 +226,8 @@ form div {
 .card-extra {
   display: flex;
   justify-content: space-between;
+  padding: 8px 12px !important;
+  height: 40px;
 }
 
 .card-icon-container {
@@ -288,6 +290,7 @@ form div {
 
 .article-content {
   text-align: justify;
+  margin-bottom: 50px;
 }
 
 /* ARTICLE STYLE FORM */
@@ -302,8 +305,19 @@ form div {
   margin: 0 auto;
 }
 
-/* END STYLES FOR ANALYTICS PAGE -----------------------------------*/
-/*---------------------------------*/
+.back-button {
+  font-family: "nimbus_monoregular", "Lato", sans-serif !important;
+  cursor: pointer;
+  width: 100px;
+  height: 30px;
+  padding: 5px !important;
+}
+
+.back-button > .arrow {
+  margin-right: 15px !important;
+}
+
+/* ARTICLE STYLE FORM */
 
 #style-form {
   width: 160px;
@@ -331,6 +345,22 @@ form div {
 
 /* END STYLES FOR SINGLE ARTICLE VIEW ------------------------*/
 /*-------------------------------------------------------------*/
+
+/*---------------------------------*/
+
+/* STYLES FOR ANALYTICS PAGE -----------------------------------*/
+
+#analytics-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+#chart-container {
+  height: 80%;
+}
+
+/* END STYLES FOR ANALYTICS PAGE -----------------------------------*/
+/*---------------------------------*/
 
 /*-------------------------------------------------------------*/
 /*-------------------------------------------------------------*/

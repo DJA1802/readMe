@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Header, Input } from 'semantic-ui-react';
-import { postNewArticle } from '../store';
+import { message, postNewArticle } from '../store';
 
 /**
  * COMPONENT
@@ -33,6 +33,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     handleSubmit: evt => {
       evt.preventDefault();
+      dispatch(message('Article added'));
       dispatch(postNewArticle(evt.target.url.value));
       ownProps.handleClose();
     }

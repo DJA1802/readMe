@@ -4,12 +4,14 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getArticle, clearArticle } from '../store';
 import reactHtmlParser from 'react-html-parser';
-import { Header } from 'semantic-ui-react';
+import { Icon, Header, Segment } from 'semantic-ui-react';
 import {
   getLocalInteractions,
   addInteractionToLocalStorage,
   updateLastInteractionEndTime
 } from '../utils/helperFuncs';
+import history from '../history';
+import { VisContainer } from '.';
 
 class Article extends Component {
   constructor (props) {
@@ -70,31 +72,36 @@ class Article extends Component {
     document.getElementById('app').style.backgroundColor = backgroundColor;
 
     return (
-      <div id="page-container">
-        {article ? (
-          <div id="single-article" style={{ fontSize, fontFamily, color }}>
-            <Header as="h1" style={{ color }} className="article-title">
-              {title}
-            </Header>
-            Originally from{' '}
-            <a href={sourceUrl}>{publication && publication.name}</a>
-            <p className="article-author">
-              {' '}
-              {author ? `by ${author.name}` : null}
-            </p>
-            <p>
-              {publicationDate
-                ? `Date Published: ${new Date(
-                    publicationDate
-                  ).toLocaleDateString('en-US', dateOptions)}`
-                : null}
-            </p>
-            <div className="article-content">{reactHtmlParser(content)}</div>
-          </div>
-        ) : (
-          <p>Loading... </p>
-        )}
-      </div>
+      <VisContainer>
+        <div id="page-container">
+          {article ? (
+            <div id="single-article" style={{ fontSize, fontFamily, color }}>
+              <Header as="h1" style={{ color }} className="article-title">
+                {title}
+              </Header>
+              Originally from{' '}
+              <a href={sourceUrl}>{publication && publication.name}</a>
+              <p className="article-author">
+                {' '}
+                {author ? `by ${author.name}` : null}
+              </p>
+              <p>
+                {publicationDate
+                  ? `Date Published: ${new Date(
+                      publicationDate
+                    ).toLocaleDateString('en-US', dateOptions)}`
+                  : null}
+              </p>
+              <div className="article-content">{reactHtmlParser(content)}</div>
+              <Segment onClick={history.goBack} className="back-button">
+                <Icon name="long arrow left" />back
+              </Segment>
+            </div>
+          ) : (
+            <p>Loading... </p>
+          )}
+        </div>
+      </VisContainer>
     );
   }
 }
