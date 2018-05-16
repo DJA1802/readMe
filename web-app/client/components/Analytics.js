@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Header, Button, Segment } from 'semantic-ui-react';
-import { ReadingTimeGraphs } from '../components';
+import { ReadingTimeGraphs, ReadingSources } from '../components';
 import {
   fetchInteractions,
   fetchFirstInteraction,
-  fetchReadingHours
+  fetchReadingHours,
+  fetchPubCounts
 } from '../store';
 import _ from 'lodash';
 
@@ -19,6 +20,7 @@ class Analytics extends Component {
     this.props.loadData();
     this.props.getFirstInteraction();
     this.props.getReadingHours();
+    this.props.getPubCounts();
   }
 
   handleReadingTimeTabClick = () => this.setState({ activeTab: 'readingTime' });
@@ -35,7 +37,9 @@ class Analytics extends Component {
             <Button onClick={this.handleReadingTimeTabClick}>
               Reading Time
             </Button>
-            <Button onClick={this.handleSourceTabClick}>Reading Sources</Button>
+            <Button onClick={this.handleReadingSourceTabClick}>
+              Reading Sources
+            </Button>
             <Button onClick={this.handleArticleTabClick}>Article Data</Button>
           </Button.Group>
 
@@ -47,10 +51,10 @@ class Analytics extends Component {
               readingHours={this.props.readingHours}
             />
           ) : null}
-          {/*{this.state.activeTab === 'readingSources' ? (
-          <ReadingSources />
-        ) : null}
-        {this.state.activeTab === 'articleData' ? (
+          {this.state.activeTab === 'readingSources' ? (
+            <ReadingSources pubCounts={this.props.pubCounts} />
+          ) : null}
+          {/*{this.state.activeTab === 'articleData' ? (
           <ArticleData />
         ) : null}*/}
         </div>
@@ -64,7 +68,8 @@ const mapStateToProps = state => {
     userId: state.user.id,
     interactions: state.interactions,
     firstInteraction: state.analytics.firstEverInteraction,
-    readingHours: state.analytics.readingHours
+    readingHours: state.analytics.readingHours,
+    pubCounts: state.analytics.pubCounts
   };
 };
 
@@ -72,7 +77,8 @@ const mapDispatchToProps = dispatch => {
   return {
     loadData: () => dispatch(fetchInteractions()),
     getFirstInteraction: () => dispatch(fetchFirstInteraction()),
-    getReadingHours: () => dispatch(fetchReadingHours())
+    getReadingHours: () => dispatch(fetchReadingHours()),
+    getPubCounts: () => dispatch(fetchPubCounts())
   };
 };
 

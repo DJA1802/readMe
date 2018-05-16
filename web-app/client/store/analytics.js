@@ -5,6 +5,7 @@ import axios from 'axios';
  */
 const GET_FIRST_INTERACTION = 'GET_FIRST_INTERACTION';
 const GET_READING_HOURS = 'GET_READING_HOURS';
+const GET_PUB_COUNTS = 'GET_PUB_COUNTS';
 const GET_ZOOM = 'GET_ZOOM';
 const CHANGE_ZOOM = 'CHANGE_ZOOM';
 
@@ -31,6 +32,11 @@ export const changeZoom = domain => ({
   domain
 });
 
+export const getPubCounts = pubs => ({
+  type: GET_PUB_COUNTS,
+  pubs
+});
+
 /**
  * THUNK CREATORS
  */
@@ -50,6 +56,14 @@ export const fetchReadingHours = () => dispatch =>
     })
     .catch(err => console.log(err));
 
+export const fetchPubCounts = () => dispatch =>
+  axios
+    .get(`api/interactions/pubs`)
+    .then(res => {
+      dispatch(getPubCounts(res.data));
+    })
+    .catch(err => console.log(err));
+
 /**
  * REDUCER
  */
@@ -57,7 +71,8 @@ export const fetchReadingHours = () => dispatch =>
 const initialState = {
   firstEverInteraction: '',
   readingHours: [],
-  zoom: {}
+  zoom: {},
+  pubCounts: {}
 };
 
 export default function (state = initialState, action) {
@@ -73,6 +88,8 @@ export default function (state = initialState, action) {
       };
     case CHANGE_ZOOM:
       return { ...state, zoom: action.domain };
+    case GET_PUB_COUNTS:
+      return { ...state, pubCounts: action.pubs };
     default:
       return state;
   }

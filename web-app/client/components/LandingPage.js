@@ -3,7 +3,6 @@ import { Button, Modal } from 'semantic-ui-react';
 import { Login, Signup } from '.';
 
 const LandingPage = () => {
-  console.log('on the landing page');
   return (
     <div id="land-pg-container">
       <div id="land-pg-top-bar">
