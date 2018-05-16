@@ -63,7 +63,6 @@ async function createNewArticle (userId, articleUrl, next) {
     }).catch(err => {
       next(err);
     });
-
     return newArticle;
   } else {
     return Promise.reject(new Error('No mercury article'));
