@@ -42,12 +42,21 @@ const visuStyles = () => {
     },
     pie: {
       labels: {
-        fill: 'white',
-        fontSize: 11
+        fill: 'black',
+        fontSize: 8,
+        labelRadius: 90
       }
     },
     pieLabel: {
-      fill: 'black'
+      fontSize: 24,
+      fill: 'white',
+      stroke: 'white'
+    },
+    svg: {
+      background: '#EAE7E4',
+      height: 'auto',
+      boxSizing: 'border-box',
+      display: 'inline'
     },
     title: {
       fontFamily: 'nimbus_monoregular',
