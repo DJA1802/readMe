@@ -29,7 +29,6 @@ class Analytics extends Component {
   handleArticleTabClick = () => this.setState({ activeTab: 'articleData' });
 
   render () {
-    console.log('PUB COUNTS ==>', this.props.pubCounts);
     return (
       <Segment>
         <Header as="h1">Analytics</Header>

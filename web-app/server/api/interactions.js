@@ -55,7 +55,7 @@ router.get('/hours', (req, res, next) => {
 
 router.get('/pubs', (req, res, next) => {
   const { id } = req.user;
-  Interaction.publicationGroupByArticleCount(id)
+  Publication.groupByArticleCount(id)
     .then(publications => res.json(publications))
     .catch(next);
 });
