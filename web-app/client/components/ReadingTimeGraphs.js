@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { ReadingTimeline, ReadingHours } from '../components';
 
 const getStyles = () => {
   const ORANGE = '#FFC400';
-  const RED = '#D32F2F';
+  const BLUE = '#2979FF';
 
   return {
-    axisBottom: {
+    axisX: {
       axis: { stroke: 'black' },
       ticks: {
         size: 5,
@@ -16,22 +16,31 @@ const getStyles = () => {
       },
       tickLabels: {
         fill: 'black',
-        fontSize: 11,
-        margin: 5
+        fontSize: 12
+      }
+    },
+    axisY: {
+      axis: { stroke: 'black' },
+      ticks: { size: 5, stroke: 'black', strokeWidth: 1 },
+      tickLabels: {
+        fill: 'black',
+        fontSize: 14
       }
     },
     area: {
       data: {
         strokeWidth: 1,
-        fillOpacity: 0.7,
         stroke: ORANGE,
+        fillOpacity: 0.7,
         fill: ORANGE
       }
     },
     bar: {
       data: {
-        fillOpacity: 0.8,
-        fill: RED
+        strokeWidth: 1,
+        stroke: BLUE,
+        fillOpacity: 0.7,
+        fill: BLUE
       }
     },
     title: {

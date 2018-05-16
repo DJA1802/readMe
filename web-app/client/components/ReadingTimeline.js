@@ -29,16 +29,14 @@ class ReadingTimeline extends Component {
     return formattedInteractions;
   }
 
-  // handleZoom (domain) {
-  //   this.setState({ zoomDomain: domain });
-  // }
-
   render () {
-    // const dateOptions = { month: 'short', day: 'numeric' };
+    const dateOptions = { month: 'short', day: 'numeric' };
 
     return (
       <Segment>
         <VictoryChart
+          width={600}
+          height={300}
           scale={{ x: 'time' }}
           containerComponent={
             <VictoryZoomContainer
@@ -75,6 +73,13 @@ class ReadingTimeline extends Component {
             />
           }
         >
+          <VictoryAxis
+            independentAxis
+            tickFormat={x =>
+              new Date(x).toLocaleDateString('en-US', dateOptions)
+            }
+            style={this.props.graphStyles.axisX}
+          />
           <VictoryArea
             style={this.props.graphStyles.area}
             data={this.formatInteractionData()}

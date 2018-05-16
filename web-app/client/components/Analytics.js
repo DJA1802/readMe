@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Header, Button } from 'semantic-ui-react';
+import { Header, Button, Segment } from 'semantic-ui-react';
 import { ReadingTimeGraphs } from '../components';
 import {
   fetchInteractions,
@@ -28,28 +28,33 @@ class Analytics extends Component {
 
   render () {
     return (
-      <div id="analytics-container">
+      <Segment>
         <Header as="h1">Analytics</Header>
-        <Button attached="left" onClick={this.handleReadingTimeTabClick}>
-          Reading Time
-        </Button>
-        <Button onClick={this.handleSourceTabClick}>Reading Sources</Button>
-        <Button onClick={this.handleArticleTabClick}>Article Data</Button>
-        {this.state.activeTab === 'readingTime' ? (
-          <ReadingTimeGraphs
-            interactions={this.props.interactions}
-            userId={this.props.userId}
-            firstInteraction={this.props.firstInteraction}
-            readingHours={this.props.readingHours}
-          />
-        ) : null}
-        {/*{this.state.activeTab === 'readingSources' ? (
+        <div id="analytics-container">
+          <Button.Group className="analytics-buttons">
+            <Button onClick={this.handleReadingTimeTabClick}>
+              Reading Time
+            </Button>
+            <Button onClick={this.handleSourceTabClick}>Reading Sources</Button>
+            <Button onClick={this.handleArticleTabClick}>Article Data</Button>
+          </Button.Group>
+
+          {this.state.activeTab === 'readingTime' ? (
+            <ReadingTimeGraphs
+              interactions={this.props.interactions}
+              userId={this.props.userId}
+              firstInteraction={this.props.firstInteraction}
+              readingHours={this.props.readingHours}
+            />
+          ) : null}
+          {/*{this.state.activeTab === 'readingSources' ? (
           <ReadingSources />
         ) : null}
         {this.state.activeTab === 'articleData' ? (
           <ArticleData />
         ) : null}*/}
-      </div>
+        </div>
+      </Segment>
     );
   }
 }

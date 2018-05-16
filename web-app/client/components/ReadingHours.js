@@ -28,10 +28,17 @@ const bucketHours = readingHoursObj => {
   return formattedData;
 };
 
+const getMaxInteractions = data => {
+  return data.reduce(
+    (max, p) => (p.interactionCount > max ? p.interactionCount : max),
+    data[0].interactionCount
+  );
+};
+
 const ReadingHours = props => {
   return (
     <Segment>
-      <VictoryChart>
+      <VictoryChart width={600} domainPadding={10}>
         <VictoryLabel
           text="Reading Frequency by Hour"
           x={25}
@@ -46,12 +53,21 @@ const ReadingHours = props => {
           style={props.graphStyles.bar}
         />
         <VictoryAxis
+          dependentAxis
+          domain={[0, getMaxInteractions(bucketHours(props.readingHours)) + 1]} // max + 1
+          offsetX={50}
+          orientation="left"
+          standalone={false}
+          style={props.graphStyles.axisY}
+        />
+        <VictoryAxis
+          independentAxis
           tickValues={_.range(24)}
           tickFormat={t => formattedHour(t)}
           tickLabelComponent={<VictoryLabel angle={90} />}
-          style={props.graphStyles.axisBottom}
+          style={props.graphStyles.axisX}
         />
-        <VictoryLabel text="Hour of Day" textAnchor="middle" x={245} y={290} />
+        <VictoryLabel text="Hour of Day" textAnchor="middle" x={300} y={345} />
       </VictoryChart>
     </Segment>
   );
