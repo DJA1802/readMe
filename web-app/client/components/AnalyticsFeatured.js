@@ -4,7 +4,6 @@ import { Container, Header, Statistic } from 'semantic-ui-react';
 import { AnalyticsStat } from '../components';
 
 const AnalyticsFeatured = ({ stats }) => {
-  console.log(stats);
   return (
     <Container className="analytics-featured">
       <Header as="h2" className="nimbus-mono-bold">
