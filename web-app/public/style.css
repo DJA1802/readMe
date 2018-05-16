@@ -285,6 +285,8 @@ form div {
   background-size: contain;
   opacity: 0.4;
 }
+
+
 /* END STYLES FOR ARTICLE CARDS --------------------------------*/
 /*-------------------------------------------------------------*/
 
@@ -458,8 +460,8 @@ form div {
 }
 
 #land-pg-logo {
-  width: 45vw;
-  height: 45vw;
+  width: 35vw;
+  height: 35vw;
   opacity: 0.8;
 }
 

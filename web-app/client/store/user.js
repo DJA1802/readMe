@@ -1,6 +1,6 @@
 import axios from 'axios';
 import history from '../history';
-import { fetchArticles } from '.';
+import { fetchArticles, postNewArticle } from '.';
 import { clearLocalInteractions } from '../utils/helperFuncs';
 
 /**
@@ -45,6 +45,26 @@ export const auth = (email, password, method) => dispatch =>
         dispatch(getUser({ error: authError }));
       }
     )
+    .then(() => {
+      if (method === 'signup') {
+        // create default articles for a new user
+        dispatch(
+          postNewArticle(
+            'https://www.theonion.com/bath-body-works-now-offering-free-lotion-tastings-1826075615'
+          )
+        );
+        dispatch(
+          postNewArticle(
+            'https://www.newyorker.com/culture/annals-of-gastronomy/where-are-we-on-hating-brunch'
+          )
+        );
+        dispatch(
+          postNewArticle(
+            'https://www.smithsonianmag.com/science-nature/moral-cost-of-cats-180960505/'
+          )
+        );
+      }
+    })
     .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr));
 
 export const logout = () => dispatch =>
