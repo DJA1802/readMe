@@ -30,7 +30,8 @@ class ReadingTimeline extends Component {
   }
 
   render () {
-    const dateOptions = { month: 'short', day: 'numeric' };
+    const zoomedDateOptions = { day: 'numeric', weekday: 'short' };
+    const broadDateOptions = { month: 'short', day: 'numeric' };
 
     return (
       <Segment>
@@ -46,6 +47,15 @@ class ReadingTimeline extends Component {
             />
           }
         >
+          <VictoryAxis
+            independentAxis
+            tickFormat={x =>
+              new Date(x).toLocaleDateString('en-US', zoomedDateOptions)
+            }
+            style={this.props.graphStyles.axisX}
+          />
+          <VictoryAxis dependentAxis style={this.props.graphStyles.axisX} />
+          {/*<VictoryAxis independentAxis style={this.props.graphStyles.axisX} />*/}
           <VictoryLabel
             text="Minutes Spent Reading"
             textAnchor="middle"
@@ -77,7 +87,7 @@ class ReadingTimeline extends Component {
           <VictoryAxis
             independentAxis
             tickFormat={x =>
-              new Date(x).toLocaleDateString('en-US', dateOptions)
+              new Date(x).toLocaleDateString('en-US', broadDateOptions)
             }
             style={this.props.graphStyles.axisX}
           />
