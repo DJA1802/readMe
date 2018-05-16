@@ -7,13 +7,13 @@ import {
   Article,
   ArticleList,
   Home,
-  Login,
+  LandingPage,
+  LoginPage,
   PageContainer,
-  Signup,
+  SignupPage,
   UserHome
 } from './components';
 import {
-  fetchArticles,
   me,
   postCachedInteractions,
   acNetworkConnectionLost,
@@ -62,10 +62,10 @@ class Routes extends Component {
             )}
           />
         ) : (
-          <Route exact path="/" component={Login} />
+          <Route exact path="/" component={LandingPage} />
         )}
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
+        <Route path="/login" component={LoginPage} />
+        <Route path="/signup" component={SignupPage} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -121,7 +121,7 @@ class Routes extends Component {
           </Switch>
         )}
         {/* Displays our Home component as a fallback */}
-        <Route component={Login} />
+        <Route component={LandingPage} />
       </Switch>
     );
   }
