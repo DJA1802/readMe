@@ -55,7 +55,6 @@ class ReadingTimeline extends Component {
             style={this.props.graphStyles.axisX}
           />
           <VictoryAxis dependentAxis style={this.props.graphStyles.axisX} />
-          {/*<VictoryAxis independentAxis style={this.props.graphStyles.axisX} />*/}
           <VictoryLabel
             text="Minutes Spent Reading"
             textAnchor="middle"
