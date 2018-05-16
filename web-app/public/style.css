@@ -236,6 +236,13 @@ form div {
   color: rgb(209, 209, 209) !important;
 }
 
+#no-articles-message {
+  font-family: "nimbus_monoregular", "Lato", sans-serif !important;
+  text-align: center;
+  margin: 100px 0;
+  font-size: 1.5em;
+}
+
 /* END STYLES FOR ARTICLE LIST --------------------------------*/
 /*-------------------------------------------------------------*/
 

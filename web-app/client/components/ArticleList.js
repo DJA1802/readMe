@@ -21,7 +21,7 @@ class ArticleList extends Component {
           {title}
         </Header>
         <List divided relaxed as={Segment} className="article-list">
-          {articles &&
+          {articles.length ? (
             articles.map(article => (
               <ArticleListItem
                 key={article.id}
@@ -32,7 +32,12 @@ class ArticleList extends Component {
                   article.publication && article.publication.name
                 }
               />
-            ))}
+            ))
+          ) : (
+            <div id="no-articles-message">
+              You don't have any articles in {title}
+            </div>
+          )}
         </List>
       </div>
     );
