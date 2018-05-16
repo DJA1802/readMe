@@ -1,6 +1,7 @@
 import axios from 'axios';
 import history from '../history';
 import message from './message';
+import { fetchHomePageStats } from './analytics';
 
 /**
  * ACTION TYPES
@@ -35,6 +36,7 @@ export const postNewArticle = articleUrl => dispatch => {
   axios
     .post('/api/articles', { articleUrl })
     .then(res => dispatch(addArticle(res.data)))
+    .then(() => dispatch(fetchHomePageStats()))
     .catch(err =>
       dispatch(
         message(
@@ -52,6 +54,7 @@ export const putArticleStatus = (articleId, status) => dispatch => {
     .then(res => {
       dispatch(updateArticleStatus(res.data));
     })
+    .then(() => dispatch(fetchHomePageStats()))
     .catch(err => console.log(err));
 };
 
@@ -65,6 +68,7 @@ export const deleteArticle = articleId => dispatch => {
         throw new Error('no articles were deleted');
       }
     })
+    .then(() => dispatch(fetchHomePageStats()))
     .catch(err => console.log(err));
 };
 
