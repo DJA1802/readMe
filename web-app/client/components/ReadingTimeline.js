@@ -67,6 +67,7 @@ class ReadingTimeline extends Component {
           scale={{ x: 'time' }}
           containerComponent={
             <VictoryBrushContainer
+              height={120}
               brushDimensions="x"
               brushDomain={this.props.zoomDomain}
               onBrushDomainChange={this.props.handleZoom}

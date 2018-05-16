@@ -31,7 +31,7 @@ class Analytics extends Component {
       <Segment>
         <Header as="h1">Analytics</Header>
         <div id="analytics-container">
-          <Button.Group className="analytics-buttons">
+          <Button.Group id="analytics-buttons">
             <Button onClick={this.handleReadingTimeTabClick}>
               Reading Time
             </Button>

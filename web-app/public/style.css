@@ -355,6 +355,10 @@ form div {
   margin: 0 auto;
 }
 
+#analytics-buttons {
+  margin-bottom: 10px !important;
+}
+
 /* END STYLES FOR ANALYTICS PAGE -----------------------------------*/
 /*---------------------------------*/
 
