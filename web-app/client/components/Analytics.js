@@ -12,7 +12,7 @@ import _ from 'lodash';
 class Analytics extends Component {
   constructor () {
     super();
-    this.state = { activeTab: 'readingTimeGraphs' };
+    this.state = { activeTab: 'readingTime' };
   }
 
   componentDidMount () {
@@ -21,8 +21,10 @@ class Analytics extends Component {
     this.props.getReadingHours();
   }
 
-  handleReadingTimeTabClick = () =>
-    this.setState({ activeTab: 'readingTimeGraphs' });
+  handleReadingTimeTabClick = () => this.setState({ activeTab: 'readingTime' });
+  handleReadingSourceTabClick = () =>
+    this.setState({ activeTab: 'readingSources' });
+  handleArticleTabClick = () => this.setState({ activeTab: 'articleData' });
 
   render () {
     return (
@@ -31,17 +33,22 @@ class Analytics extends Component {
         <Button attached="left" onClick={this.handleReadingTimeTabClick}>
           Reading Time
         </Button>
-        {/*<Button onClick={this.handle} />*/}
-        {this.state.activeTab === 'readingTimeGraphs' ? (
+        <Button onClick={this.handleSourceTabClick}>Reading Sources</Button>
+        <Button onClick={this.handleArticleTabClick}>Article Data</Button>
+        {this.state.activeTab === 'readingTime' ? (
           <ReadingTimeGraphs
             interactions={this.props.interactions}
             userId={this.props.userId}
             firstInteraction={this.props.firstInteraction}
             readingHours={this.props.readingHours}
           />
-        ) : (
-          <div />
-        )}
+        ) : null}
+        {/*{this.state.activeTab === 'readingSources' ? (
+          <ReadingSources />
+        ) : null}
+        {this.state.activeTab === 'articleData' ? (
+          <ArticleData />
+        ) : null}*/}
       </div>
     );
   }

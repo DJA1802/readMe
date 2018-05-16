@@ -5,6 +5,8 @@ import axios from 'axios';
  */
 const GET_FIRST_INTERACTION = 'GET_FIRST_INTERACTION';
 const GET_READING_HOURS = 'GET_READING_HOURS';
+const GET_ZOOM = 'GET_ZOOM';
+const CHANGE_ZOOM = 'CHANGE_ZOOM';
 
 /**
  * ACTION CREATORS
@@ -17,6 +19,16 @@ const getFirstInteraction = interactionTime => ({
 const getReadingHours = readingHours => ({
   type: GET_READING_HOURS,
   readingHours
+});
+
+export const getZoom = firstInteractionDate => ({
+  type: GET_ZOOM,
+  firstInteractionDate
+});
+
+export const changeZoom = domain => ({
+  type: CHANGE_ZOOM,
+  domain
 });
 
 /**
@@ -37,25 +49,30 @@ export const fetchReadingHours = () => dispatch =>
       dispatch(getReadingHours(res.data));
     })
     .catch(err => console.log(err));
+
 /**
  * REDUCER
  */
 
 const initialState = {
   firstEverInteraction: '',
-  readingHours: [] // { hour: INT, interactionCount: INT }
+  readingHours: [],
+  zoom: {}
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case GET_FIRST_INTERACTION:
-      return Object.assign({}, initialState, {
-        firstEverInteraction: action.interactionTime
-      });
+      return { ...state, firstEverInteraction: action.interactionTime };
     case GET_READING_HOURS:
-      return Object.assign({}, initialState, {
-        readingHours: action.readingHours
-      });
+      return { ...state, readingHours: action.readingHours };
+    case GET_ZOOM:
+      return {
+        ...state,
+        zoom: { x: [action.firstInteractionDate, Date.now()] }
+      };
+    case CHANGE_ZOOM:
+      return { ...state, zoom: action.domain };
     default:
       return state;
   }
