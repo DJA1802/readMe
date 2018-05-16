@@ -72,7 +72,7 @@ const initialState = {
   firstEverInteraction: '',
   readingHours: [],
   zoom: {},
-  pubCounts: {}
+  pubCounts: []
 };
 
 export default function (state = initialState, action) {
