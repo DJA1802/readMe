@@ -29,9 +29,11 @@ const bucketHours = readingHoursObj => {
 };
 
 const getMaxInteractions = data => {
-  return data.reduce(
-    (max, p) => (p.interactionCount > max ? p.interactionCount : max),
-    data[0].interactionCount
+  return Number(
+    data.reduce(
+      (max, p) => (p.interactionCount > max ? p.interactionCount : max),
+      data[0].interactionCount
+    )
   );
 };
 
@@ -40,7 +42,7 @@ const ReadingHours = props => {
     <Segment>
       <VictoryChart width={600} domainPadding={10}>
         <VictoryLabel
-          text="Reading Frequency by Hour"
+          text="Number of Articles Opened By Hour of Day (All-Time)"
           x={25}
           y={24}
           style={props.graphStyles.title}
