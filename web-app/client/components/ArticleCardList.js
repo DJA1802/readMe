@@ -22,7 +22,7 @@ const ArticleCardList = props => {
           ))
         ) : (
           <div id="no-articles-message">
-            You don't have any articles saved in your list
+            You don&apos;t have any articles saved in your list
           </div>
         )}
       </Card.Group>
