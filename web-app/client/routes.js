@@ -62,11 +62,10 @@ class Routes extends Component {
             )}
           />
         ) : (
-          <Route exact path="/" component={LoginPage} />
+          <Route exact path="/" component={LandingPage} />
         )}
         <Route path="/login" component={LoginPage} />
         <Route path="/signup" component={SignupPage} />
-        <Route path="/landing" component={LandingPage} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -122,7 +121,7 @@ class Routes extends Component {
           </Switch>
         )}
         {/* Displays our Home component as a fallback */}
-        <Route component={LoginPage} />
+        <Route component={LandingPage} />
       </Switch>
     );
   }

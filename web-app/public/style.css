@@ -390,6 +390,13 @@ form div {
   font-size: 1.1em;
 }
 
+#land-pg-login-btn:hover {
+  width: 100px;
+  cursor: pointer;
+  font-size: 1.1em;
+  color: rgb(82, 82, 82);
+}
+
 #carousel {
   height: 100vh;
   display: flex;
