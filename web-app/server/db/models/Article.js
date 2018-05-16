@@ -63,8 +63,6 @@ const Article = db.define(
     },
     thumbnailUrl: {
       type: Sequelize.TEXT
-      // defaultValue: 'http://fillmurray.com/300/200'
-      // allowNull: false
     }
   },
   {
