@@ -35,7 +35,7 @@ class ArticleList extends Component {
             ))
           ) : (
             <div id="no-articles-message">
-              You don't have any articles in {title}
+              You don&apos;t have any articles in {title}
             </div>
           )}
         </List>
