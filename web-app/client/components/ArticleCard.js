@@ -15,7 +15,13 @@ class ArticleCard extends Component {
   };
 
   render () {
-    const { articleId, publicationName, title, thumbnail } = this.props;
+    let { articleId, publicationName, title, thumbnail } = this.props;
+    let defaultThumb;
+    if (!thumbnail) {
+      defaultThumb = true;
+      thumbnail = '/landing-page-1.jpg';
+    }
+
     return (
       <Card
         className="article-card"
@@ -25,15 +31,13 @@ class ArticleCard extends Component {
         link
       >
         <Image
-          style={{
-            backgroundImage: `url(${thumbnail})`,
-            backgroundPosition: 'center',
-            backgroundSize: 'cover'
-          }}
+          style={{ backgroundImage: `url(${thumbnail})` }}
           className="article-card-image"
           as={Link}
           to={`/articles/${articleId}`}
-        />
+        >
+          {defaultThumb && <div id="icon-default-image" />}
+        </Image>
         <Card.Content as={Link} to={`/articles/${articleId}`}>
           <Header as="h3" className="nimbus-mono-reg">
             {title}
