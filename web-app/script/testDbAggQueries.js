@@ -42,3 +42,6 @@ Interaction.readingTimeThisX(1, 'year').then(data => {
 Publication.getDistinctForUser(1).then(data => {
   console.log('Publication.getDistinctForUser ', data);
 });
+Publication.groupByArticleCount(1).then(data => {
+  console.log('Publication.groupByArticleCount ', data);
+});

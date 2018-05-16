@@ -12,7 +12,7 @@ class Home extends Component {
   render () {
     return (
       <React.Fragment>
-        <AnalyticsFeatured stats={this.props.stats} />
+        <AnalyticsFeatured stats={this.props.homePageStats} />
         <ArticleCardList
           articles={this.props.threeMostRecentArticles}
           className="article-card-list"

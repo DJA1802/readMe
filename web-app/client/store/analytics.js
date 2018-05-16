@@ -60,7 +60,7 @@ export const fetchHomePageStats = () => dispatch =>
   axios
     .get(`/api/users/homePageStats`)
     .then(res => {
-      dispatch(getReadingHours(res.data));
+      dispatch(getHomePageStats(res.data));
     })
     .catch(err => console.log(err));
 
