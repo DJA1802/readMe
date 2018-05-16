@@ -73,16 +73,25 @@ form div {
 
 /*---------------------------------*/
 
-#authform-container {
+#authform-page-container {
   display: flex;
   position: relative;
   top: 40px;
 }
 
-#authform {
-  width: 300px;
-  text-align: center;
+#authform-container {
   margin: 30px auto !important;
+}
+
+#authform {
+  width: 300px !important;
+  text-align: center;
+  margin: 0 auto;
+}
+
+#auth-modal {
+  background: rgba(0, 0, 0, 0);
+  box-shadow: none !important;
 }
 
 .authform-btn-oauth {
@@ -349,6 +358,94 @@ form div {
 
 /* END STYLES FOR ANALYTICS PAGE -----------------------------------*/
 /*---------------------------------*/
+/* STYLES FOR LANDING PAGE -----------------------------------*/
+#land-pg-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+#land-pg-top-bar {
+  position: absolute;
+  display: flex;
+  left: 10%;
+  justify-content: space-between;
+  padding: 30px 10px 20px 10px;
+  z-index: 10;
+  width: 80%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 0px 0px 20px 20px;
+}
+
+#land-pg-name {
+  width: 100px;
+  margin-left: 20px;
+  font-size: 2.2em;
+  font-family: "nimbus_monoregular", "Lato", sans-serif !important;
+  text-align: center;
+}
+
+#land-pg-login-btn {
+  width: 100px;
+  cursor: pointer;
+  font-size: 1.1em;
+}
+
+#land-pg-login-btn:hover {
+  width: 100px;
+  cursor: pointer;
+  font-size: 1.1em;
+  color: rgb(82, 82, 82);
+}
+
+#carousel {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+#carousel .carousel-image {
+  position: absolute;
+  display: block;
+  margin: auto;
+  min-width: 100%;
+  height: 100%;
+  opacity: 1;
+  transition: opacity 1s;
+  z-index: 0;
+}
+
+#land-pg-logo {
+  width: 45vw;
+  height: 45vw;
+  opacity: 0.8;
+}
+
+#carousel-overlay {
+  position: absolute;
+  top: 10vh;
+  z-index: 1;
+  text-align: center;
+}
+
+#carousel-text {
+  font-size: 2.4em;
+  font-family: "nimbus_monobold", "Lato", sans-serif !important;
+  text-align: center;
+  color: white;
+  line-height: 1em;
+  width: 100%;
+  margin-top: 1.5em;
+  text-shadow: -1px -1px 0 rgb(82, 82, 82), 1px -1px 0 rgb(82, 82, 82),
+    -1px 1px 0 rgb(82, 82, 82), 1px 1px 0 rgb(82, 82, 82);
+}
+
+#carousel-btn {
+  opacity: 0.9;
+  margin-top: 5vh;
+}
+
+/* END STYLES FOR LANDING PAGE -----------------------------------*/
+/*---------------------------------*/
 
 /*-------------------------------------------------------------*/
 /*-------------------------------------------------------------*/
@@ -362,6 +459,16 @@ form div {
   #single-article {
     width: 85%;
   }
+
+  #land-pg-top-bar {
+    width: 90%;
+    left: 5%;
+  }
+
+  #land-pg-logo {
+    width: 70vw;
+    height: 70vw;
+  }
 }
 
 /*----TABLET AND MOBILE-----------------------------------*/
@@ -374,6 +481,10 @@ form div {
   .article-list-container {
     width: 90%;
   }
+
+  #land-pg-container {
+    width: 90%;
+  }
 }
 
 /*----TABLET-----------------------------------------------*/
@@ -381,12 +492,26 @@ form div {
   #single-article {
     width: 75%;
   }
+
+  #land-pg-logo {
+    width: 60vw;
+    height: 60vw;
+  }
 }
 
 /*----LARGE SCREENS--------------------------------------*/
 @media screen and (min-width: 1400px) {
   .article-list-container {
     width: 60%;
+  }
+
+  #land-pg-container {
+    width: 60%;
+  }
+
+  #land-pg-logo {
+    width: 35vw;
+    height: 35vw;
   }
 }
 
