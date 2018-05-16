@@ -10,8 +10,8 @@ const ArticleCardList = props => {
         Recently-saved articles
       </Header>
       <Card.Group className="article-card-list">
-        {props.articles.map(article => {
-          return (
+        {props.articles.length ? (
+          props.articles.map(article => (
             <ArticleCard
               key={article.id}
               articleId={article.id}
@@ -19,8 +19,12 @@ const ArticleCardList = props => {
               publicationName={article.publication && article.publication.name}
               thumbnail={article.thumbnailUrl}
             />
-          );
-        })}
+          ))
+        ) : (
+          <div id="no-articles-message">
+            You don't have any articles saved in your list
+          </div>
+        )}
       </Card.Group>
     </Container>
   );
