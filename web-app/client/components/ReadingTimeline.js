@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Segment } from 'semantic-ui-react';
 import {
   VictoryAxis,
@@ -8,11 +9,18 @@ import {
   VictoryArea,
   VictoryLabel
 } from 'victory';
+import { getZoom, changeZoom } from '../store';
 
-class AnalyticsVisual extends Component {
-  state = { zoomDomain: { x: [new Date(2018, 5, 1), Date.now()] } };
+class ReadingTimeline extends Component {
+  ComponentDidMount () {
+    this.getZoom(this.props.firstInteraction);
+  }
 
-  getInteractionData () {
+  ComponentWillUnmount () {
+    this.getZoom(this.props.firstInteraction);
+  }
+
+  formatInteractionData () {
     const { interactions } = this.props;
     const formattedInteractions = interactions.map(interaction => ({
       date: new Date(interaction.startTime),
@@ -21,43 +29,33 @@ class AnalyticsVisual extends Component {
     return formattedInteractions;
   }
 
-  handleZoom (domain) {
-    this.setState({ zoomDomain: domain });
-  }
-
   render () {
     const dateOptions = { month: 'short', day: 'numeric' };
 
     return (
-      <Segment id="chart-container">
+      <Segment>
         <VictoryChart
           width={600}
-          height={470}
+          height={300}
           scale={{ x: 'time' }}
           containerComponent={
             <VictoryZoomContainer
               zoomDimension="x"
-              zoomDomain={this.state.zoomDomain}
-              onZoomDomainChange={this.handleZoom.bind(this)}
+              zoomDomain={this.props.zoomDomain}
+              onZoomDomainChange={this.props.handleZoom}
             />
           }
         >
           <VictoryLabel
             text="Minutes Spent Reading"
             textAnchor="middle"
-            x={330}
-            y={30}
+            x={25}
+            y={24}
+            style={this.props.graphStyles.title}
           />
           <VictoryArea
-            style={{
-              data: {
-                strokeWidth: 1,
-                fillOpacity: 0.6,
-                stroke: 'gold',
-                fill: 'gold'
-              }
-            }}
-            data={this.getInteractionData()}
+            style={this.props.graphStyles.area}
+            data={this.formatInteractionData()}
             x="date"
             y="duration"
           />
@@ -69,27 +67,23 @@ class AnalyticsVisual extends Component {
           scale={{ x: 'time' }}
           containerComponent={
             <VictoryBrushContainer
+              height={120}
               brushDimensions="x"
-              brushDomain={this.state.zoomDomain}
-              onBrushDomainChange={this.handleZoom.bind(this)}
+              brushDomain={this.props.zoomDomain}
+              onBrushDomainChange={this.props.handleZoom}
             />
           }
         >
           <VictoryAxis
+            independentAxis
             tickFormat={x =>
               new Date(x).toLocaleDateString('en-US', dateOptions)
             }
+            style={this.props.graphStyles.axisX}
           />
           <VictoryArea
-            style={{
-              data: {
-                strokeWidth: 1,
-                fillOpacity: 0.6,
-                stroke: 'gold',
-                fill: 'gold'
-              }
-            }}
-            data={this.getInteractionData()}
+            style={this.props.graphStyles.area}
+            data={this.formatInteractionData()}
             x="date"
             y="duration"
           />
@@ -99,4 +93,18 @@ class AnalyticsVisual extends Component {
   }
 }
 
-export default AnalyticsVisual;
+const mapStateToProps = state => {
+  return {
+    firstInteraction: state.analytics.firstEverInteraction,
+    zoomDomain: state.analytics.zoom
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getZoom: date => dispatch(getZoom(date)),
+    handleZoom: domain => dispatch(changeZoom(domain))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReadingTimeline);

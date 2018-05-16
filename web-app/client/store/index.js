@@ -11,6 +11,7 @@ import navbar from './navbar';
 import pageScroll from './pageScroll';
 import user from './user';
 import online from './online';
+import analytics from './analytics';
 
 const reducer = combineReducers({
   articlesAll,
@@ -21,7 +22,8 @@ const reducer = combineReducers({
   navbar,
   pageScroll,
   user,
-  online
+  online,
+  analytics
 });
 
 const middleware = composeWithDevTools(
@@ -39,3 +41,4 @@ export * from './navbar';
 export * from './pageScroll';
 export * from './user';
 export * from './online';
+export * from './analytics';

@@ -13,6 +13,7 @@ router.get('/', (req, res, next) => {
       model: Article,
       where: { userId: id },
       attributes: articleQueryAttributes,
+      paranoid: false, // include articles that have been deleted
       include: [
         { model: Publication, attributes: publicationQueryAttributes },
         { model: Tag }
@@ -35,5 +36,19 @@ router.post('/', (req, res, next) => {
     .then(interactions => {
       res.json(interactions);
     })
+    .catch(next);
+});
+
+router.get('/first', (req, res, next) => {
+  const { id } = req.user;
+  Interaction.getUserFirstEverInteraction(id)
+    .then(firstEverInteraction => res.json(firstEverInteraction))
+    .catch(next);
+});
+
+router.get('/hours', (req, res, next) => {
+  const { id } = req.user;
+  Interaction.readingStartTimesByHour(id)
+    .then(startTimesByHour => res.json(startTimesByHour))
     .catch(next);
 });
