@@ -25,8 +25,8 @@ self.addEventListener('fetch', event => {
         return fetch(fetchRequest)
           .then(serverResponse => {
             // Check if we received a valid response
-            console.log('server response', serverResponse);
-            console.log('is there a cached response?', !!cachedResponse);
+            // console.log('server response', serverResponse);
+            // console.log('is there a cached response?', !!cachedResponse);
             if (
               (!serverResponse ||
                 serverResponse.status !== 200 ||

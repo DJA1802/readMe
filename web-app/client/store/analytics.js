@@ -7,6 +7,7 @@ const GET_FIRST_INTERACTION = 'GET_FIRST_INTERACTION';
 const GET_READING_HOURS = 'GET_READING_HOURS';
 const GET_ZOOM = 'GET_ZOOM';
 const CHANGE_ZOOM = 'CHANGE_ZOOM';
+const GET_HOME_PAGE_STATS = 'GET_HOME_PAGE_STATS';
 
 /**
  * ACTION CREATORS
@@ -31,6 +32,11 @@ export const changeZoom = domain => ({
   domain
 });
 
+export const getHomePageStats = homePageStats => ({
+  type: GET_HOME_PAGE_STATS,
+  homePageStats
+});
+
 /**
  * THUNK CREATORS
  */
@@ -50,6 +56,14 @@ export const fetchReadingHours = () => dispatch =>
     })
     .catch(err => console.log(err));
 
+export const fetchHomePageStats = () => dispatch =>
+  axios
+    .get(`/api/users/homePageStats`)
+    .then(res => {
+      dispatch(getHomePageStats(res.data));
+    })
+    .catch(err => console.log(err));
+
 /**
  * REDUCER
  */
@@ -57,7 +71,8 @@ export const fetchReadingHours = () => dispatch =>
 const initialState = {
   firstEverInteraction: '',
   readingHours: [],
-  zoom: {}
+  zoom: {},
+  homePageStats: []
 };
 
 export default function (state = initialState, action) {
@@ -73,6 +88,8 @@ export default function (state = initialState, action) {
       };
     case CHANGE_ZOOM:
       return { ...state, zoom: action.domain };
+    case GET_HOME_PAGE_STATS:
+      return { ...state, homePageStats: action.homePageStats };
     default:
       return state;
   }

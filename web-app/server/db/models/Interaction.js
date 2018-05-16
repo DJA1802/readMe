@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 const Article = require('./Article');
-const { convertMilliseconds, average } = require('../../utils');
+const { convertMilliseconds, average, msToTime } = require('../../utils');
 
 const Interaction = db.define('interaction', {
   startTime: {
@@ -51,15 +51,38 @@ Interaction.getAverageLength = function (
 Interaction.readingTimeByDate = function (userId) {
   return db
     .query(
-      `SELECT DATE_TRUNC('day', interactions."startTime") AS "day", SUM(EXTRACT(MILLISECONDS FROM interactions."endTime"-interactions."startTime")) AS "duration" FROM interactions INNER JOIN articles on interactions."articleId" = articles.id INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} GROUP BY date_trunc('day', interactions."startTime") ORDER BY "day";`
+      `SELECT DATE_TRUNC('day', interactions."startTime") AS "day", SUM(EXTRACT(EPOCH FROM interactions."endTime"-interactions."startTime")*1000) AS "duration" FROM interactions INNER JOIN articles on interactions."articleId" = articles.id INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} GROUP BY date_trunc('day', interactions."startTime") ORDER BY "day";`
     )
     .then(data => data[0]);
+};
+
+// You can use this with 'week', 'month', or 'year'
+Interaction.readingTimeThisX = function (userId, timeframe, strFormat = true) {
+  return db
+    .query(
+      `SELECT EXTRACT(${timeframe} FROM DATE_TRUNC('${timeframe}', interactions."startTime")), SUM(EXTRACT(EPOCH FROM interactions."endTime"-interactions."startTime")*1000) AS "duration" FROM interactions INNER JOIN articles on interactions."articleId" = articles.id INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} GROUP BY EXTRACT(${timeframe} FROM DATE_TRUNC('${timeframe}', interactions."startTime")) HAVING EXTRACT(${timeframe} FROM DATE_TRUNC('${timeframe}', interactions."startTime")) = EXTRACT(${timeframe} FROM NOW())`
+    )
+    .then(data => {
+      if (strFormat) {
+        if (data[0][0]) {
+          return msToTime(data[0][0].duration);
+        } else {
+          return '0 hr 0 min';
+        }
+      } else if (!strFormat) {
+        if (data[0][0]) {
+          return data[0][0].duration;
+        } else {
+          return 0;
+        }
+      }
+    });
 };
 
 Interaction.readingTimeByMonthYear = function (userId) {
   return db
     .query(
-      `SELECT TO_CHAR(interactions."startTime", 'MM') AS "month", TO_CHAR(interactions."startTime", 'YYYY') AS "year", TO_CHAR(interactions."startTime", 'TMMon') || ' ' || TO_CHAR(interactions."startTime", 'YYYY') AS "month_year", SUM(EXTRACT(MILLISECONDS FROM interactions."endTime"-interactions."startTime")) AS "duration" FROM interactions INNER JOIN articles on interactions."articleId" = articles.id INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} GROUP BY TO_CHAR(interactions."startTime", 'MM'), TO_CHAR(interactions."startTime", 'YYYY'), TO_CHAR(interactions."startTime", 'TMMon') || ' ' || TO_CHAR(interactions."startTime", 'YYYY') ORDER BY "year", "month";`
+      `SELECT TO_CHAR(interactions."startTime", 'MM') AS "month", TO_CHAR(interactions."startTime", 'YYYY') AS "year", TO_CHAR(interactions."startTime", 'TMMon') || ' ' || TO_CHAR(interactions."startTime", 'YYYY') AS "month_year", SUM(EXTRACT(EPOCH FROM interactions."endTime"-interactions."startTime")*1000) AS "duration" FROM interactions INNER JOIN articles on interactions."articleId" = articles.id INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} GROUP BY TO_CHAR(interactions."startTime", 'MM'), TO_CHAR(interactions."startTime", 'YYYY'), TO_CHAR(interactions."startTime", 'TMMon') || ' ' || TO_CHAR(interactions."startTime", 'YYYY') ORDER BY "year", "month";`
     )
     .then(data => data[0]);
 };
@@ -69,7 +92,7 @@ Interaction.readingStartTimesByHour = function (userId) {
   // hour: 0 would equal any startTime between 12:00AM and 12:59AM
   return db
     .query(
-      `SELECT trunc(EXTRACT(hour from "startTime")) AS "hour", COUNT(EXTRACT(MILLISECONDS FROM interactions."endTime"-interactions."startTime"))::integer AS "interactionCount" FROM interactions INNER JOIN articles on interactions."articleId" = articles.id INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} GROUP BY trunc(EXTRACT(hour from "startTime")) ORDER BY "hour", "interactionCount";`
+      `SELECT TRUNC(EXTRACT(HOUR from "startTime")) AS "hour", COUNT(interactions."startTime")::integer AS "interactionCount" FROM interactions INNER JOIN articles on interactions."articleId" = articles.id INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} GROUP BY TRUNC(EXTRACT(HOUR from "startTime")) ORDER BY "hour", "interactionCount";`
     )
     .then(data => data[0]);
 };
