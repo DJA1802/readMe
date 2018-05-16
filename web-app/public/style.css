@@ -73,13 +73,13 @@ form div {
 
 /*---------------------------------*/
 
-#authform-container {
+#authform-page-container {
   display: flex;
   position: relative;
   top: 40px;
 }
 
-#authform {
+#authform-container {
   width: 300px;
   text-align: center;
   margin: 30px auto !important;

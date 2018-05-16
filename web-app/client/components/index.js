@@ -31,4 +31,6 @@ export { default as PageContainer } from './PageContainer';
 export { default as UserHome } from './UserHome';
 export { default as VisContainer } from './VisContainer';
 export { default as Home } from './Home';
+export { default as LoginPage } from './LoginPage';
+export { default as SignupPage } from './SignupPage';
 export { Login, Signup } from './AuthForm';
