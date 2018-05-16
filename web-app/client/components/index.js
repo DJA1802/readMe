@@ -29,6 +29,7 @@ export { default as NavbarSideMobile } from './NavbarSideMobile';
 export { default as NavbarSideItems } from './NavbarSideItems';
 export { default as PageContainer } from './PageContainer';
 export { default as ReadingHours } from './ReadingHours';
+export { default as ReadingSources } from './ReadingSources';
 export { default as ReadingTimeGraphs } from './ReadingTimeGraphs';
 export { default as ReadingTimeline } from './ReadingTimeline';
 export { default as UserHome } from './UserHome';

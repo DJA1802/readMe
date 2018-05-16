@@ -52,3 +52,10 @@ router.get('/hours', (req, res, next) => {
     .then(startTimesByHour => res.json(startTimesByHour))
     .catch(next);
 });
+
+router.get('/pubs', (req, res, next) => {
+  const { id } = req.user;
+  Publication.groupByArticleCount(id)
+    .then(publications => res.json(publications))
+    .catch(next);
+});
