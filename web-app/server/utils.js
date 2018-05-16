@@ -67,7 +67,9 @@ function extractSrcAttribute (imgElement) {
   if (imgElement) {
     const imageAttrs = imgElement.rawAttrs;
     const imageRegExp = /src\s*=\s*"(.+?)"/;
-    return imageRegExp.exec(imageAttrs)[1];
+    return imageRegExp.exec(imageAttrs)
+      ? imageRegExp.exec(imageAttrs)[1]
+      : null;
   } else {
     return null;
   }
