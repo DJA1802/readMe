@@ -21,7 +21,7 @@ class ArticleList extends Component {
           {title}
         </Header>
         <List divided relaxed as={Segment} className="article-list">
-          {articles &&
+          {articles.length ? (
             articles.map(article => (
               <ArticleListItem
                 key={article.id}
@@ -32,7 +32,12 @@ class ArticleList extends Component {
                   article.publication && article.publication.name
                 }
               />
-            ))}
+            ))
+          ) : (
+            <div id="no-articles-message">
+              You don't have any articles in {title}
+            </div>
+          )}
         </List>
       </div>
     );
@@ -59,10 +64,12 @@ const ArticleListResponsiveContainer = props => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    articles:
-      ownProps.type === 'my-list'
-        ? state.articlesAll.filter(article => article.status === 'my-list')
-        : state.articlesAll.filter(article => article.status === 'archive')
+    articles: (ownProps.type === 'my-list'
+      ? state.articlesAll.filter(article => article.status === 'my-list')
+      : state.articlesAll.filter(article => article.status === 'archive')
+    ).sort((articleA, articleB) => {
+      return new Date(articleB.createdAt) - new Date(articleA.createdAt);
+    })
   };
 };
 

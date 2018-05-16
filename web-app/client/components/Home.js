@@ -14,7 +14,7 @@ class Home extends Component {
       <React.Fragment>
         <AnalyticsFeatured stats={this.props.homePageStats} />
         <ArticleCardList
-          articles={this.props.threeMostRecentArticles}
+          articles={this.props.fiveMostRecentArticles}
           className="article-card-list"
         />
       </React.Fragment>
@@ -24,12 +24,12 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-    threeMostRecentArticles: state.articlesAll
+    fiveMostRecentArticles: state.articlesAll
       .filter(article => article.status === 'my-list')
       .sort((articleA, articleB) => {
         return new Date(articleB.createdAt) - new Date(articleA.createdAt);
       })
-      .slice(0, 3),
+      .slice(0, 5),
     homePageStats: state.analytics.homePageStats
   };
 };
