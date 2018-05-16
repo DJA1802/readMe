@@ -9,6 +9,18 @@ const { createNewArticle } = require('../server/api/articles');
 const db = require('../server/db');
 const { User, Topic, Interaction } = require('../server/db/models');
 
+/* https://stackoverflow.com/questions/31424561/wait-until-all-es6-promises-complete-even-rejected-promises */
+function reflect (promise) {
+  return promise.then(
+    function (data) {
+      return { data, status: 'resolved' };
+    },
+    function (error) {
+      return { error, status: 'rejected' };
+    }
+  );
+}
+
 async function seed () {
   await db.sync({ force: true });
   console.log('db synced!');
@@ -24,7 +36,7 @@ async function seed () {
     })
   ]);
 
-  const articles = await Promise.all([
+  const articlePromises = [
     createNewArticle(
       1,
       'https://www.newyorker.com/magazine/2018/04/23/the-maraschino-moguls-secret-life'
@@ -127,7 +139,17 @@ async function seed () {
       1,
       'https://www.newyorker.com/magazine/2017/12/11/cat-person'
     )
-  ]);
+  ];
+
+  const articlesRaw = await Promise.all(articlePromises.map(reflect));
+
+  console.log(articlesRaw);
+
+  const articles = articlesRaw.filter(
+    resultObj => resultObj.status === 'resolved'
+  );
+
+  //console.log(articles);
 
   const topics = await Promise.all([
     Topic.create({ name: 'U.S. News' }),

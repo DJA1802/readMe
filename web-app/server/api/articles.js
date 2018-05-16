@@ -50,20 +50,24 @@ async function createNewArticle (userId, articleUrl, next) {
   const parsedHtml = parse(mercuryArticle.content);
   const imageSrc = extractSrcAttribute(parsedHtml.querySelector('img'));
 
-  const newArticle = await Article.create({
-    title: mercuryArticle.title,
-    sourceUrl: mercuryArticle.url,
-    content: mercuryArticle.content,
-    wordCount: mercuryArticle.word_count,
-    publicationDate: mercuryArticle.date_published,
-    userId,
-    publicationId: publication.id,
-    thumbnailUrl: imageSrc
-  }).catch(err => {
-    next(err);
-  });
+  if (mercuryArticle.title) {
+    const newArticle = await Article.create({
+      title: mercuryArticle.title,
+      sourceUrl: mercuryArticle.url,
+      content: mercuryArticle.content,
+      wordCount: mercuryArticle.word_count,
+      publicationDate: mercuryArticle.date_published,
+      userId,
+      publicationId: publication.id,
+      thumbnailUrl: imageSrc
+    }).catch(err => {
+      next(err);
+    });
 
-  return newArticle;
+    return newArticle;
+  } else {
+    return Promise.reject(new Error('No mercury article'));
+  }
 }
 
 async function returnCreatedArticle (newArticle) {
