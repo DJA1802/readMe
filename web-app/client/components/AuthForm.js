@@ -18,7 +18,7 @@ const AuthForm = props => {
   const { name, displayName, handleSubmit, error } = props;
 
   return (
-    <Segment>
+    <Segment id="authform">
       <Header as="h3">{displayName}</Header>
       <Button
         className="authform-btn-oauth"

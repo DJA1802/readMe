@@ -7,6 +7,7 @@ import {
   Article,
   ArticleList,
   Home,
+  LandingPage,
   LoginPage,
   PageContainer,
   SignupPage,
@@ -65,6 +66,7 @@ class Routes extends Component {
         )}
         <Route path="/login" component={LoginPage} />
         <Route path="/signup" component={SignupPage} />
+        <Route path="/landing" component={LandingPage} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

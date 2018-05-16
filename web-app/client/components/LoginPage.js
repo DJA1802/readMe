@@ -1,14 +1,18 @@
 import React from 'react';
-import { Login } from '.';
+import { Login, NavbarTop, Message } from '.';
 /**
  * COMPONENT
  */
 const LoginPage = () => (
-  <div id="authform-page-container">
-    <div id="authform-container">
-      <Login />
+  <React.Fragment>
+    <NavbarTop />
+    <Message />
+    <div id="authform-page-container">
+      <div id="authform-container">
+        <Login />
+      </div>
     </div>
-  </div>
+  </React.Fragment>
 );
 
 export default LoginPage;

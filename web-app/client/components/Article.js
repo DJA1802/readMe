@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getArticle, clearArticle } from '../store';
+import { getArticle, clearArticle, fetchArticles } from '../store';
 import reactHtmlParser from 'react-html-parser';
 import { Icon, Header, Segment } from 'semantic-ui-react';
 import {
@@ -11,7 +11,7 @@ import {
   updateLastInteractionEndTime
 } from '../utils/helperFuncs';
 import history from '../history';
-import { VisContainer } from '.';
+import { VisContainer, Message, NavbarTop, NavbarSideMobile } from '.';
 
 class Article extends Component {
   constructor (props) {
@@ -20,8 +20,9 @@ class Article extends Component {
   }
 
   componentDidMount () {
-    const { handleGetArticle } = this.props;
+    const { handleFetchArticles, handleGetArticle } = this.props;
 
+    handleFetchArticles();
     handleGetArticle();
     addInteractionToLocalStorage(this.props.match.params.id); // articleId. Cannot use article.id because "article" as a prop from Redux is not yet available.
     this.updateLastInteractionIntervalID = setInterval(
@@ -72,36 +73,43 @@ class Article extends Component {
     document.getElementById('app').style.backgroundColor = backgroundColor;
 
     return (
-      <VisContainer>
-        <div id="page-container">
-          {article ? (
-            <div id="single-article" style={{ fontSize, fontFamily, color }}>
-              <Header as="h1" style={{ color }} className="article-title">
-                {title}
-              </Header>
-              Originally from{' '}
-              <a href={sourceUrl}>{publication && publication.name}</a>
-              <p className="article-author">
-                {' '}
-                {author ? `by ${author.name}` : null}
-              </p>
-              <p>
-                {publicationDate
-                  ? `Date Published: ${new Date(
-                      publicationDate
-                    ).toLocaleDateString('en-US', dateOptions)}`
-                  : null}
-              </p>
-              <div className="article-content">{reactHtmlParser(content)}</div>
-              <Segment onClick={history.goBack} className="back-button">
-                <Icon name="long arrow left" />back
-              </Segment>
-            </div>
-          ) : (
-            <p>Loading... </p>
-          )}
-        </div>
-      </VisContainer>
+      <React.Fragment>
+        <NavbarTop />
+        <Message />
+        <VisContainer>
+          <div id="page-container">
+            <NavbarSideMobile />
+            {article ? (
+              <div id="single-article" style={{ fontSize, fontFamily, color }}>
+                <Header as="h1" style={{ color }} className="article-title">
+                  {title}
+                </Header>
+                Originally from{' '}
+                <a href={sourceUrl}>{publication && publication.name}</a>
+                <p className="article-author">
+                  {' '}
+                  {author ? `by ${author.name}` : null}
+                </p>
+                <p>
+                  {publicationDate
+                    ? `Date Published: ${new Date(
+                        publicationDate
+                      ).toLocaleDateString('en-US', dateOptions)}`
+                    : null}
+                </p>
+                <div className="article-content">
+                  {reactHtmlParser(content)}
+                </div>
+                <Segment onClick={history.goBack} className="back-button">
+                  <Icon name="long arrow left" />back
+                </Segment>
+              </div>
+            ) : (
+              <p>Loading... </p>
+            )}
+          </div>
+        </VisContainer>
+      </React.Fragment>
     );
   }
 }
@@ -121,7 +129,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     handleGetArticle: () => {
       dispatch(getArticle(articleId));
     },
-    handleClearArticle: () => dispatch(clearArticle())
+    handleClearArticle: () => dispatch(clearArticle()),
+    handleFetchArticles: () => dispatch(fetchArticles())
   };
 };
 
