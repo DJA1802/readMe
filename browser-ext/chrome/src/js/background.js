@@ -3,7 +3,6 @@ import '../img/icon-selected-128.png';
 import '../img/icon-64.png';
 import '../img/icon-selected-64.png';
 import '../img/icon-32.png';
-import './message.js';
 import axios from 'axios';
 
 const constructSaveFunction = () => {
