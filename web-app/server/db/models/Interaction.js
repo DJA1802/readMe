@@ -64,9 +64,17 @@ Interaction.readingTimeThisX = function (userId, timeframe, strFormat = true) {
     )
     .then(data => {
       if (strFormat) {
-        return msToTime(data[0][0].duration);
-      } else {
-        return data[0][0].duration;
+        if (data[0][0]) {
+          return msToTime(data[0][0].duration);
+        } else {
+          return '0 hr 0 min';
+        }
+      } else if (!strFormat) {
+        if (data[0][0]) {
+          return data[0][0].duration;
+        } else {
+          return 0;
+        }
       }
     });
 };
