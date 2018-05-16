@@ -42,7 +42,8 @@ const visuStyles = () => {
     },
     pie: {
       labels: {
-        fill: 'white'
+        fill: 'white',
+        fontSize: 11
       }
     },
     pieLabel: {
