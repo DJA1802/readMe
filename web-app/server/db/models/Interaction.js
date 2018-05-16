@@ -69,7 +69,7 @@ Interaction.readingStartTimesByHour = function (userId) {
   // hour: 0 would equal any startTime between 12:00AM and 12:59AM
   return db
     .query(
-      `SELECT trunc(EXTRACT(hour from "startTime")) AS "hour", COUNT(EXTRACT(MILLISECONDS FROM interactions."endTime"-interactions."startTime")) AS "interactionCount" FROM interactions INNER JOIN articles on interactions."articleId" = articles.id INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} GROUP BY trunc(EXTRACT(hour from "startTime")) ORDER BY "hour", "interactionCount";`
+      `SELECT trunc(EXTRACT(hour from "startTime")) AS "hour", COUNT(EXTRACT(MILLISECONDS FROM interactions."endTime"-interactions."startTime"))::integer AS "interactionCount" FROM interactions INNER JOIN articles on interactions."articleId" = articles.id INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} GROUP BY trunc(EXTRACT(hour from "startTime")) ORDER BY "hour", "interactionCount";`
     )
     .then(data => data[0]);
 };
