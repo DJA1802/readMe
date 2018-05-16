@@ -264,19 +264,6 @@ form div {
 
 .article-card-image {
   height: 200px;
-  background-position: center !important;
-  background-size: cover !important;
-}
-
-#icon-default-image {
-  background-image: url("/splash-icon-800.png");
-  height: 80%;
-  width: auto;
-  margin: 5% auto;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  opacity: 0.4;
 }
 /* END STYLES FOR ARTICLE CARDS --------------------------------*/
 /*-------------------------------------------------------------*/
@@ -451,8 +438,8 @@ form div {
 }
 
 #land-pg-logo {
-  width: 45vw;
-  height: 45vw;
+  width: 35vw;
+  height: 35vw;
   opacity: 0.8;
 }
 
