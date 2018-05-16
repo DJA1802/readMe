@@ -56,10 +56,11 @@ Interaction.readingTimeByDate = function (userId) {
     .then(data => data[0]);
 };
 
-Interaction.readingTimeThisWeek = function (userId, strFormat = true) {
+// You can use this with 'week', 'month', or 'year'
+Interaction.readingTimeThisX = function (userId, timeframe, strFormat = true) {
   return db
     .query(
-      `SELECT EXTRACT(WEEK FROM DATE_TRUNC('week', interactions."startTime")), SUM(EXTRACT(EPOCH FROM interactions."endTime"-interactions."startTime")*1000) AS "duration" FROM interactions INNER JOIN articles on interactions."articleId" = articles.id INNER JOIN users ON articles."userId" = ${userId} WHERE users.id = 1 GROUP BY EXTRACT(WEEK FROM DATE_TRUNC('week', interactions."startTime")) HAVING EXTRACT(WEEK FROM DATE_TRUNC('week', interactions."startTime")) = EXTRACT(WEEK FROM NOW())`
+      `SELECT EXTRACT(${timeframe} FROM DATE_TRUNC('${timeframe}', interactions."startTime")), SUM(EXTRACT(EPOCH FROM interactions."endTime"-interactions."startTime")*1000) AS "duration" FROM interactions INNER JOIN articles on interactions."articleId" = articles.id INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} GROUP BY EXTRACT(${timeframe} FROM DATE_TRUNC('${timeframe}', interactions."startTime")) HAVING EXTRACT(${timeframe} FROM DATE_TRUNC('${timeframe}', interactions."startTime")) = EXTRACT(${timeframe} FROM NOW())`
     )
     .then(data => {
       if (strFormat) {

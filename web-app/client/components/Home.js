@@ -11,11 +11,11 @@ class Home extends Component {
   render () {
     return (
       <React.Fragment>
+        <AnalyticsFeatured />
         <ArticleCardList
           articles={this.props.threeMostRecentArticles}
           className="article-card-list"
         />
-        <AnalyticsFeatured />
       </React.Fragment>
     );
   }
