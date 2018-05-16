@@ -5,10 +5,9 @@ import { AnalyticsStat } from '../components';
 
 const AnalyticsFeatured = () => {
   const dummyData = [
-    { value: '2 hr 3 min', label: 'spent reading this week' },
-    { value: '8 hr 1 min', label: 'est. time to finish your list' }
-    // { value: 4221, label: 'average word count' },
-    // { value: 13, label: 'different publications' }
+    { value: '2 hr 3 min', label: 'spent reading\nthis week' },
+    { value: 13, label: 'different\npublications' },
+    { value: '8 hr 1 min', label: 'est. time to\nfinish your list' }
   ];
 
   return (
@@ -16,7 +15,7 @@ const AnalyticsFeatured = () => {
       <Header as="h2" className="nimbus-mono-bold">
         Featured Analytics
       </Header>
-      <Statistic.Group>
+      <Statistic.Group widths="three" size="small">
         {dummyData.map((datum, idx) => (
           <AnalyticsStat key={idx} value={datum.value} label={datum.label} />
         ))}
