@@ -1,10 +1,11 @@
 // default styles for the page
 const initialState = {
-  fontSize: '1.1em',
+  fontSize: '1.2em',
   fontFamily: 'Lora',
   backgroundColor: 'white',
   color: 'black',
-  scheme: 'light'
+  scheme: 'light',
+  lineHeight: '1.8em'
 };
 
 /**
@@ -12,6 +13,8 @@ const initialState = {
  */
 const INCREASE_FONT_SIZE = 'INCREASE_FONT_SIZE';
 const DECREASE_FONT_SIZE = 'DECREASE_FONT_SIZE';
+const INCREASE_LINE_HEIGHT = 'INCREASE_LINE_HEIGHT';
+const DECREASE_LINE_HEIGHT = 'DECREASE_LINE_HEIGHT';
 const UPDATE_FONT_FAMILY = 'UPDATE_FONT_FAMILY';
 const UPDATE_COLOR_SCHEME = 'UPDATE_COLOR_SCHEME';
 const RESET_STYLES = 'RESET_STYLES';
@@ -25,6 +28,14 @@ export const increaseFontSize = () => ({
 
 export const decreaseFontSize = () => ({
   type: DECREASE_FONT_SIZE
+});
+
+export const increaseLineHeight = () => ({
+  type: INCREASE_LINE_HEIGHT
+});
+
+export const decreaseLineHeight = () => ({
+  type: DECREASE_LINE_HEIGHT
 });
 
 export const updateFontFamily = fontFamily => ({
@@ -46,6 +57,10 @@ export default function (state = initialState, action) {
       return { ...state, fontSize: incFontSize(state.fontSize) };
     case DECREASE_FONT_SIZE:
       return { ...state, fontSize: decFontSize(state.fontSize) };
+    case INCREASE_LINE_HEIGHT:
+      return { ...state, lineHeight: incLineHeight(state.lineHeight) };
+    case DECREASE_LINE_HEIGHT:
+      return { ...state, lineHeight: decLineHeight(state.lineHeight) };
     case UPDATE_FONT_FAMILY:
       return { ...state, fontFamily: action.fontFamily };
     case UPDATE_COLOR_SCHEME:
@@ -69,6 +84,18 @@ const decFontSize = currentFontSize => {
   let newFontSize = parseFloat(currentFontSize);
   if (newFontSize > 0.8) newFontSize -= 0.1;
   return newFontSize.toString() + 'em';
+};
+
+const incLineHeight = currentLineHeight => {
+  let newLineHeight = parseFloat(currentLineHeight);
+  if (newLineHeight < 3) newLineHeight += 0.1;
+  return newLineHeight.toString() + 'em';
+};
+
+const decLineHeight = currentLineHeight => {
+  let newLineHeight = parseFloat(currentLineHeight);
+  if (newLineHeight > 1) newLineHeight -= 0.1;
+  return newLineHeight.toString() + 'em';
 };
 
 const determineSchemeStyles = colorScheme => {

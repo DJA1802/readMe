@@ -307,6 +307,10 @@ form div {
   max-width: 100%;
 }
 
+#single-article p {
+  line-height: inherit !important;
+}
+
 #single-article figcaption {
   font-style: italic;
   font-size: 0.9em;

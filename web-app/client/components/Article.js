@@ -45,7 +45,13 @@ class Article extends Component {
 
   render () {
     const { article } = this.props;
-    const { fontSize, fontFamily, color, backgroundColor } = this.props.style;
+    const {
+      fontSize,
+      fontFamily,
+      color,
+      backgroundColor,
+      lineHeight
+    } = this.props.style;
 
     let title, sourceUrl, author, content, publication, publicationDate;
 
@@ -97,7 +103,7 @@ class Article extends Component {
                       ).toLocaleDateString('en-US', dateOptions)}`
                     : null}
                 </p>
-                <div className="article-content">
+                <div className="article-content" style={{ lineHeight }}>
                   {reactHtmlParser(content)}
                 </div>
                 <Segment onClick={history.goBack} className="back-button">
