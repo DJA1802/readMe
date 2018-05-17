@@ -120,6 +120,11 @@ form div {
   margin-bottom: 20px;
 }
 
+.ui.statistics {
+  display: flex !important;
+  justify-content: center !important;
+}
+
 .ui.statistic .value {
   font-family: "nimbus_monoregular", "Lato", sans-serif !important;
 }
