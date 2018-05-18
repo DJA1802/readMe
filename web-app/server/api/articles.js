@@ -93,7 +93,7 @@ router.post('/', (req, res, next) => {
 
 router.get('/mostReadByDuration', (req, res, next) => {
   const userId = req.user.id;
-  Article.groupByTimeRead(userId, ['my-list', 'archive'], true)
+  Article.groupByTimeRead(userId, ['my-list', 'archive'], true, true)
     .then(articles =>
       res.json(
         articles.map(article => ({
