@@ -38,7 +38,9 @@ class Analytics extends Component {
   render () {
     return (
       <Segment>
-        <Header as="h1">Analytics</Header>
+        <Header as="h1" className="nimbus-mono-bold">
+          Analytics
+        </Header>
         <div id="analytics-container">
           <Button.Group id="analytics-buttons">
             <Button onClick={this.handleReadingTimeTabClick}>

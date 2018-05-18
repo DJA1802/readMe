@@ -19,7 +19,9 @@ router.get('/homePageStats', async (req, res, next) => {
   const totalWordCount = await Article.getTotalWordCount(id, ['my-list']);
   // For estimatedReadTime: 200 words per minute * 60 to convert to seconds * 1000 for milliseconds
   const readingThisWeek = await Interaction.readingTimeThisX(id, 'week');
-  const distinctPublications = await Publication.getDistinctForUser(id);
+  const distinctPublications = await Publication.getDistinctForUser(id, [
+    'my-list'
+  ]);
   const estimatedReadTime = msToTime(totalWordCount / 200 * 60 * 1000);
   const returnArr = [
     {
