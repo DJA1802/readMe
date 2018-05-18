@@ -28,7 +28,7 @@ router.get('/homePageStats', async (req, res, next) => {
     },
     {
       value: distinctPublications,
-      label: 'different publications'
+      label: 'publications'
     },
     {
       value: estimatedReadTime,
