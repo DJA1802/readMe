@@ -5,9 +5,6 @@ import { Link } from 'react-router-dom';
 const AnalyticsTable = ({ headers, data, displayKeys, idRoute }) => {
   const dataKeys = data && data.length ? Object.keys(data[0]) : null;
 
-  console.log(dataKeys);
-  console.log(data);
-
   return (
     <Table celled>
       <Table.Header>
