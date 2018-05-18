@@ -53,6 +53,10 @@ form div {
   padding: 0 !important;
 }
 
+.deletedData {
+  color: lightgray !important;
+}
+
 #message {
   position: fixed;
   top: 40px;

@@ -111,9 +111,25 @@ function msToTime (duration) {
   // return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
 
   if (hours) {
-    return hours + ' hr, ' + minutes + ' min';
+    return hours + ' hr ' + minutes + ' min';
   } else {
     return minutes + ' min';
+  }
+}
+
+function formatDuration (timeData, strFormat) {
+  if (strFormat) {
+    if (timeData) {
+      return msToTime(timeData.duration);
+    } else {
+      return '0 hr 0 min';
+    }
+  } else if (!strFormat) {
+    if (timeData) {
+      return timeData.duration;
+    } else {
+      return 0;
+    }
   }
 }
 
@@ -124,5 +140,6 @@ module.exports = {
   convertMilliseconds,
   average,
   sqlInList,
-  msToTime
+  msToTime,
+  formatDuration
 };

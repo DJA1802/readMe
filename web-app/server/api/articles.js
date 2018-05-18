@@ -90,6 +90,39 @@ router.post('/', (req, res, next) => {
 // ------------------------------------------------------------ //
 
 // GET /api/articles/:id
+
+router.get('/mostReadByDuration', (req, res, next) => {
+  const userId = req.user.id;
+  Article.groupByTimeRead(userId, ['my-list', 'archive'], true)
+    .then(articles =>
+      res.json(
+        articles.map(article => ({
+          id: article.id,
+          article: article.title,
+          duration: article.duration,
+          deleted: !!article.deletedAt
+        }))
+      )
+    )
+    .catch(next);
+});
+
+router.get('/mostReadByInteraction', (req, res, next) => {
+  const userId = req.user.id;
+  Article.groupByInteractionCount(userId)
+    .then(articles =>
+      res.json(
+        articles.map(article => ({
+          id: article.id,
+          article: article.title,
+          interactionCount: article.interactionCount,
+          deleted: !!article.deletedAt
+        }))
+      )
+    )
+    .catch(next);
+});
+
 router.get('/:id', (req, res, next) => {
   Article.findById(req.params.id, {
     include: [{ model: Author }, { model: Publication }]
