@@ -30,7 +30,7 @@ const AnalyticsTable = ({ headers, data, displayKeys, idRoute }) => {
                 {dataKeys
                   ? dataKeys.map(
                       (dataKey, keyIdx) =>
-                        (displayKeys.indexOf(dataKey) !== -1 ? (
+                        (displayKeys.includes(dataKey) ? (
                           <Table.Cell key={keyIdx}>
                             {idRoute && !datum.deleted ? (
                               <Link to={`${idRoute}/${datum.id}`}>
