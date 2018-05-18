@@ -45,3 +45,9 @@ Publication.getDistinctForUser(1).then(data => {
 Publication.groupByArticleCount(1).then(data => {
   console.log('Publication.groupByArticleCount ', data);
 });
+Interaction.getAllForUser(1).then(data => {
+  console.log(
+    'Article.findAllForUser ',
+    data.map(datum => datum.article.title)
+  );
+});
