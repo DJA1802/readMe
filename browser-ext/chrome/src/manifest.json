@@ -18,7 +18,7 @@
     "activeTab",
     "notifications",
     "cookies",
-    "http://localhost:8080/"
+    "https://readme2018.herokuapp.com/"
   ],
   "manifest_version": 2,
   "content_security_policy":

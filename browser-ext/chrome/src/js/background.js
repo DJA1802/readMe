@@ -13,7 +13,7 @@ const constructSaveFunction = () => {
       path: 'icon-selected-64.png'
     });
     axios
-      .post('http://readme2018.herokuapp.com/api/articles', { articleUrl })
+      .post('https://readme2018.herokuapp.com/api/articles', { articleUrl })
       .then(() => {
         // Inject a confirmation message into the page
         showMessage('Article saved!');
@@ -45,7 +45,7 @@ chrome.browserAction.onClicked.addListener(tab => {
   const articleUrl = tab.url;
   // detect session from web app
   axios
-    .get('http://readme2018.herokuapp.com/auth/me', {
+    .get('https://readme2018.herokuapp.com/auth/me', {
       withCredentials: 'include'
     })
     .then(data => {
@@ -56,7 +56,7 @@ chrome.browserAction.onClicked.addListener(tab => {
       } else {
         // not logged in - redirect to login page
         chrome.tabs.create({
-          url: 'http://readme2018.herokuapp.com/auth/login'
+          url: 'https://readme2018.herokuapp.com/auth/login'
         }); // new tab
       }
     })
@@ -76,7 +76,7 @@ function showMessage (msgString) {
     div.style.top = '0px';
     div.style.zIndex = '100';
     div.style.padding = '20px';
-    div.style.fontSize = '2em';
+    div.style.fontSize = '30px';
     div.style.fontFamily = 'Lato';
     div.style.opacity = '0';
     div.style.border = '1px solid black';
