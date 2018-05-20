@@ -53,6 +53,10 @@ form div {
   padding: 0 !important;
 }
 
+.deletedData {
+  color: lightgray !important;
+}
+
 #message {
   position: fixed;
   top: 40px;
@@ -118,6 +122,11 @@ form div {
 
 .analytics-featured {
   margin-bottom: 20px;
+}
+
+.ui.statistics {
+  display: flex !important;
+  justify-content: center !important;
 }
 
 .ui.statistic .value {
@@ -285,6 +294,8 @@ form div {
   background-size: contain;
   opacity: 0.4;
 }
+
+
 /* END STYLES FOR ARTICLE CARDS --------------------------------*/
 /*-------------------------------------------------------------*/
 
@@ -303,6 +314,10 @@ form div {
   margin-left: auto;
   margin-right: auto;
   max-width: 100%;
+}
+
+#single-article p {
+  line-height: inherit !important;
 }
 
 #single-article figcaption {
@@ -458,8 +473,8 @@ form div {
 }
 
 #land-pg-logo {
-  width: 45vw;
-  height: 45vw;
+  width: 35vw;
+  height: 35vw;
   opacity: 0.8;
 }
 

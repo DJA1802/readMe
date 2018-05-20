@@ -6,6 +6,8 @@ import { Icon, Segment } from 'semantic-ui-react';
 import {
   increaseFontSize,
   decreaseFontSize,
+  increaseLineHeight,
+  decreaseLineHeight,
   updateColorScheme,
   updateFontFamily
 } from '../store';
@@ -20,6 +22,8 @@ const FormChangeStyle = props => {
     handleColorScheme,
     handleDecFont,
     handleIncFont,
+    handleDecLineHeight,
+    handleIncLineHeight,
     handleTypeface,
     scheme
   } = props;
@@ -130,11 +134,51 @@ const FormChangeStyle = props => {
             }}
           />
         </Segment>
-        <Icon name="font" style={{ flex: 1 }} />
+        <Icon name="font" size="large" style={{ flex: 1 }} />
         <Segment
           circular
           style={{ padding: 0, flex: 1, margin: 0, cursor: 'pointer' }}
           onClick={handleIncFont}
+        >
+          <Icon
+            name="plus"
+            size="small"
+            style={{
+              paddingTop: '8px',
+              margin: 0
+            }}
+          />
+        </Segment>
+      </div>
+      <div style={{ display: 'flex', marginTop: '10px' }}>
+        <Segment
+          circular
+          style={{ padding: 0, flex: 2, margin: 0, cursor: 'pointer' }}
+          onClick={handleDecLineHeight}
+        >
+          <Icon
+            name="minus"
+            size="small"
+            style={{
+              paddingTop: '8px',
+              margin: 0
+            }}
+          />
+        </Segment>
+        <Icon
+          name="content"
+          size="large"
+          style={{ flex: 1, margin: 0, left: '11px', position: 'relative' }}
+        />
+        <Icon
+          name="resize vertical"
+          size="large"
+          style={{ flex: 1, margin: 0, position: 'relative' }}
+        />
+        <Segment
+          circular
+          style={{ padding: 0, flex: 2, margin: 0, cursor: 'pointer' }}
+          onClick={handleIncLineHeight}
         >
           <Icon
             name="plus"
@@ -168,6 +212,12 @@ const mapDispatchToProps = dispatch => {
     },
     handleDecFont: () => {
       dispatch(decreaseFontSize());
+    },
+    handleIncLineHeight: () => {
+      dispatch(increaseLineHeight());
+    },
+    handleDecLineHeight: () => {
+      dispatch(decreaseLineHeight());
     },
     handleTypeface: fontFamily => {
       dispatch(updateFontFamily(fontFamily));

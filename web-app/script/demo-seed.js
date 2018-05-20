@@ -3,8 +3,9 @@ require('../secrets.js');
 
 const db = require('../server/db');
 const momentRandom = require('moment-random');
-const { User, Topic, Interaction } = require('../server/db/models');
+const { User, Topic, Interaction, Article } = require('../server/db/models');
 const { createNewArticle } = require('../server/api/articles');
+const { Op } = require('sequelize');
 
 /* "reflect" function slightly modified from:
 https://stackoverflow.com/questions/31424561/wait-until-all-es6-promises-complete-even-rejected-promises */
@@ -34,7 +35,30 @@ async function seed () {
     })
   ]);
 
-  const articlePromises = [
+  const frontPageArticles = [
+    createNewArticle(
+      1,
+      'https://www.smithsonianmag.com/science-nature/moral-cost-of-cats-180960505/'
+    ),
+    createNewArticle(
+      1,
+      'https://www.wired.com/2017/03/curse-bahia-emerald-giant-green-rock-wreaks-havoc-ruins-lives/'
+    ),
+    createNewArticle(
+      1,
+      'https://www.newyorker.com/magazine/2017/01/30/doomsday-prep-for-the-super-rich'
+    ),
+    createNewArticle(
+      1,
+      'https://thebigroundtable.com/don-quixotes-classroom-80b3bfaaa2c3'
+    ),
+    createNewArticle(
+      1,
+      'https://www.nytimes.com/2016/11/18/books/review/michael-chabon-sandmeyer-reaction-short-story.html?smid=tw-nytbooks&smtyp=cur'
+    )
+  ];
+
+  const otherArticles = [
     createNewArticle(
       1,
       'https://www.newyorker.com/magazine/2018/04/23/the-maraschino-moguls-secret-life'
@@ -45,23 +69,11 @@ async function seed () {
     ),
     createNewArticle(
       1,
-      'https://www.smithsonianmag.com/science-nature/moral-cost-of-cats-180960505/'
-    ),
-    createNewArticle(
-      1,
       'https://longreads.com/2018/05/11/is-new-york-the-most-corrupt-state-in-the-nation/'
     ),
     createNewArticle(
       1,
-      'https://www.wired.com/2017/03/curse-bahia-emerald-giant-green-rock-wreaks-havoc-ruins-lives/'
-    ),
-    createNewArticle(
-      1,
       'https://lithub.com/rebecca-solnit-the-loneliness-of-donald-trump/'
-    ),
-    createNewArticle(
-      1,
-      'https://www.newyorker.com/magazine/2017/01/30/doomsday-prep-for-the-super-rich'
     ),
     createNewArticle(1, 'https://www.guernicamag.com/nina-simone-in-liberia/'),
     createNewArticle(
@@ -77,10 +89,6 @@ async function seed () {
       'http://www.vulture.com/2017/09/the-ugliness-behind-hgtv-never-ending-fantasy-loop.html'
     ),
     createNewArticle(1, 'http://gothamist.com/2016/02/02/bialys_in_nyc.php'),
-    createNewArticle(
-      1,
-      'https://thebigroundtable.com/don-quixotes-classroom-80b3bfaaa2c3'
-    ),
     createNewArticle(
       1,
       'https://www.thrillist.com/eat/nation/mothers-day-chain-restaurants-2018'
@@ -100,10 +108,6 @@ async function seed () {
     createNewArticle(
       1,
       'https://www.wired.com/2017/03/humans-made-banana-perfect-soon-itll-gone/'
-    ),
-    createNewArticle(
-      1,
-      'https://www.nytimes.com/2016/11/18/books/review/michael-chabon-sandmeyer-reaction-short-story.html?smid=tw-nytbooks&smtyp=cur'
     ),
     createNewArticle(
       2,
@@ -143,13 +147,35 @@ async function seed () {
     )
   ];
 
-  const articlesRaw = await Promise.all(articlePromises.map(reflect));
+  const otherArticlesRaw = await Promise.all(otherArticles.map(reflect));
+  const frontPageArticlesRaw = await Promise.all(
+    frontPageArticles.map(reflect)
+  );
+  const allArticlesRaw = frontPageArticlesRaw.concat(otherArticlesRaw);
+
+  const frontPageArticleIds = frontPageArticlesRaw.map(
+    article => article.data.id
+  );
+
+  console.log(frontPageArticleIds);
+
+  // make sure the frontPageArticles actually show up on the frontPage by making them the newest
+  await Article.update(
+    { createdAt: new Date() },
+    {
+      where: {
+        id: {
+          [Op.in]: frontPageArticleIds
+        }
+      }
+    }
+  );
 
   // Show result of all createNewArticle() attempts
-  console.log(articlesRaw);
+  console.log(allArticlesRaw);
 
   // Filter out failed attempts
-  const articles = articlesRaw.filter(
+  const articles = allArticlesRaw.filter(
     resultObj => resultObj.status === 'resolved'
   );
 
@@ -171,7 +197,8 @@ async function seed () {
   ]);
 
   // get a random article id
-  const randArticleId = () => Math.round(Math.random() * articles.length) + 1;
+  const randArticleId = () =>
+    Math.floor(Math.random() * (articles.length - 1)) + 1;
 
   // get a random duration under an hour in milliseconds
   const randDurationUnderAnHour = () => Math.round(Math.random() * 3600000);
@@ -179,7 +206,7 @@ async function seed () {
   // get random start and end time for an interaction
   const randStartEnd = () => {
     const startDate = '2018-05-01',
-      endDate = '2018-05-12';
+      endDate = '2018-05-17';
     const startTime = momentRandom(endDate, startDate);
     const endTime = startTime + randDurationUnderAnHour();
     return { startTime, endTime };

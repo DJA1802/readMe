@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 const Article = require('./Article');
-const { convertMilliseconds, average, msToTime } = require('../../utils');
+const { convertMilliseconds, average, formatDuration } = require('../../utils');
 
 const Interaction = db.define('interaction', {
   startTime: {
@@ -63,19 +63,7 @@ Interaction.readingTimeThisX = function (userId, timeframe, strFormat = true) {
       `SELECT EXTRACT(${timeframe} FROM DATE_TRUNC('${timeframe}', interactions."startTime")), SUM(EXTRACT(EPOCH FROM interactions."endTime"-interactions."startTime")*1000) AS "duration" FROM interactions INNER JOIN articles on interactions."articleId" = articles.id INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} GROUP BY EXTRACT(${timeframe} FROM DATE_TRUNC('${timeframe}', interactions."startTime")) HAVING EXTRACT(${timeframe} FROM DATE_TRUNC('${timeframe}', interactions."startTime")) = EXTRACT(${timeframe} FROM NOW())`
     )
     .then(data => {
-      if (strFormat) {
-        if (data[0][0]) {
-          return msToTime(data[0][0].duration);
-        } else {
-          return '0 hr 0 min';
-        }
-      } else if (!strFormat) {
-        if (data[0][0]) {
-          return data[0][0].duration;
-        } else {
-          return 0;
-        }
-      }
+      return formatDuration(data[0][0], strFormat);
     });
 };
 

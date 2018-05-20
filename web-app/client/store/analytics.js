@@ -9,6 +9,8 @@ const GET_PUB_COUNTS = 'GET_PUB_COUNTS';
 const GET_ZOOM = 'GET_ZOOM';
 const CHANGE_ZOOM = 'CHANGE_ZOOM';
 const GET_HOME_PAGE_STATS = 'GET_HOME_PAGE_STATS';
+const GET_ARTICLE_STATS_BY_DURATION = 'GET_ARTICLE_STATS_BY_DURATION';
+const GET_ARTICLE_STATS_BY_INTERACTION = 'GET_ARTICLE_STATS_BY_INTERACTION';
 
 /**
  * ACTION CREATORS
@@ -41,6 +43,16 @@ export const getPubCounts = pubs => ({
 export const getHomePageStats = homePageStats => ({
   type: GET_HOME_PAGE_STATS,
   homePageStats
+});
+
+export const getArticleStatsByDuration = articlesByDuration => ({
+  type: GET_ARTICLE_STATS_BY_DURATION,
+  articlesByDuration
+});
+
+export const getArticleStatsByInteraction = articlesByInteraction => ({
+  type: GET_ARTICLE_STATS_BY_INTERACTION,
+  articlesByInteraction
 });
 
 /**
@@ -78,6 +90,22 @@ export const fetchHomePageStats = () => dispatch =>
     })
     .catch(err => console.log(err));
 
+export const fetchArticleStatsByDuration = () => dispatch =>
+  axios
+    .get(`/api/articles/mostReadByDuration`)
+    .then(res => {
+      dispatch(getArticleStatsByDuration(res.data));
+    })
+    .catch(err => console.log(err));
+
+export const fetchArticleStatsByInteraction = () => dispatch =>
+  axios
+    .get(`/api/articles/mostReadByInteraction`)
+    .then(res => {
+      dispatch(getArticleStatsByInteraction(res.data));
+    })
+    .catch(err => console.log(err));
+
 /**
  * REDUCER
  */
@@ -86,7 +114,9 @@ const initialState = {
   readingHours: [],
   zoom: {},
   pubCounts: [],
-  homePageStats: []
+  homePageStats: [],
+  articlesByDuration: [],
+  articlesByInteraction: []
 };
 
 export default function (state = initialState, action) {
@@ -106,6 +136,10 @@ export default function (state = initialState, action) {
       return { ...state, pubCounts: action.pubs };
     case GET_HOME_PAGE_STATS:
       return { ...state, homePageStats: action.homePageStats };
+    case GET_ARTICLE_STATS_BY_DURATION:
+      return { ...state, articlesByDuration: action.articlesByDuration };
+    case GET_ARTICLE_STATS_BY_INTERACTION:
+      return { ...state, articlesByInteraction: action.articlesByInteraction };
     default:
       return state;
   }
