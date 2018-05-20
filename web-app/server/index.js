@@ -24,7 +24,7 @@ module.exports = app;
 if (process.env.NODE_ENV !== 'production') require('../secrets');
 
 // redirect all HTTP request to HTTPS when deployed to heroku
-app.use(require('heroku-ssl-redirect')());
+// app.use(require('heroku-ssl-redirect')());
 
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id));
