@@ -13,7 +13,7 @@ const constructSaveFunction = () => {
       path: 'icon-selected-64.png'
     });
     axios
-      .post('http://localhost:8080/api/articles', { articleUrl })
+      .post('http://readme2018.herokuapp.com/api/articles', { articleUrl })
       .then(() => {
         // Inject a confirmation message into the page
         showMessage('Article saved!');
@@ -45,7 +45,7 @@ chrome.browserAction.onClicked.addListener(tab => {
   const articleUrl = tab.url;
   // detect session from web app
   axios
-    .get('http://localhost:8080/auth/me', {
+    .get('http://readme2018.herokuapp.com/auth/me', {
       withCredentials: 'include'
     })
     .then(data => {
@@ -55,7 +55,9 @@ chrome.browserAction.onClicked.addListener(tab => {
         saveButtonFunction = null;
       } else {
         // not logged in - redirect to login page
-        chrome.tabs.create({ url: 'http://localhost:8080/auth/login' }); // new tab
+        chrome.tabs.create({
+          url: 'http://readme2018.herokuapp.com/auth/login'
+        }); // new tab
       }
     })
     .catch(err => console.log(err));
