@@ -1,7 +1,5 @@
 # readMe
 
-![](https://github.com/DJA1802/readMe/web-app/public/icon-512.png)
-
 ## Introduction
 
 Welcome to readMe, an app for data-driven readers. readMe allows users to save online articles to read later, as well as to see a variety of analytics and visualizations regarding their reading habits. It's built as a 100% [Progressive Web App](https://developers.google.com/web/progressive-web-apps/) for ultimate flexibility between mobile / desktop, and online / offline usage. readMe's accompanying Chrome extension allows users to save articles with one click.
