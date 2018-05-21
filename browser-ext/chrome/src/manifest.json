@@ -1,5 +1,6 @@
 {
   "name": "readMe Browser Extension",
+  "version": "0.0.1",
   "options_page": "options.html",
   "background": {
     "persistent": false,
@@ -18,7 +19,7 @@
     "activeTab",
     "notifications",
     "cookies",
-    "http://localhost:8080/"
+    "https://readme2018.herokuapp.com/"
   ],
   "manifest_version": 2,
   "content_security_policy":
