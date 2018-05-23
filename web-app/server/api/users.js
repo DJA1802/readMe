@@ -1,27 +1,20 @@
 const router = require('express').Router();
-const { User, Interaction, Article, Publication } = require('../db/models');
-const { msToTime } = require('../utils');
-module.exports = router;
+const { Interaction, Article, Publication } = require('../db/models');
+const { msToTime, isLoggedIn } = require('../utils');
 
-router.get('/', (req, res, next) => {
-  User.findAll({
-    // explicitly select only the id and email fields - even though
-    // users' passwords are encrypted, it won't help if we just
-    // send everything to anyone who asks!
-    attributes: ['id', 'email']
-  })
-    .then(users => res.json(users))
-    .catch(next);
-});
-
-router.get('/homePageStats', async (req, res, next) => {
-  const { id } = req.user;
-  const totalWordCount = await Article.getTotalWordCount(id, ['my-list']);
-  // For estimatedReadTime: 200 words per minute * 60 to convert to seconds * 1000 for milliseconds
-  const readingThisWeek = await Interaction.readingTimeThisX(id, 'week');
-  const distinctPublications = await Publication.getDistinctForUser(id, [
+router.get('/homePageStats', isLoggedIn, async (req, res, next) => {
+  const totalWordCount = await Article.getTotalWordCount(req.user.id, [
     'my-list'
   ]);
+  // For estimatedReadTime: 200 words per minute * 60 to convert to seconds * 1000 for milliseconds
+  const readingThisWeek = await Interaction.readingTimeThisX(
+    req.user.id,
+    'week'
+  );
+  const distinctPublications = await Publication.getDistinctForUser(
+    req.user.id,
+    ['my-list']
+  );
   const estimatedReadTime = msToTime(totalWordCount / 200 * 60 * 1000);
   const returnArr = [
     {
@@ -39,3 +32,5 @@ router.get('/homePageStats', async (req, res, next) => {
   ];
   res.json(returnArr);
 });
+
+module.exports = router;
