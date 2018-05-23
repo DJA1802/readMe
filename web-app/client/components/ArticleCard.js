@@ -28,17 +28,19 @@ class ArticleCard extends Component {
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
         raised={this.state.hover && true}
-        link
+        as={Link}
+        to={`/articles/${articleId}`}
       >
         <Image
           crossOrigin="anonymous"
-          style={{ backgroundImage: `url(${thumbnail})` }}
+          src={thumbnail}
           className="article-card-image"
           to={`/articles/${articleId}`}
         >
           {defaultThumb && <div id="icon-default-image" />}
         </Image>
-        <Card.Content as={Link} to={`/articles/${articleId}`}>
+
+        <Card.Content>
           <Header as="h3" className="nimbus-mono-reg">
             {title}
           </Header>
