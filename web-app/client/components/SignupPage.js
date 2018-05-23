@@ -1,5 +1,5 @@
 import React from 'react';
-import { Signup, NavbarTop, Message } from '.';
+import { Signup, NavbarTop, Message } from '../components';
 
 /**
  * COMPONENT

@@ -5,7 +5,7 @@ import {
   ReadingTimeGraphs,
   ReadingSources,
   AnalyticsTable
-} from '../components';
+} from '../../components';
 import {
   fetchInteractions,
   fetchFirstInteraction,
@@ -13,7 +13,7 @@ import {
   fetchPubCounts,
   fetchArticleStatsByDuration,
   fetchArticleStatsByInteraction
-} from '../store';
+} from '../../store';
 import _ from 'lodash';
 
 class Analytics extends Component {

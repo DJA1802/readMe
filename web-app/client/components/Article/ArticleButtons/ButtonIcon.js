@@ -1,6 +1,6 @@
 import React from 'react';
 import { Icon, Popup } from 'semantic-ui-react';
-import { message } from '../store';
+import { message } from '../../../store';
 import { connect } from 'react-redux';
 
 /**

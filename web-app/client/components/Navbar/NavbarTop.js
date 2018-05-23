@@ -2,11 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logout, toggleMobileSidebar } from '../store';
+import { logout, toggleMobileSidebar } from '../../store';
 import { Dropdown, Icon, Menu, Transition } from 'semantic-ui-react';
 import MediaQuery from 'react-responsive';
-import { desktop } from '../utils/constants';
-import { ButtonAddArticle, ButtonChangeStyle, ButtonUserIcon } from '.';
+import { desktop } from '../../utils/constants';
+import {
+  ButtonAddArticle,
+  ButtonChangeStyle,
+  ButtonUserIcon
+} from '../../components';
 
 const NavbarTop = props => {
   const {

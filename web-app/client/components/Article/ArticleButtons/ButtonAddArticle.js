@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Icon, Menu, Popup } from 'semantic-ui-react';
-import { FormAddArticle } from '.';
-import { message } from '../store';
+import { FormAddArticle } from '../../../components';
+import { message } from '../../../store';
 import { connect } from 'react-redux';
 
 /**

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Header, Image, Transition } from 'semantic-ui-react';
-import { ButtonArchiveArticle, ButtonDeleteArticle } from '.';
+import { ButtonArchiveArticle, ButtonDeleteArticle } from '../../components';
 
 class ArticleCard extends Component {
   state = { hover: false };

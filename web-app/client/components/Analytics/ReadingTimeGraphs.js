@@ -1,6 +1,6 @@
 import React from 'react';
-import { ReadingTimeline, ReadingHours } from '../components';
-import visuStyles from '../utils/visualizationStyles';
+import { ReadingTimeline, ReadingHours } from '../../components';
+import visuStyles from '../../utils/visualizationStyles';
 
 const ReadingTimeGraphs = props => {
   return (

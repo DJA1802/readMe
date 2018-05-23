@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import MediaQuery from 'react-responsive';
-import { ArticleListItem } from '../components';
+import { ArticleListItem, VisContainer } from '../../components';
 import { connect } from 'react-redux';
 import { Header, List, Segment } from 'semantic-ui-react';
-import { VisContainer } from '.';
-import { desktop } from '../utils/constants';
-import { fetchArticles } from '../store';
+import { desktop } from '../../utils/constants';
+import { fetchArticles } from '../../store';
 
 class ArticleList extends Component {
   componentDidMount () {

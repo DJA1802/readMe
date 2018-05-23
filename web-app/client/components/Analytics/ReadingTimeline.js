@@ -9,7 +9,7 @@ import {
   VictoryArea,
   VictoryLabel
 } from 'victory';
-import { getZoom, changeZoom } from '../store';
+import { getZoom, changeZoom } from '../../store';
 
 class ReadingTimeline extends Component {
   ComponentDidMount () {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Visibility } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { updatePageScroll, clearScrollData } from '../store';
+import { updatePageScroll, clearScrollData } from '../../store';
 
 class VisContainer extends Component {
   componentWillUnmount () {
