@@ -16,6 +16,9 @@ const sanitizeOptions = {
   allowedSchemesByTag: {
     img: ['data', 'https']
   },
+  transformTags: {
+    img: sanitizeHTML.simpleTransform('img', { crossorigin: 'anonymous' })
+  },
   nonTextTags: ['style', 'script', 'textarea', 'noscript', 'aside']
 };
 const articleQueryAttributes = [

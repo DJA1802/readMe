@@ -31,9 +31,9 @@ class ArticleCard extends Component {
         link
       >
         <Image
+          crossOrigin="anonymous"
           style={{ backgroundImage: `url(${thumbnail})` }}
           className="article-card-image"
-          as={Link}
           to={`/articles/${articleId}`}
         >
           {defaultThumb && <div id="icon-default-image" />}

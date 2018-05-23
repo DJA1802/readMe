@@ -65,6 +65,7 @@ function extractMetaContentFromHtml (htmlString, metaPattern) {
 
 function extractSrcAttribute (imgElement) {
   if (imgElement) {
+    console.log(imgElement)
     const imageAttrs = imgElement.rawAttrs;
     const imageRegExp = /src\s*=\s*"(.+?)"/;
     return imageRegExp.exec(imageAttrs)
