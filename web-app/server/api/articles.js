@@ -5,19 +5,94 @@ const { Article, Author, Publication } = require('../db/models');
 const {
   setPublicationName,
   buildMercuryJSONRequest,
-  extractSrcAttribute
+  extractSrcAttribute,
+  isLoggedIn
 } = require('../utils');
 
-// ------------------------------------------------------------ //
+// GET --------------------------------------------------------- //
 
-// GET /api/articles
-router.get('/', (req, res, next) => {
-  const userId = req.user ? req.user.id : null;
-  if (userId) {
-    Article.findAllForUser(userId)
-      .then(articles => res.json(articles))
-      .catch(next);
-  }
+router.get('/', isLoggedIn, (req, res, next) => {
+  Article.findAllForUser(req.user.id)
+    .then(articles => res.json(articles))
+    .catch(next);
+});
+
+router.get('/mostReadByDuration', isLoggedIn, (req, res, next) => {
+  Article.groupByTimeRead(req.user.id, ['my-list', 'archive'], true, true)
+    .then(articles =>
+      res.json(
+        articles.map(article => ({
+          id: article.id,
+          article: article.title,
+          duration: article.duration,
+          deleted: !!article.deletedAt
+        }))
+      )
+    )
+    .catch(next);
+});
+
+router.get('/mostReadByInteraction', isLoggedIn, (req, res, next) => {
+  Article.groupByInteractionCount(req.user.id)
+    .then(articles =>
+      res.json(
+        articles.map(article => ({
+          id: article.id,
+          article: article.title,
+          interactionCount: article.interactionCount,
+          deleted: !!article.deletedAt
+        }))
+      )
+    )
+    .catch(next);
+});
+
+// This needs to stay BELOW all the other routes because otherwise "mostReadByInteraction" or "mostReadByDuration" will be treated like a :id wildcard and will result in those strings being passed as the :id param.
+router.get('/:id', isLoggedIn, (req, res, next) => {
+  Article.findById(req.params.id, {
+    include: [{ model: Author }, { model: Publication }]
+  })
+    .then(article => res.json(article))
+    .catch(next);
+});
+
+// POST ------------------------------------------------------- //
+router.post('/', isLoggedIn, (req, res, next) => {
+  const userId = req.user.id;
+  const { articleUrl } = req.body;
+
+  createNewArticle(userId, articleUrl, next)
+    .then(newArticle => returnCreatedArticle(newArticle))
+    .then(associatedArticle => res.status(201).json(associatedArticle))
+    .catch(next);
+});
+
+// PUT --------------------------------------------------------- //
+
+router.put('/:id', isLoggedIn, (req, res, next) => {
+  const { status } = req.body;
+  const { id } = req.params;
+
+  Article.update(
+    { status },
+    {
+      where: { id },
+      returning: true,
+      plain: true
+    }
+  )
+    .then(([_, article]) => Article.findOneWithAssociations(article.id))
+    .then(article => res.json(article))
+    .catch(next);
+});
+
+// DELETE ----------------------------------------------------- //
+
+router.delete('/:id', isLoggedIn, (req, res, next) => {
+  Article.findById(req.params.id)
+    .then(article => article.destroy())
+    .then(() => res.sendStatus(204))
+    .catch(next);
 });
 
 // HELPER FUNCTIONS FOR POSTING ARTICLE -------------------------- //
@@ -75,90 +150,6 @@ async function returnCreatedArticle (newArticle) {
   );
   return associatedArticle;
 }
-// ------------------------------------------------------------ //
-
-// POST /api/articles
-router.post('/', (req, res, next) => {
-  const userId = req.user.id;
-  const { articleUrl } = req.body;
-
-  createNewArticle(userId, articleUrl, next)
-    .then(newArticle => returnCreatedArticle(newArticle))
-    .then(associatedArticle => res.status(201).json(associatedArticle))
-    .catch(next);
-});
-// ------------------------------------------------------------ //
-
-// GET /api/articles/:id
-
-router.get('/mostReadByDuration', (req, res, next) => {
-  const userId = req.user.id;
-  Article.groupByTimeRead(userId, ['my-list', 'archive'], true, true)
-    .then(articles =>
-      res.json(
-        articles.map(article => ({
-          id: article.id,
-          article: article.title,
-          duration: article.duration,
-          deleted: !!article.deletedAt
-        }))
-      )
-    )
-    .catch(next);
-});
-
-router.get('/mostReadByInteraction', (req, res, next) => {
-  const userId = req.user.id;
-  Article.groupByInteractionCount(userId)
-    .then(articles =>
-      res.json(
-        articles.map(article => ({
-          id: article.id,
-          article: article.title,
-          interactionCount: article.interactionCount,
-          deleted: !!article.deletedAt
-        }))
-      )
-    )
-    .catch(next);
-});
-
-router.get('/:id', (req, res, next) => {
-  Article.findById(req.params.id, {
-    include: [{ model: Author }, { model: Publication }]
-  })
-    .then(article => res.json(article))
-    .catch(next);
-});
-
-// ------------------------------------------------------------ //
-
-router.put('/:id', (req, res, next) => {
-  const { status } = req.body;
-  const { id } = req.params;
-
-  Article.update(
-    { status },
-    {
-      where: { id },
-      returning: true,
-      plain: true
-    }
-  )
-    .then(([_, article]) => Article.findOneWithAssociations(article.id))
-    .then(article => res.json(article))
-    .catch(next);
-});
-
-// ------------------------------------------------------------ //
-
-router.delete('/:id', (req, res, next) => {
-  Article.findById(req.params.id)
-    .then(article => article.destroy())
-    .then(() => res.sendStatus(204))
-    .catch(next);
-});
-
 // ------------------------------------------------------------ //
 
 module.exports = { router, createNewArticle };
