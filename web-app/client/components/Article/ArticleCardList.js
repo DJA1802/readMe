@@ -1,6 +1,6 @@
 // Single Article Page Component (i.e. where article is read from)
 import React from 'react';
-import { ArticleCard } from '../components';
+import { ArticleCard } from '../../components';
 import { Card, Container, Header } from 'semantic-ui-react';
 
 const ArticleCardList = props => {

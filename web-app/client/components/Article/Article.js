@@ -2,16 +2,21 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getArticle, clearArticle, fetchArticles } from '../store';
+import { getArticle, clearArticle, fetchArticles } from '../../store';
 import reactHtmlParser from 'react-html-parser';
 import { Icon, Header, Segment } from 'semantic-ui-react';
 import {
   getLocalInteractions,
   addInteractionToLocalStorage,
   updateLastInteractionEndTime
-} from '../utils/helperFuncs';
-import history from '../history';
-import { VisContainer, Message, NavbarTop, NavbarSideMobile } from '.';
+} from '../../utils/helperFuncs';
+import history from '../../history';
+import {
+  VisContainer,
+  Message,
+  NavbarTop,
+  NavbarSideMobile
+} from '../../components';
 
 class Article extends Component {
   constructor (props) {

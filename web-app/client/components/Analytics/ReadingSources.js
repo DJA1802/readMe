@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { VictoryLabel, VictoryTooltip, VictoryPie } from 'victory';
-import visuStyles from '../utils/visualizationStyles';
+import visuStyles from '../../utils/visualizationStyles';
 const chartStyle = visuStyles();
 
 const CustomLabel = props => {

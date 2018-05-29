@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Icon, Menu, Popup } from 'semantic-ui-react';
-import { logout } from '../store';
+import { logout } from '../../../store';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import MediaQuery from 'react-responsive';
-import { desktop } from '../utils/constants';
+import { desktop } from '../../../utils/constants';
 
 /**
  * COMPONENT

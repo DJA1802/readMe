@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Header, Input } from 'semantic-ui-react';
-import { message, postNewArticle } from '../store';
+import { message, postNewArticle } from '../../store';
 
 /**
  * COMPONENT

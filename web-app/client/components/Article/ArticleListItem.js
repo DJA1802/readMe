@@ -5,7 +5,7 @@ import {
   ButtonArchiveArticle,
   ButtonDeleteArticle,
   ButtonMyListArticle
-} from '.';
+} from '../../components';
 
 class ArticleListItem extends Component {
   state = { hover: false };

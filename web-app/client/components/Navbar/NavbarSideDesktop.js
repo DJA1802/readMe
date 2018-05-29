@@ -1,6 +1,6 @@
 import React from 'react';
 import { Menu } from 'semantic-ui-react';
-import { NavbarSideItems } from '.';
+import { NavbarSideItems } from '../../components';
 
 const NavbarSideDesktop = () => {
   return (

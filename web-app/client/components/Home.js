@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { AnalyticsFeatured, ArticleCardList } from '.';
+import { AnalyticsFeatured, ArticleCardList } from '../components';
 import { fetchArticles, fetchHomePageStats } from '../store';
 
 class Home extends Component {

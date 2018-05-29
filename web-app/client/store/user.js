@@ -1,6 +1,6 @@
 import axios from 'axios';
 import history from '../history';
-import { fetchArticles, postNewArticle } from '.';
+import { fetchArticles, postNewArticle } from '../components';
 import { clearLocalInteractions } from '../utils/helperFuncs';
 
 /**

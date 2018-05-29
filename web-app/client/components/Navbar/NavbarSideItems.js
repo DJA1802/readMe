@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon, Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { toggleMobileSidebar } from '../store';
+import { toggleMobileSidebar } from '../../store';
 
 const NavbarSideItems = ({ handleMenuClick }) => {
   return (

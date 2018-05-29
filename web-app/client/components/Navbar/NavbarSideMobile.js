@@ -3,9 +3,9 @@ import { Icon, Menu, Transition } from 'semantic-ui-react';
 import MediaQuery from 'react-responsive';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { NavbarSideItems } from '.';
-import { desktop } from '../utils/constants';
-import { toggleMobileSidebar } from '../store';
+import { NavbarSideItems } from '../../components';
+import { desktop } from '../../utils/constants';
+import { toggleMobileSidebar } from '../../store';
 
 const NavbarSideMobile = ({ handleMenuClick, visible }) => {
   return (

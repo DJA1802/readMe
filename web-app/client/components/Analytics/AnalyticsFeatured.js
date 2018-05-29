@@ -1,7 +1,7 @@
 // Single Article Page Component (i.e. where article is read from)
 import React from 'react';
 import { Container, Header, Statistic } from 'semantic-ui-react';
-import { AnalyticsStat } from '../components';
+import { AnalyticsStat } from '../../components';
 
 const AnalyticsFeatured = ({ stats }) => {
   return (

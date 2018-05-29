@@ -1,22 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { putArticleStatus } from '../store';
+import { putArticleStatus } from '../../../store';
 import { ButtonIcon } from '.';
 
 /**
  * COMPONENT
  */
 
-const ButtonArchiveArticle = props => {
+const ButtonAddToMyListArticle = props => {
   const { articleId, handleAddToMyListArticle } = props;
 
   return (
     <ButtonIcon
       articleId={articleId}
       handleButtonClick={handleAddToMyListArticle}
-      iconName="archive"
-      popupLabel="Archive"
-      successMessage="Article archived"
+      iconName="newspaper"
+      popupLabel="My List"
+      successMessage="Article added back to reading list"
     />
   );
 };
@@ -24,9 +24,9 @@ const ButtonArchiveArticle = props => {
 const mapDispatchToProps = dispatch => {
   return {
     handleAddToMyListArticle: articleId => {
-      dispatch(putArticleStatus(articleId, 'archive'));
+      dispatch(putArticleStatus(articleId, 'my-list'));
     }
   };
 };
 
-export default connect(null, mapDispatchToProps)(ButtonArchiveArticle);
+export default connect(null, mapDispatchToProps)(ButtonAddToMyListArticle);

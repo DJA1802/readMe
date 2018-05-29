@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Icon, Menu, Popup } from 'semantic-ui-react';
-import { FormChangeStyle } from '.';
+import { FormChangeStyle } from '../../components';
 
 /**
  * COMPONENT

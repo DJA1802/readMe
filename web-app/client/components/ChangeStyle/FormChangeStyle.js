@@ -10,7 +10,7 @@ import {
   decreaseLineHeight,
   updateColorScheme,
   updateFontFamily
-} from '../store';
+} from '../../store';
 
 /**
  * COMPONENT
