@@ -2,6 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { reducer as formReducer } from 'redux-form';
 import articlesAll from './articlesAll';
 import articleSelected from './articleSelected';
 import interactions from './interactions';
@@ -23,7 +24,8 @@ const reducer = combineReducers({
   pageScroll,
   user,
   online,
-  analytics
+  analytics,
+  form: formReducer
 });
 
 const middleware = composeWithDevTools(

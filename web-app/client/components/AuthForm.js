@@ -1,4 +1,6 @@
 import React from 'react';
+import validator from 'validator';
+import zxcvbn from 'zxcvbn';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { auth } from '../store';
@@ -10,12 +12,60 @@ import {
   Input,
   Segment
 } from 'semantic-ui-react';
+import { Field, reduxForm } from 'redux-form';
+
+const required = value => (value ? undefined : 'Required');
+
+const email = value =>
+  (value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
+    ? 'Invalid email address'
+    : undefined);
+
+const renderField = ({
+  input,
+  label,
+  type,
+  meta: { touched, error, warning }
+}) => (
+  <React.Fragment>
+    <Input {...input} placeholder={label} type={type} />
+    {touched && ((error && <p>{error}</p>) || (warning && <p>{warning}</p>))}
+  </React.Fragment>
+);
+
+let SignupOrLoginForm = props => {
+  const { name, displayName, handleSubmit, serverError } = props;
+  return (
+    <form onSubmit={handleSubmit} name={name}>
+      <Field
+        component={renderField}
+        name="email"
+        type="text"
+        placeholder="Email"
+        validate={[required, email]}
+      />
+      <Field
+        component={renderField}
+        name="password"
+        type="password"
+        placeholder="Password"
+      />
+      <div>
+        <Button type="submit">{displayName}</Button>
+      </div>
+      {serverError &&
+        serverError.response && <div> {serverError.response.data} </div>}
+    </form>
+  );
+};
+
+SignupOrLoginForm = reduxForm({ form: 'signupOrLogin' })(SignupOrLoginForm);
 
 /**
  * COMPONENT
  */
 const AuthForm = props => {
-  const { name, displayName, handleSubmit, error } = props;
+  const { name, displayName, handleSubmit, serverError } = props;
 
   return (
     <Segment id="authform">
@@ -41,16 +91,12 @@ const AuthForm = props => {
         {displayName} with Twitter
       </Button>
       <Divider horizontal>Or</Divider>
-      <form onSubmit={handleSubmit} name={name}>
-        <Input name="email" type="text" placeholder="Email" />
-
-        <Input name="password" type="password" placeholder="Password" />
-
-        <div>
-          <Button type="submit">{displayName}</Button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
+      <SignupOrLoginForm
+        name={name}
+        onSubmit={handleSubmit}
+        displayName={displayName}
+        serverError={serverError}
+      />
     </Segment>
   );
 };
@@ -66,7 +112,7 @@ const mapLogin = state => {
   return {
     name: 'login',
     displayName: 'Login',
-    error: state.user.error
+    serverError: state.user.error
   };
 };
 
@@ -74,7 +120,7 @@ const mapSignup = state => {
   return {
     name: 'signup',
     displayName: 'Sign Up',
-    error: state.user.error
+    serverError: state.user.error
   };
 };
 
@@ -100,5 +146,5 @@ AuthForm.propTypes = {
   name: PropTypes.string.isRequired,
   displayName: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  error: PropTypes.object
+  serverError: PropTypes.object
 };
