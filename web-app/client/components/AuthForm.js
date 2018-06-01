@@ -16,7 +16,7 @@ import { Field, reduxForm } from 'redux-form';
 
 const required = value => (value ? undefined : 'Required');
 
-const email = value =>
+const emailValidation = value =>
   (value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
     ? 'Invalid email address'
     : undefined);
@@ -42,7 +42,7 @@ let SignupOrLoginForm = props => {
         name="email"
         type="text"
         placeholder="Email"
-        validate={[required, email]}
+        validate={[required, emailValidation]}
       />
       <Field
         component={renderField}
@@ -93,7 +93,7 @@ const AuthForm = props => {
       <Divider horizontal>Or</Divider>
       <SignupOrLoginForm
         name={name}
-        onSubmit={handleSubmit}
+        onSubmit={formData => handleSubmit(formData, name)}
         displayName={displayName}
         serverError={serverError}
       />
@@ -126,11 +126,10 @@ const mapSignup = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleSubmit (evt) {
-      evt.preventDefault();
-      const formName = evt.target.name;
-      const email = evt.target.email.value;
-      const password = evt.target.password.value;
+    handleSubmit (formData, formName) {
+      console.log(formData, formName);
+      const email = formData.email;
+      const password = formData.password;
       dispatch(auth(email, password, formName));
     }
   };
