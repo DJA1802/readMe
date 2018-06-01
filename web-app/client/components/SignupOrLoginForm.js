@@ -1,8 +1,15 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Button } from 'semantic-ui-react';
-import { isFilledOut, isEmail } from '../utils/formValidations';
+import {
+  isFilledOut,
+  isEmail,
+  isStrongPassword
+} from '../utils/formValidations';
 import { FieldWithWarning } from '../components';
+
+const loginPasswordValidations = [isFilledOut];
+const signupPasswordValidations = [isFilledOut, isStrongPassword];
 
 const SignupOrLoginForm = props => {
   const { name, displayName, handleSubmit, serverError } = props;
@@ -20,7 +27,11 @@ const SignupOrLoginForm = props => {
         name="password"
         type="password"
         placeholder="Password"
-        validate={[isFilledOut]}
+        validate={
+          name === 'signup'
+            ? signupPasswordValidations
+            : loginPasswordValidations
+        }
       />
       <div>
         <Button type="submit">{displayName}</Button>
