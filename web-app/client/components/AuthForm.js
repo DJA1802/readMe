@@ -127,7 +127,6 @@ const mapSignup = state => {
 const mapDispatch = dispatch => {
   return {
     handleSubmit (formData, formName) {
-      console.log(formData, formName);
       const email = formData.email;
       const password = formData.password;
       dispatch(auth(email, password, formName));
