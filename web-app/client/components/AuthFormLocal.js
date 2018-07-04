@@ -14,7 +14,7 @@ const signupPasswordValidations = [isFilledOut, isStrongPassword];
 const AuthFormLocal = props => {
   const { name, displayName, handleSubmit, serverError } = props;
   return (
-    <form onSubmit={handleSubmit} name={name}>
+    <form onSubmit={handleSubmit} name={name} id="authform-local">
       <Field
         component={FieldWithWarning}
         name="email"

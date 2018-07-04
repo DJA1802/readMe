@@ -93,6 +93,10 @@ form div {
   margin: 0 auto;
 }
 
+#authform-local p {
+  white-space: pre-line;
+}
+
 #auth-modal {
   background: rgba(0, 0, 0, 0);
   box-shadow: none !important;
