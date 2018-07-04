@@ -8,6 +8,6 @@ export const isEmail = value =>
     : undefined);
 
 export const isStrongPassword = value =>
-  (zxcvbn(value).score < 3
+  (zxcvbn(value).score < 2
     ? `${zxcvbn(value).feedback.warning}. Please choose a stronger password.`
     : undefined);
