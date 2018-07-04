@@ -16,8 +16,6 @@ export const buildPasswordWarning = feedback => {
   return message;
 };
 
-console.log(buildPasswordWarning(zxcvbn('hi').feedback));
-
 export const isStrongPassword = value => {
   const verdict = zxcvbn(value);
   const { feedback } = verdict;
