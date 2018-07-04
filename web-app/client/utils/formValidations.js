@@ -7,7 +7,7 @@ export const isEmail = value =>
     ? 'Invalid email address'
     : undefined);
 
-export const buildPasswordWarning = feedback => {
+export const buildPasswordRejectionMessage = feedback => {
   let message = 'Please choose a stronger password.';
   if (feedback.warning) message = feedback.warning + '. ' + message;
   if (feedback.suggestions) {
@@ -19,5 +19,5 @@ export const buildPasswordWarning = feedback => {
 export const isStrongPassword = value => {
   const verdict = zxcvbn(value);
   const { feedback } = verdict;
-  return verdict.score < 2 ? buildPasswordWarning(feedback) : undefined;
+  return verdict.score < 2 ? buildPasswordRejectionMessage(feedback) : undefined;
 };
