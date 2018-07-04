@@ -15,6 +15,6 @@ export { default as UserHome } from './UserHome';
 export { default as Home } from './Home';
 export { default as LoginPage } from './LoginPage';
 export { default as SignupPage } from './SignupPage';
-export { default as SignupOrLoginForm } from './SignupOrLoginForm';
+export { default as AuthFormLocal } from './AuthFormLocal';
 export { default as FieldWithWarning } from './FieldWithWarning';
 export { Login, Signup } from './AuthForm';

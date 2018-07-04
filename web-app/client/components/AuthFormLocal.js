@@ -11,7 +11,7 @@ import { FieldWithWarning } from '../components';
 const loginPasswordValidations = [isFilledOut];
 const signupPasswordValidations = [isFilledOut, isStrongPassword];
 
-const SignupOrLoginForm = props => {
+const AuthFormLocal = props => {
   const { name, displayName, handleSubmit, serverError } = props;
   return (
     <form onSubmit={handleSubmit} name={name}>
@@ -42,4 +42,4 @@ const SignupOrLoginForm = props => {
   );
 };
 
-export default reduxForm({ form: 'signupOrLogin' })(SignupOrLoginForm);
+export default reduxForm({ form: 'authFormLocal' })(AuthFormLocal);

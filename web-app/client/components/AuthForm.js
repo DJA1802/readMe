@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { auth } from '../store';
 import { Button, Divider, Header, Icon, Segment } from 'semantic-ui-react';
-import { SignupOrLoginForm } from '../components';
+import { AuthFormLocal } from '../components';
 
 /* COMPONENT */
 const AuthForm = props => {
@@ -33,7 +33,7 @@ const AuthForm = props => {
         {displayName} with Twitter
       </Button>
       <Divider horizontal>Or</Divider>
-      <SignupOrLoginForm
+      <AuthFormLocal
         name={name}
         onSubmit={formData => handleSubmit(formData, name)}
         displayName={displayName}
