@@ -1,47 +1,44 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { auth } from '../store';
+import { auth, clearUserError } from '../store';
 import { Button, Divider, Header, Icon, Segment } from 'semantic-ui-react';
 import { AuthFormLocal } from '../components';
 
 /* COMPONENT */
-const AuthForm = props => {
-  const { name, displayName, handleSubmit, serverError } = props;
+class AuthForm extends React.Component {
+  // Without this a "user already exists" warning will remain on the form even
+  // when closing and reopening
+  componentWillUnmount () {
+    if (this.props.serverError) this.props.clearError();
+  }
 
-  return (
-    <Segment id="authform">
-      <Header as="h3">{displayName}</Header>
-      <Button
-        className="authform-btn-oauth"
-        as="a"
-        href="/auth/google"
-        icon
-        labelPosition="left"
-      >
-        <Icon name="google" />
-        {displayName} with Google
-      </Button>
-      <Button
-        className="authform-btn-oauth"
-        as="a"
-        href="/auth/twitter"
-        icon
-        labelPosition="left"
-      >
-        <Icon name="twitter" />
-        {displayName} with Twitter
-      </Button>
-      <Divider horizontal>Or</Divider>
-      <AuthFormLocal
-        name={name}
-        onSubmit={formData => handleSubmit(formData, name)}
-        displayName={displayName}
-        serverError={serverError}
-      />
-    </Segment>
-  );
-};
+  render () {
+    const { name, displayName, handleSubmit, serverError } = this.props;
+    return (
+      <Segment id="authform">
+        <Header as="h3">{displayName}</Header>
+        <Button
+          className="authform-btn-oauth"
+          as="a"
+          href="/auth/google"
+          icon
+          labelPosition="left"
+        >
+          <Icon name="google" />
+          {displayName} with Google
+        </Button>
+        <Divider horizontal>Or</Divider>
+        <AuthFormLocal
+          name={name}
+          onSubmit={formData => handleSubmit(formData, name)}
+          displayName={displayName}
+          serverError={serverError}
+        />
+      </Segment>
+    );
+  }
+}
 
 /**
  * CONTAINER
@@ -71,6 +68,9 @@ const mapDispatch = dispatch => {
     handleSubmit (formData, formName) {
       const { email, password } = formData;
       dispatch(auth(email, password, formName));
+    },
+    clearError () {
+      dispatch(clearUserError());
     }
   };
 };

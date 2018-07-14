@@ -37,7 +37,18 @@ const AuthFormLocal = props => {
         <Button type="submit">{displayName}</Button>
       </div>
       {serverError &&
-        serverError.response && <div> {serverError.response.data} </div>}
+        serverError.response && (
+          <div>
+            {serverError.response.status === 500 ? (
+              <p>
+                There was a server error. You can report this issue
+                <a href="https://github.com/DJA1802/readMe/issues"> here</a>.
+              </p>
+            ) : (
+              serverError.response.data
+            )}
+          </div>
+        )}
     </form>
   );
 };

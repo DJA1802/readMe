@@ -8,6 +8,7 @@ import { clearLocalInteractions } from '../utils/helperFuncs';
  */
 const GET_USER = 'GET_USER';
 const REMOVE_USER = 'REMOVE_USER';
+const CLEAR_USER_ERROR = 'CLEAR_USER_ERROR';
 const POST_CACHED_INTERACTIONS = 'POST_CACHED_INTERACTIONS';
 
 /**
@@ -20,6 +21,7 @@ const defaultUser = {};
  */
 const getUser = user => ({ type: GET_USER, user });
 const removeUser = () => ({ type: REMOVE_USER });
+export const clearUserError = () => ({ type: CLEAR_USER_ERROR });
 const acPostCachedInteractions = () => ({ type: POST_CACHED_INTERACTIONS });
 
 /**
@@ -92,6 +94,7 @@ export default function (state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
       return action.user;
+    case CLEAR_USER_ERROR:
     case REMOVE_USER:
       return defaultUser;
     default:
