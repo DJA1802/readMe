@@ -1,17 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Button } from 'semantic-ui-react';
+import { deleteUser } from '../store';
 
 /**
  * COMPONENT
  */
 export const UserHome = props => {
-  const { email } = props;
+  const { email, handleDeleteUser } = props;
 
   return (
     <div>
-      <h3>Welcome, {email}</h3>
-      <h2>This is the User Home component</h2>
+      <h3>Account email: {email}</h3>
+      <Button color="red" onClick={handleDeleteUser}>
+        Delete account
+      </Button>
     </div>
   );
 };
@@ -25,7 +29,17 @@ const mapState = state => {
   };
 };
 
-export default connect(mapState)(UserHome);
+const mapDispatch = dispatch => {
+  return {
+    handleDeleteUser: () => {
+      if (confirm('Are you sure you want to delete your account?')) {
+        dispatch(deleteUser());
+      }
+    }
+  };
+};
+
+export default connect(mapState, mapDispatch)(UserHome);
 
 /**
  * PROP TYPES
