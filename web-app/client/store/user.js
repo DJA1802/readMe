@@ -7,7 +7,8 @@ import { clearLocalInteractions } from '../utils/helperFuncs';
  * ACTION TYPES
  */
 const GET_USER = 'GET_USER';
-const REMOVE_USER = 'REMOVE_USER';
+const LOGOUT_USER = 'LOGOUT_USER';
+const DELETE_USER = 'DELETE_USER';
 const POST_CACHED_INTERACTIONS = 'POST_CACHED_INTERACTIONS';
 
 /**
@@ -19,7 +20,8 @@ const defaultUser = {};
  * ACTION CREATORS
  */
 const getUser = user => ({ type: GET_USER, user });
-const removeUser = () => ({ type: REMOVE_USER });
+const logoutUser = () => ({ type: LOGOUT_USER });
+const acDeleteUser = () => ({ type: DELETE_USER });
 const acPostCachedInteractions = () => ({ type: POST_CACHED_INTERACTIONS });
 
 /**
@@ -71,7 +73,7 @@ export const logout = () => dispatch =>
   axios
     .post('/auth/logout')
     .then(_ => {
-      dispatch(removeUser());
+      dispatch(logoutUser());
       history.push('/');
     })
     .catch(err => console.log(err));
@@ -85,6 +87,15 @@ export const postCachedInteractions = interactions => dispatch =>
     })
     .catch(err => console.log(err));
 
+export const deleteUser = () => dispatch =>
+  axios
+    .delete(`/auth`)
+    .then(() => {
+      dispatch(acDeleteUser());
+      history.push('/');
+    })
+    .catch(err => console.log(err));
+
 /**
  * REDUCER
  */
@@ -92,7 +103,8 @@ export default function (state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
       return action.user;
-    case REMOVE_USER:
+    case LOGOUT_USER:
+    case DELETE_USER:
       return defaultUser;
     default:
       return state;
