@@ -7,13 +7,8 @@ import { clearLocalInteractions } from '../utils/helperFuncs';
  * ACTION TYPES
  */
 const GET_USER = 'GET_USER';
-<<<<<<< HEAD
-const REMOVE_USER = 'REMOVE_USER';
-const CLEAR_USER_ERROR = 'CLEAR_USER_ERROR';
-=======
 const LOGOUT_USER = 'LOGOUT_USER';
 const DELETE_USER = 'DELETE_USER';
->>>>>>> master
 const POST_CACHED_INTERACTIONS = 'POST_CACHED_INTERACTIONS';
 
 /**
@@ -25,13 +20,8 @@ const defaultUser = {};
  * ACTION CREATORS
  */
 const getUser = user => ({ type: GET_USER, user });
-<<<<<<< HEAD
-const removeUser = () => ({ type: REMOVE_USER });
-export const clearUserError = () => ({ type: CLEAR_USER_ERROR });
-=======
 const logoutUser = () => ({ type: LOGOUT_USER });
 const acDeleteUser = () => ({ type: DELETE_USER });
->>>>>>> master
 const acPostCachedInteractions = () => ({ type: POST_CACHED_INTERACTIONS });
 
 /**
@@ -113,13 +103,8 @@ export default function (state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
       return action.user;
-<<<<<<< HEAD
-    case CLEAR_USER_ERROR:
-    case REMOVE_USER:
-=======
     case LOGOUT_USER:
     case DELETE_USER:
->>>>>>> master
       return defaultUser;
     default:
       return state;
