@@ -1,59 +1,44 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { auth } from '../store';
-import {
-  Button,
-  Divider,
-  Header,
-  Icon,
-  Input,
-  Segment
-} from 'semantic-ui-react';
+import { auth, clearUserError } from '../store';
+import { Button, Divider, Header, Icon, Segment } from 'semantic-ui-react';
+import { AuthFormLocal } from '../components';
 
-/**
- * COMPONENT
- */
-const AuthForm = props => {
-  const { name, displayName, handleSubmit, error } = props;
+/* COMPONENT */
+class AuthForm extends React.Component {
+  // Without this a "user already exists" warning will remain on the form even
+  // when closing and reopening
+  componentWillUnmount () {
+    if (this.props.serverError) this.props.clearError();
+  }
 
-  return (
-    <Segment id="authform">
-      <Header as="h3">{displayName}</Header>
-      <Button
-        className="authform-btn-oauth"
-        as="a"
-        href="/auth/google"
-        icon
-        labelPosition="left"
-      >
-        <Icon name="google" />
-        {displayName} with Google
-      </Button>
-      <Button
-        className="authform-btn-oauth"
-        as="a"
-        href="/auth/twitter"
-        icon
-        labelPosition="left"
-      >
-        <Icon name="twitter" />
-        {displayName} with Twitter
-      </Button>
-      <Divider horizontal>Or</Divider>
-      <form onSubmit={handleSubmit} name={name}>
-        <Input name="email" type="text" placeholder="Email" />
-
-        <Input name="password" type="password" placeholder="Password" />
-
-        <div>
-          <Button type="submit">{displayName}</Button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-    </Segment>
-  );
-};
+  render () {
+    const { name, displayName, handleSubmit, serverError } = this.props;
+    return (
+      <Segment id="authform">
+        <Header as="h3">{displayName}</Header>
+        <Button
+          className="authform-btn-oauth"
+          as="a"
+          href="/auth/google"
+          icon
+          labelPosition="left"
+        >
+          <Icon name="google" />
+          {displayName} with Google
+        </Button>
+        <Divider horizontal>Or</Divider>
+        <AuthFormLocal
+          name={name}
+          onSubmit={formData => handleSubmit(formData, name)}
+          displayName={displayName}
+          serverError={serverError}
+        />
+      </Segment>
+    );
+  }
+}
 
 /**
  * CONTAINER
@@ -66,7 +51,7 @@ const mapLogin = state => {
   return {
     name: 'login',
     displayName: 'Login',
-    error: state.user.error
+    serverError: state.user.error
   };
 };
 
@@ -74,18 +59,18 @@ const mapSignup = state => {
   return {
     name: 'signup',
     displayName: 'Sign Up',
-    error: state.user.error
+    serverError: state.user.error
   };
 };
 
 const mapDispatch = dispatch => {
   return {
-    handleSubmit (evt) {
-      evt.preventDefault();
-      const formName = evt.target.name;
-      const email = evt.target.email.value;
-      const password = evt.target.password.value;
+    handleSubmit (formData, formName) {
+      const { email, password } = formData;
       dispatch(auth(email, password, formName));
+    },
+    clearError () {
+      dispatch(clearUserError());
     }
   };
 };
@@ -100,5 +85,5 @@ AuthForm.propTypes = {
   name: PropTypes.string.isRequired,
   displayName: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  error: PropTypes.object
+  serverError: PropTypes.object
 };
