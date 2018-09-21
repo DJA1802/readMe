@@ -1,8 +1,8 @@
-web-app/node_modules
-web-app/public/bundle.js
-web-app/public/bundle.js.map
-web-app/secrets.js
-web-app/.DS_Store
-web-app/npm-debug.log
-web-app/yarn-error.log
+node_modules
+public/bundle.js
+public/bundle.js.map
+secrets.js
 .DS_Store
+npm-debug.log
+yarn-error.log
+.vscode

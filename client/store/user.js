@@ -9,6 +9,7 @@ import { clearLocalInteractions } from '../utils/helperFuncs';
 const GET_USER = 'GET_USER';
 const LOGOUT_USER = 'LOGOUT_USER';
 const DELETE_USER = 'DELETE_USER';
+const CLEAR_USER_ERROR = 'CLEAR_USER_ERROR';
 const POST_CACHED_INTERACTIONS = 'POST_CACHED_INTERACTIONS';
 
 /**
@@ -23,6 +24,7 @@ const getUser = user => ({ type: GET_USER, user });
 const logoutUser = () => ({ type: LOGOUT_USER });
 const acDeleteUser = () => ({ type: DELETE_USER });
 const acPostCachedInteractions = () => ({ type: POST_CACHED_INTERACTIONS });
+export const clearUserError = () => ({ type: CLEAR_USER_ERROR });
 
 /**
  * THUNK CREATORS
@@ -105,6 +107,7 @@ export default function (state = defaultUser, action) {
       return action.user;
     case LOGOUT_USER:
     case DELETE_USER:
+    case CLEAR_USER_ERROR:
       return defaultUser;
     default:
       return state;
