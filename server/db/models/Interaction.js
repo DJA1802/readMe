@@ -51,7 +51,26 @@ Interaction.getAverageLength = function (
 Interaction.readingTimeByDate = function (userId) {
   return db
     .query(
-      `SELECT DATE_TRUNC('day', interactions."startTime") AS "day", SUM(EXTRACT(EPOCH FROM interactions."endTime"-interactions."startTime")*1000) AS "duration" FROM interactions INNER JOIN articles on interactions."articleId" = articles.id INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} GROUP BY date_trunc('day', interactions."startTime") ORDER BY "day";`
+      `SELECT
+        DATE_TRUNC('day', interactions."startTime") AS "day"
+      , SUM(
+          EXTRACT(EPOCH FROM interactions."endTime"-interactions."startTime")*1000
+        ) AS "duration"
+      FROM
+        interactions
+      INNER JOIN
+        articles
+        ON interactions."articleId" = articles."id"
+      INNER JOIN
+        users
+        ON articles."userId" = users."id"
+      WHERE
+        users.id = ${userId}
+      GROUP BY
+        DATE_TRUNC('day', interactions."startTime")
+      ORDER BY
+        "day"
+      ;`
     )
     .then(data => data[0]);
 };
