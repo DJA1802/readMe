@@ -13,13 +13,24 @@ const Publication = db.define('publication', {
 Publication.getDistinctForUser = function (
   userId,
   articleTypes = ['my-list', 'archive'],
-  includeDeletedArticles = false
+  includeDeleted = false
 ) {
   return db
     .query(
-      `SELECT COUNT(DISTINCT publications.id)::integer FROM publications INNER JOIN articles on publications.id = articles."publicationId" INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} AND articles.status IN ${sqlInList(
-        articleTypes
-      )} ${includeDeletedArticles ? '' : 'AND articles."deletedAt" IS NULL'}`
+      `SELECT
+        COUNT(DISTINCT publications.id)::integer
+      FROM
+        publications
+      INNER JOIN
+        articles
+        ON publications."id" = articles."publicationId"
+      INNER JOIN
+        users
+        ON articles."userId" = users.id
+      WHERE
+        users.id = ${userId}
+        AND articles.status IN ${sqlInList(articleTypes)}
+        ${includeDeleted ? '' : 'AND articles."deletedAt" IS NULL'}`
     )
     .then(data => data[0][0].count);
 };
@@ -27,15 +38,30 @@ Publication.getDistinctForUser = function (
 Publication.groupByArticleCount = function (
   userId,
   articleTypes = ['my-list', 'archive'],
-  includeDeletedArticles = false
+  includeDeleted = false
 ) {
   return db
     .query(
-      `SELECT publications.name AS "publication", COUNT(articles.id)::integer AS "articles" FROM publications INNER JOIN articles on publications.id = articles."publicationId" INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} AND articles.status IN ${sqlInList(
-        articleTypes
-      )} ${
-        includeDeletedArticles ? '' : 'AND articles."deletedAt" IS NULL'
-      } GROUP BY publications.name ORDER BY "articles" DESC`
+      `SELECT
+        publications."name" AS "publication"
+      , COUNT(articles.id)::integer AS "articles"
+      FROM
+        publications
+      INNER JOIN
+        articles
+        ON publications."id" = articles."publicationId"
+      INNER JOIN
+        users
+        ON articles."userId" = users."id"
+      WHERE
+        users.id = ${userId}
+        AND articles.status IN ${sqlInList(articleTypes)}
+        ${includeDeleted ? '' : 'AND articles."deletedAt" IS NULL'}
+      GROUP BY
+        publications."name"
+      ORDER BY
+        "articles" DESC
+      ;`
     )
     .then(data => data[0]);
 };

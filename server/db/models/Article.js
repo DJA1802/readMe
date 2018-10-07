@@ -248,7 +248,8 @@ Article.getAverageWordCount = function (
       WHERE
         users."id" = ${userId}
         AND articles."status" IN ${sqlInList(articleTypes)}
-        ${includeDeleted ? '' : 'AND articles."deletedAt" IS NULL'}`
+        ${includeDeleted ? '' : 'AND articles."deletedAt" IS NULL'}
+      ;`
     )
     .then(data => Number(data[0][0].avg).toFixed(0));
 };
