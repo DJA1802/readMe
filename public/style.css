@@ -251,8 +251,7 @@ form div {
 
 #no-articles-message {
   font-family: "nimbus_monoregular", "Lato", sans-serif !important;
-  text-align: center;
-  margin: 100px 0;
+  margin: 1em;
   font-size: 1.5em;
 }
 

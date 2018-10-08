@@ -22,7 +22,23 @@ const ArticleCardList = props => {
           ))
         ) : (
           <div id="no-articles-message">
-            You don&apos;t have any articles saved in your list
+            You don&apos;t have any articles saved in your list. When you're
+            browsing the web and come across an article you want to save to read
+            later using readMe, you have two options to do this:
+            <ol>
+              <li>
+                Paste your article URL via the `+` icon at the top right of the
+                homepage
+              </li>
+              <li>
+                Download the readMe{' '}
+                <a href="https://chrome.google.com/webstore/search/readme%20browser%20extension?hl=en-US">
+                  Chrome Extension
+                </a>. Hit the readMe icon in the top right of your browser
+                toolbar and <em>voila!</em> – your article is ready to read from
+                the comfort of our app.
+              </li>
+            </ol>
           </div>
         )}
       </Card.Group>
