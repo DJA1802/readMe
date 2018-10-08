@@ -9,9 +9,9 @@ Welcome to readMe, an app for data-driven readers. readMe allows users to save o
 ## Usage
 
 1.  Start from the site at [https://readme2018.herokuapp.com](https://readme2018.herokuapp.com).
-2.  Time to start adding articles! When you come across an article you want to save to read later, you have two options to do this:
-    (a) Paste your article URL via the `+` icon at the top right of the homepage
-    (b) Download the readMe [Chrome Extension](https://chrome.google.com/webstore/search/readme%20browser%20extension?hl=en-US). Hit the readMe icon in the top right of your browser toolbar and _voila!_ – your article is ready to read from the comfort of our app.
+2.  Time to start adding articles! When you're browsing the web and come across an article you want to read later using readMe, you have two options:
+    (a) Click the `+` icon at the top right of the homepage, paste the URL of the article in the resulting input field, and click "Save".
+    (b) Download the readMe [Chrome Extension](https://chrome.google.com/webstore/search/readme%20browser%20extension?hl=en-US). Once installed, click the readMe icon in the top right of your browser toolbar and _voila!_ – your article is ready to read from the comfort of our app.
 3.  Continue to read articles from readMe and accumulate data on your own reading habits!
 
 ## Our Stack
@@ -29,7 +29,7 @@ Front-end
 - React
 - React-Redux
 - Semantic UI
-- Victory Chart (a D3.js wrapped visualization library)
+- Victory (a visualization library based on D3.js)
 
 ---
 
