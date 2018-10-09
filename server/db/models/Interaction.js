@@ -51,7 +51,26 @@ Interaction.getAverageLength = function (
 Interaction.readingTimeByDate = function (userId) {
   return db
     .query(
-      `SELECT DATE_TRUNC('day', interactions."startTime") AS "day", SUM(EXTRACT(EPOCH FROM interactions."endTime"-interactions."startTime")*1000) AS "duration" FROM interactions INNER JOIN articles on interactions."articleId" = articles.id INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} GROUP BY date_trunc('day', interactions."startTime") ORDER BY "day";`
+      `SELECT
+        DATE_TRUNC('day', interactions."startTime") AS "day"
+      , SUM(
+          EXTRACT(EPOCH FROM interactions."endTime"-interactions."startTime")*1000
+        ) AS "duration"
+      FROM
+        interactions
+      INNER JOIN
+        articles
+        ON interactions."articleId" = articles."id"
+      INNER JOIN
+        users
+        ON articles."userId" = users."id"
+      WHERE
+        users.id = ${userId}
+      GROUP BY
+        DATE_TRUNC('day', interactions."startTime")
+      ORDER BY
+        "day"
+      ;`
     )
     .then(data => data[0]);
 };
@@ -60,7 +79,27 @@ Interaction.readingTimeByDate = function (userId) {
 Interaction.readingTimeThisX = function (userId, timeframe, strFormat = true) {
   return db
     .query(
-      `SELECT EXTRACT(${timeframe} FROM DATE_TRUNC('${timeframe}', interactions."startTime")), SUM(EXTRACT(EPOCH FROM interactions."endTime"-interactions."startTime")*1000) AS "duration" FROM interactions INNER JOIN articles on interactions."articleId" = articles.id INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} GROUP BY EXTRACT(${timeframe} FROM DATE_TRUNC('${timeframe}', interactions."startTime")) HAVING EXTRACT(${timeframe} FROM DATE_TRUNC('${timeframe}', interactions."startTime")) = EXTRACT(${timeframe} FROM NOW())`
+      `SELECT
+        EXTRACT(${timeframe} FROM DATE_TRUNC('${timeframe}', interactions."startTime"))
+      , SUM(
+          EXTRACT(EPOCH FROM interactions."endTime"-interactions."startTime")
+          *1000
+        ) AS "duration"
+      FROM
+        interactions
+      INNER JOIN
+        articles
+        ON interactions."articleId" = articles."id"
+      INNER JOIN
+        users
+        ON articles."userId" = users."id"
+      WHERE
+        users.id = ${userId}
+      GROUP BY
+        EXTRACT(${timeframe} FROM DATE_TRUNC('${timeframe}', interactions."startTime")
+      HAVING
+        EXTRACT(${timeframe} FROM DATE_TRUNC('${timeframe}', interactions."startTime")) = EXTRACT(${timeframe} FROM NOW())
+      ;`
     )
     .then(data => {
       return formatDuration(data[0][0], strFormat);
@@ -70,7 +109,37 @@ Interaction.readingTimeThisX = function (userId, timeframe, strFormat = true) {
 Interaction.readingTimeByMonthYear = function (userId) {
   return db
     .query(
-      `SELECT TO_CHAR(interactions."startTime", 'MM') AS "month", TO_CHAR(interactions."startTime", 'YYYY') AS "year", TO_CHAR(interactions."startTime", 'TMMon') || ' ' || TO_CHAR(interactions."startTime", 'YYYY') AS "month_year", SUM(EXTRACT(EPOCH FROM interactions."endTime"-interactions."startTime")*1000) AS "duration" FROM interactions INNER JOIN articles on interactions."articleId" = articles.id INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} GROUP BY TO_CHAR(interactions."startTime", 'MM'), TO_CHAR(interactions."startTime", 'YYYY'), TO_CHAR(interactions."startTime", 'TMMon') || ' ' || TO_CHAR(interactions."startTime", 'YYYY') ORDER BY "year", "month";`
+      `SELECT
+        TO_CHAR(interactions."startTime", 'MM') AS "month"
+      , TO_CHAR(interactions."startTime", 'YYYY') AS "year"
+      , TO_CHAR(interactions."startTime", 'TMMon')
+        || ' '
+        || TO_CHAR(interactions."startTime", 'YYYY')
+        AS "month_year"
+      , SUM(
+          EXTRACT(EPOCH FROM interactions."endTime"-interactions."startTime")
+          *1000
+        ) AS "duration"
+      FROM
+        interactions
+      INNER JOIN
+        articles
+        ON interactions."articleId" = articles.id
+      INNER JOIN
+        users
+        ON articles."userId" = users.id
+      WHERE
+        users.id = ${userId}
+      GROUP BY
+        TO_CHAR(interactions."startTime", 'MM')
+      , TO_CHAR(interactions."startTime", 'YYYY')
+      , TO_CHAR(interactions."startTime", 'TMMon')
+        || ' '
+        || TO_CHAR(interactions."startTime", 'YYYY')
+      ORDER BY
+        "year"
+      , "month"
+      ;`
     )
     .then(data => data[0]);
 };
