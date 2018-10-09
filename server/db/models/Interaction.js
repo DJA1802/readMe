@@ -96,7 +96,7 @@ Interaction.readingTimeThisX = function (userId, timeframe, strFormat = true) {
       WHERE
         users.id = ${userId}
       GROUP BY
-        EXTRACT(${timeframe} FROM DATE_TRUNC('${timeframe}', interactions."startTime")
+        EXTRACT(${timeframe} FROM DATE_TRUNC('${timeframe}', interactions."startTime"))
       HAVING
         EXTRACT(${timeframe} FROM DATE_TRUNC('${timeframe}', interactions."startTime")) = EXTRACT(${timeframe} FROM NOW())
       ;`
