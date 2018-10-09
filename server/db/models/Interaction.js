@@ -151,7 +151,8 @@ Interaction.readingStartTimesByHour = function (userId) {
     .query(
       `SELECT
         TRUNC(EXTRACT(HOUR from "startTime")) AS "hour"
-      , COUNT(interactions."startTime")::integer AS "interactionCount" FROM
+      , COUNT(interactions."startTime")::integer AS "interactionCount"
+      FROM
         interactions
       INNER JOIN
         articles
