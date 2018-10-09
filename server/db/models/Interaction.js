@@ -149,7 +149,24 @@ Interaction.readingStartTimesByHour = function (userId) {
   // hour: 0 would equal any startTime between 12:00AM and 12:59AM
   return db
     .query(
-      `SELECT TRUNC(EXTRACT(HOUR from "startTime")) AS "hour", COUNT(interactions."startTime")::integer AS "interactionCount" FROM interactions INNER JOIN articles on interactions."articleId" = articles.id INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId} GROUP BY TRUNC(EXTRACT(HOUR from "startTime")) ORDER BY "hour", "interactionCount";`
+      `SELECT
+        TRUNC(EXTRACT(HOUR from "startTime")) AS "hour"
+      , COUNT(interactions."startTime")::integer AS "interactionCount" FROM
+        interactions
+      INNER JOIN
+        articles
+        ON interactions."articleId" = articles."id"
+      INNER JOIN
+        users
+        ON articles."userId" = users."id"
+      WHERE
+        users.id = ${userId}
+      GROUP BY
+        TRUNC(EXTRACT(HOUR from "startTime"))
+      ORDER BY
+        "hour"
+      , "interactionCount"
+      ;`
     )
     .then(data => data[0]);
 };
@@ -157,7 +174,18 @@ Interaction.readingStartTimesByHour = function (userId) {
 Interaction.getUserFirstEverInteraction = function (userId) {
   return db
     .query(
-      `SELECT MIN("startTime") AS "firstInteraction" FROM interactions INNER JOIN articles on interactions."articleId" = articles.id INNER JOIN users ON articles."userId" = users.id WHERE users.id = ${userId};`
+      `SELECT
+        MIN("startTime") AS "firstInteraction"
+      FROM
+        interactions
+      INNER JOIN
+        articles
+        ON interactions."articleId" = articles."id"
+      INNER JOIN
+        users
+        ON articles."userId" = users.id
+      WHERE
+        users.id = ${userId};`
     )
     .then(data => data[0][0].firstInteraction);
 };
