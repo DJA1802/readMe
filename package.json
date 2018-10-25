@@ -83,7 +83,7 @@
     "redux-devtools-extension": "^2.13.2",
     "redux-mock-store": "^1.2.3",
     "supertest": "^3.0.0",
-    "webpack": "^4.0.1",
-    "webpack-cli": "^2.0.9"
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.1"
   }
 }
