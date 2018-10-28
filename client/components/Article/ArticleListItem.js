@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Icon, List, Transition } from 'semantic-ui-react';
-import { Link, Header } from 'react-router-dom';
+import { Icon, List, Transition, Header } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import {
   ButtonArchiveArticle,
   ButtonDeleteArticle,
